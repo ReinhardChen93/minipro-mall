@@ -2,10 +2,10 @@
 	<div>
 		<div class="w-100">
 			<div class="p-2 border-bottom">
-				<text class="text-dark font-md">每日精选</text>
+				<text class="text-dark font-md">{{item.title}}</text>
 			</div>
 			<div>
-				<image src="../../static/images/demo/demo4.jpg"
+				<image :src="item.cover"
 				style="height: 300px;" class="w-100"></image>
 			</div>
 		</div>
@@ -14,7 +14,9 @@
 
 <script>
 	export default {
-		
+		props:{
+			item:Object
+		}
 	}
 </script>
 

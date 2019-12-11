@@ -1,0 +1,65 @@
+<template>
+	<div>
+		<!-- 横向滚动顶部选项卡 -->
+		<cc-tabbat :tabBars="tabBars" :tabIndex="tabIndex"
+		@tabchange="tabChange"></cc-tabbat>
+		
+		<!-- 横向滚动列表 -->
+		<slider class="flex-1" :index="tabIndex" :infinite="false"
+		@change="sliderChange"
+		:ref="`tab${index}`">
+			<div v-for="(item,index) in tabBars" :key="index">
+				
+			</div>
+		</slider>
+	</div>
+</template>
+
+<script>
+import ccTabbar from '@/components/index/nvue/cc-tabbat.nvue'
+export default {
+	components:{
+		ccTabbar
+	},
+	data() {
+		return {
+			tabIndex: 0,
+			tabBars: [
+				{
+					name: '关注'
+				},
+				{
+					name: '推荐'
+				},
+				{
+					name: '体育'
+				},
+				{
+					name: '热点'
+				},
+				{
+					name: '财经'
+				},
+				{
+					name: '娱乐'
+				},
+				{
+					name: '军事'
+				}
+			]
+		};
+	},
+
+	methods:{
+		tabChange(index){
+			this.tabIndex = index
+		},
+		// 监听横向滚动事件
+		sliderChange(e){
+			this.tabIndex = e.index
+		}
+	}
+};
+</script>
+<style src="@/common/zcm-main-nvue.css"></style>
+<style></style>

@@ -13,7 +13,13 @@
 				<!-- 全局分割线 -->
 				<divider/>
 				<!-- 大图广告 -->
-				
+				<ccOneAdv :item="oneAdv"/>
+				<!-- 公共列表组件 -->
+				<div class="row w-100">
+					<block v-for="(item,index) in list" :key="index">
+						<common-list :item="list" :index="index"></common-list>
+					</block>
+				</div>
 			</cell>
 		</list>
 	</div>
@@ -24,6 +30,8 @@ import ccSlider from '@/components/index/nvue/cc-slider.nvue';
 import indexNav from '@/components/index/nvue/index-nav.nvue';
 import divider from '@/components/common/divider.nvue'
 import ccThreeAdv from '@/components/index/nvue/cc-three-adv.nvue'
+import ccOneAdv from '@/components/index/nvue/cc-one-adv.nvue'
+import commonList from '@/components/common/common-list.nvue'
 		// 获取当前窗口对象
 		const currentWebview = plus.webview.currentWebview();
 		
@@ -32,7 +40,9 @@ export default {
 		ccSlider,
 		indexNav,
 		divider,
-		ccThreeAdv
+		ccThreeAdv,
+		ccOneAdv,
+		commonList
 	},
 	data() {
 		return {
@@ -89,7 +99,41 @@ export default {
 				smallbottom: {
 					src: '/static/images/demo/demo2.jpg'
 				}
-			}
+			},
+			oneAdv:{
+				cover:"/static/images/demo/demo4.jpg",
+				title:"每日精选"
+			},
+			list:[
+				{
+					cover: '/static/images/demo/list/1.jpg',
+					title: '米家空调',
+					desc: '1.5匹变频',
+					oprice: 1399,
+					pprice: 2699
+				},
+				{
+					cover: '/static/images/demo/list/1.jpg',
+					title: '米家空调',
+					desc: '1.5匹变频',
+					oprice: 1399,
+					pprice: 2699
+				},
+				{
+					cover: '/static/images/demo/list/1.jpg',
+					title: '米家空调',
+					desc: '1.5匹变频',
+					oprice: 1399,
+					pprice: 2699
+				},
+				{
+					cover: '/static/images/demo/list/1.jpg',
+					title: '米家空调',
+					desc: '1.5匹变频',
+					oprice: 1399,
+					pprice: 2699
+				}
+			]
 		};
 	},
 	created() {
