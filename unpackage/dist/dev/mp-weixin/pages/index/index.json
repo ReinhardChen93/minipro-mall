@@ -2,6 +2,8 @@
   "usingComponents": {
     "swiper-image": "/components/index/swiper-image",
     "index-nav": "/components/index/index-nav",
-    "three-adv": "/components/index/three-adv"
+    "three-adv": "/components/index/three-adv",
+    "card": "/components/common/card",
+    "common-list": "/pages/index/common-list"
   }
 }

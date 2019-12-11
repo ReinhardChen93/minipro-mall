@@ -1,0 +1,28 @@
+<template>
+	<div>
+		<div class="w-100 row">
+			<div class="col-6">
+				<image :src="threeAdv.big" mode="" style="width: 373px;height: 530px;"></image>
+			</div>
+			<div class="col-6 j-sb">
+				<image :src="threeAdv.smalltop" mode=""
+				style="width: 375px;height: 263.5px;"></image>
+				<image :src="threeAdv.smallbottom" mode=""
+				style="width: 375px;height: 263.5px;"></image>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+	export default {
+		props:{
+			threeAdv:Object
+		}
+	}
+</script>
+
+<style src="@/common/zcm-main-nvue.css"></style>
+<style>
+
+</style>
