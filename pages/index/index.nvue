@@ -1,31 +1,62 @@
 <template>
 	<div>
-		<list :show-scrollbar="false">
-			<cell>
-				<!-- 轮播图组件 -->
-				<cc-slider :swiper="swipers"></cc-slider>
-				<!-- 图标分类组件 -->
-				<index-nav :indexNav="indexNavs"></index-nav>
-				<!-- 全局分割线 -->
-				<divider/>
-				<!-- 三图广告 -->
-				<cc-three-adv :threeAdv="threeAdv"/>
-				<!-- 全局分割线 -->
-				<divider/>
-				<!-- 大图广告 -->
-				<ccOneAdv :item="oneAdv"/>
-				<!-- 公共列表组件 -->
-				<div class="row w-100">
-					<block v-for="(item,index) in list" :key="index">
-						<common-list :item="list" :index="index"></common-list>
-					</block>
-				</div>
-			</cell>
-		</list>
+		<!-- 横向滚动顶部选项卡 -->
+		<cc-tabbat :tabBars="tabBars" :tabIndex="tabIndex"
+		@tabchange="tabChange"></cc-tabbat>
+		
+		<!-- 横向滚动列表 -->
+		<slider class="flex-1" :index="tabIndex" :infinite="false"
+		@change="sliderChange"
+		:ref="`tab${index}`">
+			<div v-for="(item,index) in tabBars" :key="index">
+				<list :show-scrollbar="false" :key="listIndex"
+			v-for="(list,listIndex) in newsitems">
+			
+			<!-- 下拉刷新 -->
+			<refresh class="w-100 flex-row j-center a-center" 
+			style="height: 80px;"
+			@refresh="refresh" @pullingdown="pullingdown" 
+			:display="list.refreshShow">
+				<text class="font-md text-muted">{{list.refreshText}}</text>
+			</refresh>
+			
+					<cell>
+						<!-- 轮播图组件 -->
+						<cc-slider :swiper="swipers"></cc-slider>
+						<!-- 图标分类组件 -->
+						<index-nav :indexNav="indexNavs"></index-nav>
+						<!-- 全局分割线 -->
+						<divider/>
+						<!-- 三图广告 -->
+						<cc-three-adv :threeAdv="threeAdv"/>
+						<!-- 全局分割线 -->
+						<divider/>
+						<!-- 大图广告 -->
+						<ccOneAdv :item="oneAdv"/>
+						<!-- 公共列表组件 -->
+						<div class="row w-100">
+							<block v-for="(item,index) in list" :key="index">
+								<common-list :item="list" :index="index"></common-list>
+							</block>
+						</div>
+					</cell>
+					
+					
+					<!-- 上拉加载 -->
+					<loading class="w-100 j-center a-center" 
+					style="height: 70px;"
+					@loading="onLoading" :display="list.loadingShow">
+						<text class="text-muted font-md">Loading...</text>
+					</loading>
+				</list>
+			</div>
+		</slider>
+
 	</div>
 </template>
 
 <script>
+import ccTabbar from '@/components/index/nvue/cc-tabbat.nvue';	
 import ccSlider from '@/components/index/nvue/cc-slider.nvue';
 import indexNav from '@/components/index/nvue/index-nav.nvue';
 import divider from '@/components/common/divider.nvue'
@@ -37,6 +68,7 @@ import commonList from '@/components/common/common-list.nvue'
 		
 export default {
 	components: {
+		ccTabbar,
 		ccSlider,
 		indexNav,
 		divider,
@@ -46,6 +78,9 @@ export default {
 	},
 	data() {
 		return {
+			refreshShow:'hide',
+			refreshText:'下拉可以刷新',
+			loadingShow:'hide',
 			swipers: [{ src: '/static/images/demo/demo4.jpg' }, { src: '/static/images/demo/demo4.jpg' }, { src: '/static/images/demo/demo4.jpg' }],
 			indexNavs: [
 				{
@@ -133,6 +168,30 @@ export default {
 					oprice: 1399,
 					pprice: 2699
 				}
+			],
+			tabIndex: 0,
+			tabBars: [
+				{
+					name: '关注'
+				},
+				{
+					name: '推荐'
+				},
+				{
+					name: '体育'
+				},
+				{
+					name: '热点'
+				},
+				{
+					name: '财经'
+				},
+				{
+					name: '娱乐'
+				},
+				{
+					name: '军事'
+				}
 			]
 		};
 	},
@@ -146,6 +205,41 @@ export default {
 		currentWebview.removeEventListener('show',e=>{
 			
 		})
+	},
+	methods:{
+		tabChange(index){
+			this.tabIndex = index
+		},
+		// 监听横向滚动事件
+		sliderChange(e){
+			this.tabIndex = e.index
+		},
+		// 上啦加载事件
+		onLoading(){
+			this.loadingShow = 'show';
+			setTimeout(()=>{
+				// 加载数据
+				this.loadingShow = 'hide'
+			},2000)
+		},
+		
+		//执行刷新
+		refresh(e){
+			this.refreshShow = 'show';
+			this.refreshText = '正在刷新...';
+			setTimeout(()=>{
+				this.refreshShow = 'hide'
+				this.refreshText = '下拉可以刷新'
+			},1200)
+		},
+		// 判断下拉刷新状态
+		pullingdown (e) {
+			if(e.pullingDistance > e.viewHeight) {
+				this.refreshText = '释放就能刷新'
+			} else {
+				this.refreshText = '下拉可以刷新'
+			}
+		}
 	}
 };
 </script>

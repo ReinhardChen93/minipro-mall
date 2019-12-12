@@ -6,7 +6,7 @@
 			<!-- 左边 -->
 			<view style="width: 85rpx;" class="d-flex a-center j-center"><text class="iconfont icon-xiaoxi"></text></view>
 			<!-- 中间 -->
-			<view class="flex-1 bg-light rounded d-flex a-center text-light-muted" style="height: 65rpx;">
+			<view class="flex-1 bg-light rounded d-flex a-center text-light-muted" style="height: 65rpx;" @click="search">
 				<text class="iconfont icon-sousuo mx-2"></text>
 				智能积木
 			</view>
@@ -301,7 +301,7 @@ import swiperImage from '@/components/index/swiper-image.vue';
 import indexNav from '@/components/index/index-nav.vue';
 import threeAdv from '@/components/index/three-adv.vue';
 import card from '@/components/common/card.vue';
-import commonList from '@/pages/index/common-list.vue';
+import commonList from '@/components/common/common-list.vue';
 export default {
 	components: {
 		swiperImage,
@@ -356,7 +356,7 @@ export default {
 				return;
 			} else {
 				this.tabIndex = index;
-				this.scrollinto = 'tab' + ndex;
+				this.scrollinto = 'tab' + index;
 				this.addData()
 			}
 		},
@@ -364,6 +364,7 @@ export default {
 		onChangeTab(e) {
 			//拿到当前索引
 			this.changeTab(e.detail.current);
+			let index = e.detail.current
 			//请求数据库
 			this.newsitems[index].list = demo2
 		},
@@ -384,6 +385,11 @@ export default {
 					title:'加载成功'
 				})
 			})
+		},
+		search(){
+			uni.navigateTo({
+			    url: '/pages/search/search'
+			});
 		}
 	}
 };

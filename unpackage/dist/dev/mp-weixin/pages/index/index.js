@@ -423,7 +423,7 @@ var demo2 = [
     title: '米家空调',
     desc: '1.5匹变频',
     oprice: 1399,
-    pprice: 2699 }] }];var swiperImage = function swiperImage() {return __webpack_require__.e(/*! import() | components/index/swiper-image */ "components/index/swiper-image").then(__webpack_require__.bind(null, /*! @/components/index/swiper-image.vue */ 46));};var indexNav = function indexNav() {return __webpack_require__.e(/*! import() | components/index/index-nav */ "components/index/index-nav").then(__webpack_require__.bind(null, /*! @/components/index/index-nav.vue */ 51));};var threeAdv = function threeAdv() {return __webpack_require__.e(/*! import() | components/index/three-adv */ "components/index/three-adv").then(__webpack_require__.bind(null, /*! @/components/index/three-adv.vue */ 56));};var card = function card() {return __webpack_require__.e(/*! import() | components/common/card */ "components/common/card").then(__webpack_require__.bind(null, /*! @/components/common/card.vue */ 61));};var commonList = function commonList() {return __webpack_require__.e(/*! import() | pages/index/common-list */ "pages/index/common-list").then(__webpack_require__.bind(null, /*! @/pages/index/common-list.vue */ 66));};var _default =
+    pprice: 2699 }] }];var swiperImage = function swiperImage() {return __webpack_require__.e(/*! import() | components/index/swiper-image */ "components/index/swiper-image").then(__webpack_require__.bind(null, /*! @/components/index/swiper-image.vue */ 60));};var indexNav = function indexNav() {return __webpack_require__.e(/*! import() | components/index/index-nav */ "components/index/index-nav").then(__webpack_require__.bind(null, /*! @/components/index/index-nav.vue */ 65));};var threeAdv = function threeAdv() {return __webpack_require__.e(/*! import() | components/index/three-adv */ "components/index/three-adv").then(__webpack_require__.bind(null, /*! @/components/index/three-adv.vue */ 70));};var card = function card() {return __webpack_require__.e(/*! import() | components/common/card */ "components/common/card").then(__webpack_require__.bind(null, /*! @/components/common/card.vue */ 75));};var commonList = function commonList() {return __webpack_require__.e(/*! import() | components/common/common-list */ "components/common/common-list").then(__webpack_require__.bind(null, /*! @/components/common/common-list.vue */ 80));};var _default =
 
 
 
@@ -487,7 +487,7 @@ var demo2 = [
         return;
       } else {
         this.tabIndex = index;
-        this.scrollinto = 'tab' + ndex;
+        this.scrollinto = 'tab' + index;
         this.addData();
       }
     },
@@ -495,6 +495,7 @@ var demo2 = [
     onChangeTab: function onChangeTab(e) {
       //拿到当前索引
       this.changeTab(e.detail.current);
+      var index = e.detail.current;
       //请求数据库
       this.newsitems[index].list = demo2;
     },
@@ -515,6 +516,11 @@ var demo2 = [
           title: '加载成功' });
 
       });
+    },
+    search: function search() {
+      uni.navigateTo({
+        url: '/pages/search/search' });
+
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

@@ -3,7 +3,9 @@
     "pages/index/index",
     "pages/cart/cart",
     "pages/my/my",
-    "pages/class/class"
+    "pages/class/class",
+    "pages/search/search",
+    "pages/search-list/search-list"
   ],
   "subPackages": [],
   "window": {
@@ -46,5 +48,6 @@
   },
   "usingComponents": {
     "divider": "/components/common/divider"
-  }
+  },
+  "sitemapLocation": "sitemap37.json"
 }
