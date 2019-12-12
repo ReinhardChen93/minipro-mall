@@ -1528,10 +1528,10 @@ uni$1;exports.default = _default;
 
 /***/ }),
 
-/***/ 114:
-/*!*************************************************************************************************!*\
-  !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/uni-icons/icons.js ***!
-  \*************************************************************************************************/
+/***/ 124:
+/*!*****************************************************************!*\
+  !*** D:/WORK/minipro-mall/components/uni-ui/uni-icons/icons.js ***!
+  \*****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7736,9 +7736,9 @@ module.exports = g;
 /***/ }),
 
 /***/ 4:
-/*!***********************************************************************!*\
-  !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/pages.json ***!
-  \***********************************************************************/
+/*!***************************************!*\
+  !*** D:/WORK/minipro-mall/pages.json ***!
+  \***************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8646,21 +8646,21 @@ module.exports = {"_from":"@dcloudio/uni-stat@^2.0.0-alpha-24420191128001","_id"
 /***/ }),
 
 /***/ 7:
-/*!****************************************************************************************!*\
-  !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/pages.json?{"type":"style"} ***!
-  \****************************************************************************************/
+/*!********************************************************!*\
+  !*** D:/WORK/minipro-mall/pages.json?{"type":"style"} ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": {}, "pages/cart/cart": {}, "pages/my/my": {}, "pages/class/class": {}, "pages/search/search": {}, "pages/search-list/search-list": {} }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "仿小米", "navigationBarBackgroundColor": "#FFFFFF", "backgroundColor": "#FFFFFF" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "usingComponents": { "swiper-image": "/components/index/swiper-image", "index-nav": "/components/index/index-nav", "three-adv": "/components/index/three-adv", "card": "/components/common/card", "common-list": "/components/common/common-list" } }, "pages/cart/cart": { "usingComponents": {} }, "pages/my/my": { "usingComponents": {} }, "pages/class/class": { "usingComponents": {} }, "pages/search/search": { "usingComponents": { "card": "/components/common/card", "color-tag": "/components/search/color-tag", "uni-list-item": "/components/uni-ui/uni-list-item/uni-list-item" } }, "pages/search-list/search-list": { "usingComponents": { "uni-drawer": "/components/uni-ui/uni-drawer/uni-drawer", "card": "/components/common/card", "zcm-radio-group": "/components/common/radio-group", "search-list": "/components/search-list/search-list" } } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "仿小米", "navigationBarBackgroundColor": "#FFFFFF", "backgroundColor": "#FFFFFF" } };exports.default = _default;
 
 /***/ }),
 
 /***/ 8:
-/*!***************************************************************************************!*\
-  !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/pages.json?{"type":"stat"} ***!
-  \***************************************************************************************/
+/*!*******************************************************!*\
+  !*** D:/WORK/minipro-mall/pages.json?{"type":"stat"} ***!
+  \*******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
