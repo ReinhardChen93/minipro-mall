@@ -5,7 +5,8 @@
     "pages/my/my",
     "pages/class/class",
     "pages/search/search",
-    "pages/search-list/search-list"
+    "pages/search-list/search-list",
+    "pages/detail/detail"
   ],
   "subPackages": [],
   "window": {
@@ -47,6 +48,7 @@
     ]
   },
   "usingComponents": {
-    "divider": "/components/common/divider"
+    "divider": "/components/common/divider",
+    "loading": "/components/common/loading"
   }
 }
