@@ -3,13 +3,7 @@
 		<!-- 商品详情大图 -->
 		<swiper-image :resdata="banners" :height="690" preview></swiper-image>
 		<!-- 基础详情 -->
-		<view class="p-2">
-			<view class="font-lg">
-				{{detail.title}}
-			</view>
-			<view class="font text-light-muted mb-3 line-h-sm">{{detail.desc}}</view>
-			<price priceSize="font-lg" unitSize="font">{{detail.pprice}}</price>
-		</view>
+		
 		<!-- 滚动商品特性 w170*h110 -->
 		<view class="">
 			<scroll-view scroll-x class="scroll-row">
