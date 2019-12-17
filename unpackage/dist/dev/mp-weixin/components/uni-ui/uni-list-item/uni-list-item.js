@@ -105,7 +105,8 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniIcon = function uniIcon() {return Promise.all(/*! import() | components/uni-ui/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-ui/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! ../uni-icons/uni-icons.vue */ 137));};var uniBadge = function uniBadge() {return __webpack_require__.e(/*! import() | components/uni-ui/uni-badge/uni-badge */ "components/uni-ui/uni-badge/uni-badge").then(__webpack_require__.bind(null, /*! ../uni-badge/uni-badge.vue */ 145));};var _default2 =
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniIcon = function uniIcon() {return Promise.all(/*! import() | components/uni-ui/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-ui/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! ../uni-icons/uni-icons.vue */ 172));};var uniBadge = function uniBadge() {return __webpack_require__.e(/*! import() | components/uni-ui/uni-badge/uni-badge */ "components/uni-ui/uni-badge/uni-badge").then(__webpack_require__.bind(null, /*! ../uni-badge/uni-badge.vue */ 180));};var _default2 =
+
 
 
 
@@ -137,6 +138,10 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     uniBadge: uniBadge },
 
   props: {
+    extraWidth: {
+      type: String,
+      default: '' },
+
     title: {
       type: String,
       default: '' },

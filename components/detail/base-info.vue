@@ -9,12 +9,16 @@
 </template>
 
 <script>
+		import price from '@/components/common/price.vue'
 	export default{
 		props:{
 			detail:{
 				type:Object,
 				default:{}
 			}
+		},
+		components:{
+			price
 		}
 	}
 </script>
