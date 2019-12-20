@@ -9,20 +9,20 @@
 		<!-- 属性选择 -->
 		<view class="p-2">
 			<view class="rounded border bg-light-secondary">
-				<unit-list-item @click="show()">
+				<unit-list-item @click="show('attr')">
 					<view class="d-flex">
 						<text class="mr-2 text-muted">已选</text>
 						<text>火焰红 64G 标配</text>
 					</view>
 				</unit-list-item>
-				<unit-list-item>
+				<unit-list-item @click="show('express')">
 					<view class="d-flex">
 						<text class="mr-2 text-muted">配送</text>
 						<text class="mr-2">云南省 昆明市 五华区</text>
 						<text class="main-text-color">现配</text>
 					</view>
 				</unit-list-item>
-				<unit-list-item extraWidth="15%">
+				<unit-list-item extraWidth="15%" @click="show('service')">
 					<view class="d-flex a-center">
 						<view class="text-muted font d-flex a-center mr-2">
 							<view class="iconfont icon-finish main-text-color mr-1"></view>
@@ -56,9 +56,9 @@
 			</view>
 		</card>
 		<!-- 底部操作条 -->
-		<bottom-btn></bottom-btn>
-		<!-- 弹出框 -->
-		<common-popup :popupClass="popupClass" @hide="hide">
+		<bottom-btn @show="show('attr')"></bottom-btn>
+		<!-- 属性筛选框 -->
+		<common-popup :popupClass="popup.attr" @hide="hide('attr')">
 			<view class="d-flex a-center" style="height: 275rpx;">
 				<image src="../../static/images/demo/list/1.jpg" mode="widthFix"
 				style="height: 180rpx;width: 180rpx;" class="border rounded"></image>
@@ -68,10 +68,59 @@
 				</view>
 			</view>
 			<scroll-view scroll-y="true" style="height: 660rpx;">
-				<card :headTitle="item.title" :headTitleWeight="false" v-for="(item,index) in label" :key="index" :headBorderBottom="false">
+				<card :headTitle="item.title" :headTitleWeight="false" v-for="(item,index) in selects" :key="index" :headBorderBottom="false">
 					<cc-radio-group :label="item" :selected.sync="item.selected"></cc-radio-group>
 				</card>
+				<view class="d-flex j-sb a-center p-2 border-top border-light-secondary">
+					<text>购买数量</text>
+					<uni-number-box :min="1" :value="detail.num" @change="detail.num = $event"></uni-number-box>
+				</view>
 			</scroll-view>
+			<view class="main-bg-color text-white font-md d-flex a-center j-center" 
+			style="height: 100rpx;margin-left: -30rpx;margin-right: -30rpx;" 
+			hover-class="main-bg-hover-color"
+			@tap.stop="addCart">
+				加入购物车
+			</view>
+		</common-popup>
+		<!-- 收货地址 -->
+		<common-popup :popupClass="popup.express" @hide="hide('express')">
+			<view class="d-flex a-center j-center font-md border-bottom border-light-secondary" style="height: 100rpx;">收货地址</view>
+			<scroll-view scroll-y="true" style="height: 835rpx;">
+				<uni-list-item>
+					<view class="iconfont icon-dingwei font-weight font-md">沫沫</view>
+					<view class="font text-light-muted">
+						云南省昆明市五华区
+					</view>
+				</uni-list-item>
+			</scroll-view>
+			<view class="main-bg-color text-white font-md d-flex a-center j-center" 
+			style="height: 100rpx;margin-left: -30rpx;margin-right: -30rpx;" 
+			hover-class="main-bg-hover-color"
+			@tap.stop="hide('express')">
+				选择新的地址
+			</view>
+		</common-popup>
+		<!-- 服务说明 -->
+		<common-popup :popupClass="popup.service" @hide="hide('service')">
+			<view class="d-flex a-center j-center font-md border-bottom border-light-secondary" style="height: 100rpx;">服务说明</view>
+			<scroll-view scroll-y="true" style="height: 835rpx;">
+				<view class="py-1">
+					<view class="d-flex a-center">
+						<view class="iconfont icon-finish main-text-color mr-1"></view>
+						小米自营
+					</view>
+					<text class="text-light-muted font pl-4">
+						不管买多少,就是不包邮
+					</text>
+				</view>
+			</scroll-view>
+			<view class="main-bg-color text-white font-md d-flex a-center j-center" 
+			style="height: 100rpx;margin-left: -30rpx;margin-right: -30rpx;" 
+			hover-class="main-bg-hover-color"
+			@tap.stop="hide('service')">
+				选择新的地址
+			</view>
 		</common-popup>
 	</view>
 </template>
@@ -89,6 +138,8 @@
 	import commonPopup from '@/components/common/common-popup.vue'
 	import price from '@/components/common/price.vue'
 	import ccRadioGroup from '@/components/common/radio-group.vue'
+	import uniNumberBox from '@/components/uni-ui/uni-number-box/uni-number-box.vue'
+	import {mapMutations} from 'vuex'
 	var htmlString = `
 	<p>
 		<img src="https://i8.mifile.cn/v1/a1/9c3e29dc-151f-75cb-b0a5-c423a5d13926.webp">
@@ -113,11 +164,45 @@
 			bottomBtn,
 			commonPopup,
 			price,
-			ccRadioGroup
+			ccRadioGroup,
+			uniNumberBox
 		},
 		data() {
 			return {
-				popupClass:"none",
+				selects:[
+					{
+						title:"颜色",
+						selected:0,
+						list:[
+							{name:"黄色"},
+							{name:"蓝色"},
+							{name:"白色"},
+						]
+					},
+					{
+						title:"容量",
+						selected:0,
+						list:[
+							{name:"64GB"},
+							{name:"128GB"},
+							{name:"256GB"},
+						]
+					},
+					{
+						title:"套餐",
+						selected:0,
+						list:[
+							{name:"套餐一"},
+							{name:"套餐二"},
+							{name:"套餐三"},
+						]
+					}
+				],
+				popup:{
+					attr:"none",
+					express:"none",
+					service:"none"
+				},
 				comments:[
 					{
 						userpic:"/static/images/demo/demo6.jpg",
@@ -151,6 +236,7 @@
 					cover:"/static/images/demo/list/1.jpg",
 					pprice:3299,
 					num:1,
+					minnum:1,
 					max:100
 				},
 				banners:[
@@ -214,35 +300,46 @@
 						oprice:2699,
 						pprice:1399
 					}
-				],
-				label:[{
-					title:"颜色",
-					selected:0,
-					list:[
-						{name:"黄色"},
-						{name:"蓝色"},
-						{name:"白色"},
-					]
-				}]
+				]
+			}
+		},
+		// 监听页面返回事件
+		onBackPress() {
+			// 关闭模态框 
+			for(let key in this.popup) {
+				if(this.popup[key] !== 'none'){
+					this.hide(key)
+					return true
+				}
 			}
 		},
 		methods: {
-			preview(src, e) {
-				// do something
-				console.log("src: " + src);
+			...mapMutations([
+				'addGoodsToCart'
+			]),
+			// 加入购物车
+			addCart(){
+				// 组织数据
+				let goods = this.detail
+				goods['checked'] = false
+				goods['attrs'] = this.selects
+				// 加入购物车
+				this.addGoodsToCart(goods)
+				// 隐藏筛选框
+				this.hide('attr')
+				//成功提示
+				uni.showToast({
+					title: '加入成功'
+				});
 			},
-			navigate(href, e) {
-				// 如允许点击超链接跳转，则应该打开一个新页面，并传入href，由新页面内嵌webview组件负责显示该链接内容
-				console.log("href: " + href);
-			},
-			hide(){
-				this.popupClass = 'hide'
+			hide(key){
+				this.popup[key] = 'show'
 				setTimeout(()=>{
-					this.popupClass = 'none'
+					this.popup[key] = 'none'
 				}, 200);
 			},
-			show(){
-				this.popupClass = 'show'
+			show(key){
+				this.popup[key] = 'show'
 			},
 			preview(src, e) {
 				// do something

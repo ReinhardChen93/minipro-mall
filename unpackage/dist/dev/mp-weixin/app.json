@@ -6,7 +6,8 @@
     "pages/class/class",
     "pages/search/search",
     "pages/search-list/search-list",
-    "pages/detail/detail"
+    "pages/detail/detail",
+    "pages/detail-comment/detail-comment"
   ],
   "subPackages": [],
   "window": {

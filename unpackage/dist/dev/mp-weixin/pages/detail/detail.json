@@ -11,6 +11,7 @@
     "bottom-btn": "/components/detail/bottom-btn",
     "common-popup": "/components/common/common-popup",
     "price": "/components/common/price",
-    "cc-radio-group": "/components/common/radio-group"
+    "cc-radio-group": "/components/common/radio-group",
+    "uni-number-box": "/components/uni-ui/uni-number-box/uni-number-box"
   }
 }
