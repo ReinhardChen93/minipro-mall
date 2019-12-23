@@ -67,21 +67,24 @@
 					<text class="d-block">火焰红 64G 标配</text>
 				</view>
 			</view>
-			<scroll-view scroll-y="true" style="height: 660rpx;">
-				<card :headTitle="item.title" :headTitleWeight="false" v-for="(item,index) in selects" :key="index" :headBorderBottom="false">
-					<cc-radio-group :label="item" :selected.sync="item.selected"></cc-radio-group>
+			
+			<scroll-view scroll-y class="w-100" style="height: 660rpx;">
+				<card :headTitle="item.title" :headTitleWeight="false" 
+				:headBorderBottom="false" :key="index"
+				v-for="(item,index) in selects">
+					<cc-radio-group :label="item" 
+					:selected.sync='item.selected'></cc-radio-group>
 				</card>
 				<view class="d-flex j-sb a-center p-2 border-top border-light-secondary">
 					<text>购买数量</text>
 					<uni-number-box :min="1" :value="detail.num" @change="detail.num = $event"></uni-number-box>
 				</view>
 			</scroll-view>
-			<view class="main-bg-color text-white font-md d-flex a-center j-center" 
-			style="height: 100rpx;margin-left: -30rpx;margin-right: -30rpx;" 
-			hover-class="main-bg-hover-color"
-			@tap.stop="addCart">
-				加入购物车
-			</view>
+			
+			 <view class="main-bg-color text-white font-md d-flex a-center j-center" hover-class="main-bg-hover-color" style="height: 100rpx;margin-left: -30rpx;margin-right: -30rpx;" 
+			 @tap.stop="addCart">
+			 	加入购物车
+			 </view>
 		</common-popup>
 		<!-- 收货地址 -->
 		<common-popup :popupClass="popup.express" @hide="hide('express')">
@@ -139,7 +142,7 @@
 	import price from '@/components/common/price.vue'
 	import ccRadioGroup from '@/components/common/radio-group.vue'
 	import uniNumberBox from '@/components/uni-ui/uni-number-box/uni-number-box.vue'
-	import {mapMutations} from 'vuex'
+	import {mapMutations} from "vuex"
 	var htmlString = `
 	<p>
 		<img src="https://i8.mifile.cn/v1/a1/9c3e29dc-151f-75cb-b0a5-c423a5d13926.webp">
@@ -236,7 +239,6 @@
 					cover:"/static/images/demo/list/1.jpg",
 					pprice:3299,
 					num:1,
-					minnum:1,
 					max:100
 				},
 				banners:[
@@ -327,7 +329,7 @@
 				this.addGoodsToCart(goods)
 				// 隐藏筛选框
 				this.hide('attr')
-				//成功提示
+				// 成功提示
 				uni.showToast({
 					title: '加入成功'
 				});

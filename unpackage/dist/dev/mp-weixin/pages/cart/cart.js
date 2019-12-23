@@ -90,10 +90,14 @@ var render = function() {
   var _c = _vm._self._c || _h
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
-      _vm.isEdit = !_vm.isEdit
+      _vm.isedit = !_vm.isedit
     }
 
     _vm.e1 = function($event) {
+      _vm.isedit = !_vm.isedit
+    }
+
+    _vm.e2 = function($event) {
       _vm.popupData.num = $event
     }
   }
@@ -250,7 +254,15 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-var _vuex = __webpack_require__(/*! vuex */ 16);function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var uniNavBar = function uniNavBar() {return __webpack_require__.e(/*! import() | components/uni-ui/uni-nav-bar/uni-nav-bar */ "components/uni-ui/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-ui/uni-nav-bar/uni-nav-bar.vue */ 114));};var price = function price() {return __webpack_require__.e(/*! import() | components/common/price */ "components/common/price").then(__webpack_require__.bind(null, /*! @/components/common/price.vue */ 121));};var uniNumberBox = function uniNumberBox() {return __webpack_require__.e(/*! import() | components/uni-ui/uni-number-box/uni-number-box */ "components/uni-ui/uni-number-box/uni-number-box").then(__webpack_require__.bind(null, /*! @/components/uni-ui/uni-number-box/uni-number-box.vue */ 126));};var card = function card() {return __webpack_require__.e(/*! import() | components/common/card */ "components/common/card").then(__webpack_require__.bind(null, /*! @/components/common/card.vue */ 104));};var ccRadioGroup = function ccRadioGroup() {return __webpack_require__.e(/*! import() | components/common/radio-group */ "components/common/radio-group").then(__webpack_require__.bind(null, /*! @/components/common/radio-group.vue */ 133));};var commonPopup = function commonPopup() {return __webpack_require__.e(/*! import() | components/common/common-popup */ "components/common/common-popup").then(__webpack_require__.bind(null, /*! @/components/common/common-popup.vue */ 140));};var _default =
+
+
+
+
+
+
+
+
+var _vuex = __webpack_require__(/*! vuex */ 16);function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var uniNavBar = function uniNavBar() {return __webpack_require__.e(/*! import() | components/uni-ui/uni-nav-bar/uni-nav-bar */ "components/uni-ui/uni-nav-bar/uni-nav-bar").then(__webpack_require__.bind(null, /*! @/components/uni-ui/uni-nav-bar/uni-nav-bar.vue */ 142));};var price = function price() {return __webpack_require__.e(/*! import() | components/common/price */ "components/common/price").then(__webpack_require__.bind(null, /*! @/components/common/price.vue */ 149));};var uniNumberBox = function uniNumberBox() {return __webpack_require__.e(/*! import() | components/uni-ui/uni-number-box/uni-number-box */ "components/uni-ui/uni-number-box/uni-number-box").then(__webpack_require__.bind(null, /*! @/components/uni-ui/uni-number-box/uni-number-box.vue */ 154));};var card = function card() {return __webpack_require__.e(/*! import() | components/common/card */ "components/common/card").then(__webpack_require__.bind(null, /*! @/components/common/card.vue */ 132));};var ccRadioGroup = function ccRadioGroup() {return __webpack_require__.e(/*! import() | components/common/radio-group */ "components/common/radio-group").then(__webpack_require__.bind(null, /*! @/components/common/radio-group.vue */ 161));};var commonPopup = function commonPopup() {return __webpack_require__.e(/*! import() | components/common/common-popup */ "components/common/common-popup").then(__webpack_require__.bind(null, /*! @/components/common/common-popup.vue */ 168));};var _default =
 
 {
   components: {

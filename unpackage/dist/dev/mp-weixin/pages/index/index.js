@@ -191,6 +191,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 var demoTabBars = [
 {
@@ -291,6 +295,13 @@ var demo1 = [
     smallbottom: {
       src: '/static/images/demo/demo2.jpg' } } },
 
+
+
+{
+  type: "oneAdv",
+  data: {
+    title: "每日精选",
+    cover: "/static/images/demo/demo4.jpg" } },
 
 
 {
@@ -414,7 +425,7 @@ var demo2 = [
     title: '米家空调',
     desc: '1.5匹变频',
     oprice: 1399,
-    pprice: 2699 }] }];var swiperImage = function swiperImage() {return __webpack_require__.e(/*! import() | components/index/swiper-image */ "components/index/swiper-image").then(__webpack_require__.bind(null, /*! @/components/index/swiper-image.vue */ 89));};var indexNav = function indexNav() {return __webpack_require__.e(/*! import() | components/index/index-nav */ "components/index/index-nav").then(__webpack_require__.bind(null, /*! @/components/index/index-nav.vue */ 94));};var threeAdv = function threeAdv() {return __webpack_require__.e(/*! import() | components/index/three-adv */ "components/index/three-adv").then(__webpack_require__.bind(null, /*! @/components/index/three-adv.vue */ 99));};var card = function card() {return __webpack_require__.e(/*! import() | components/common/card */ "components/common/card").then(__webpack_require__.bind(null, /*! @/components/common/card.vue */ 104));};var commonList = function commonList() {return __webpack_require__.e(/*! import() | components/common/common-list */ "components/common/common-list").then(__webpack_require__.bind(null, /*! @/components/common/common-list.vue */ 109));};var _default =
+    pprice: 2699 }] }];var swiperImage = function swiperImage() {return __webpack_require__.e(/*! import() | components/index/swiper-image */ "components/index/swiper-image").then(__webpack_require__.bind(null, /*! @/components/index/swiper-image.vue */ 117));};var indexNav = function indexNav() {return __webpack_require__.e(/*! import() | components/index/index-nav */ "components/index/index-nav").then(__webpack_require__.bind(null, /*! @/components/index/index-nav.vue */ 122));};var threeAdv = function threeAdv() {return __webpack_require__.e(/*! import() | components/index/three-adv */ "components/index/three-adv").then(__webpack_require__.bind(null, /*! @/components/index/three-adv.vue */ 127));};var card = function card() {return __webpack_require__.e(/*! import() | components/common/card */ "components/common/card").then(__webpack_require__.bind(null, /*! @/components/common/card.vue */ 132));};var commonList = function commonList() {return __webpack_require__.e(/*! import() | components/common/common-list */ "components/common/common-list").then(__webpack_require__.bind(null, /*! @/components/common/common-list.vue */ 137));};var _default =
 
 
 

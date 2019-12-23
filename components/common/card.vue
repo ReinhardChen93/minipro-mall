@@ -1,13 +1,12 @@
 <template>
-	<view class="card" :style="cardStyle">
+	<view class="card">
 		<!-- head -->
-		<view v-if="showhead" class="p-2 main-border-color d-flex a-center j-sb"
+		<view v-if="showhead" class="p-2 main-border-color"
 		:class="getHeadClass">
 			<slot name="title">
 				<text v-if="headTitle" class="font-md"
 				:class="headTitleWeight?'font-weight':''">{{headTitle}}</text>
 			</slot>
-			<slot name="right"></slot>
 		</view>
 		<!-- body -->
 		<view :class="getBodyClass" :style="bodyStyle">
@@ -45,10 +44,6 @@
 			bodyPadding:{
 				type:Boolean,
 				default:false
-			},
-			cardStyle:{
-				type:String,
-				default:""
 			}
 		},
 		computed: {

@@ -1,21 +1,22 @@
 <template>
-	<view>
-		<view style="background-color: #F5F5F5;">
-			<uni-nav-bar :right-text="isEdit?'完成':'编辑'" 
-			title="购物车" 
-			:statusBar="true" 
-			:shadow="false" 
-			:fixed="true"
-			@click-right="isEdit = !isEdit"></uni-nav-bar>
-		</view>
-		
-		<!-- 购物车为空 -->
-		
-		<view class="py-5 d-flex a-center j-center bg-white border" v-if="disableSelectAll">
-			<view class="iconfont icon-gouwuche text-light-muted" style="font-size: 50upx;"></view>
-			<text class="text-light-muted mx-2">空空如也</text>
-			<view class="px-2 py-1 border border-light-secondary rounded" hover-class="bg-light-secondary">去逛逛</view>
-		</view>
+	<view style="background: #F5F5F5;">
+		<!-- #ifdef MP -->
+		<uni-nav-bar :right-text="isedit?'完成':'编辑'" title="购物车" :statusBar="false"
+		 :shadow="false" @click-right="isedit = !isedit" :fixed="true"></uni-nav-bar>
+		<!-- #endif -->
+		<uni-nav-bar :right-text="isedit?'完成':'编辑'" title="购物车" statusBar
+		 :shadow="false" @click-right="isedit = !isedit" :fixed="true"></uni-nav-bar>
+		 
+		 <!-- 购物车为空 -->
+		<view class="py-5 d-flex a-center j-center bg-white"
+		v-if="disableSelectAll">
+		 	<view class="iconfont icon-gouwuche text-light-muted" style="font-size: 50upx;"></view>
+			<text class="text-light-muted mx-2">购物车还是为空</text>
+			<view class="px-2 py-1 border border-light-secondary rounded"
+			hover-class="bg-light-secondary">
+				去逛逛
+			</view>
+		 </view>
 		
 		
 		<!-- 购物车商品列表 -->
@@ -39,13 +40,15 @@
 					<view class="d-flex text-light-muted mb-1" 
 					:class="isEdit ? 'p-1 bg-light-secondary mb-2':''" 
 					@tap.stop="doShowPopup(index)">
-						<text class="mr-1" v-for="(attr,attrIndex) in item.attrs" :key="attrIndex">{{attr.list[attr.selected].name}}</text>
+						<text class="mr-1" 
+						v-for="(attr,attrIndex) in item.attrs" 
+						:key="attrIndex">{{attr.list[attr.selected].name}}</text>
 						<view class="iconfont icon-bottom font ml-auto" v-if="isEdit"></view>
 					</view>
 					<view class="mt-auto d-flex j-sb">
 						<price>{{item.pprice}}</price>
 						<view class="a-self-end">
-							<uniNumberBox :min="item.minnum" :max="item.maxnum" :vlue="item.num"
+							<uniNumberBox :min="1" :max="item.max" :value="item.num"
 							@change="changeNum($event,item,index)"></uniNumberBox>
 						</view>
 					</view>
@@ -82,20 +85,25 @@
 		</view>
 	
 		<!-- 属性选择框 -->
-		<common-popup :popupClass="popupShow" @hide="doHidePopup">
-			<view class="d-flex a-center" style="height: 275rpx;">
-				<image src="../../static/images/demo/list/1.jpg" mode="widthFix"
-				style="height: 180rpx;width: 180rpx;" class="border rounded"></image>
-				<view class="pl-2">
-					<price priceSize="font-lg" unitSize="font">2365</price>
-					<view class="d-block">
-						<text class="mr-1" v-for="(attr,attrIndex) in popupData.attrs" :key="attrIndex">{{attr.list[attr.selected].name}}</text>
-					</view>
-				</view>
-			</view>
+		 <common-popup :popupClass="popupShow" @hide="doHidePopup">
+		 	<view class="d-flex a-center" style="height: 275rpx;">
+		 		<image src="../../static/images/demo/list/1.jpg" mode="widthFix"
+		 		style="height: 180rpx;width: 180rpx;" class="border rounded"></image>
+		 		<view class="pl-2">
+		 			<price priceSize="font-lg" unitSize="font">2365</price>
+		 			<view class="d-block">
+		 				<text class="mr-1"
+		 				v-for="(attr,attrIndex) in popupData.attrs"
+		 				:key="attrIndex">{{attr.list[attr.selected].name}}</text>
+		 			</view>
+		 		</view>
+		 	</view>
 			<scroll-view scroll-y="true" style="height: 660rpx;">
-				<card :headTitle="item.title" :headTitleWeight="false" v-for="(item,index) in popupData.attrs" :key="index" :headBorderBottom="false">
-					<cc-radio-group :label="item" :selected.sync="item.selected"></cc-radio-group>
+				<card :headTitle="item.title" :headTitleWeight="false" 
+				v-for="(item,index) in popupData.attrs" :key="index" 
+				:headBorderBottom="false">
+					<cc-radio-group :label="item" 
+					:selected.sync="item.selected"></cc-radio-group>
 				</card>
 				<view class="d-flex j-sb a-center p-2 border-top border-light-secondary">
 					<text>购买数量</text>
@@ -139,7 +147,7 @@
 		computed:{ 
 			...mapState({
 				list:state=>state.cart.list,
-				popupShow: state=> state.cart.popupShow
+				popupShow:state=>state.cart.popupShow
 			}),
 			...mapGetters([
 				'checkedAll',
@@ -159,7 +167,7 @@
 			...mapMutations([
 				'selectItem'
 			]),
-			changeNum(e,item,index) {
+			changeNum(e,item,index){
 				item.num = e
 			}
 		}

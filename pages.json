@@ -50,7 +50,10 @@
 		{
 			"path": "pages/my/my",
 			"style": {
-				
+				"app-plus":{
+					"titleNView":false,
+					"bounce":"none"
+				}
 			}
 		},
 		{
@@ -172,6 +175,62 @@
 				}
 			}
 		}
+        ,{
+            "path" : "pages/user-set/user-set",
+            "style" : {
+				"title":"用户设置"
+			}
+        }
+        ,{
+            "path" : "pages/user-userinfo/user-userinfo",
+            "style" : {
+				"title":"修改资料"
+			}
+        }
+        ,{
+            "path" : "pages/user-path-list/user-path-list",
+            "style" : {
+				"navigationBarTitleText":"收货地址",
+			
+				"app-plus":{
+					"scrollIndicator":"none",
+					"bounce":"none",
+					"titleNView":{
+						"buttons":[
+							{
+								"float":"right",
+								"color":"#999999",
+								"colorPressed":"#BBBBBB",
+								"fontSrc":"/static/font/iconfont.ttf",
+								"text":"\ue626",
+								"fontSize":"15px"
+							}
+						]
+					}
+				}
+			}
+        }
+        ,{
+            "path" : "pages/user-path-edit/user-path-edit",
+            "style" : {
+				"navigationBarTitleText":"增加收货地址",
+				"app-plus":{
+					"scrollIndicator":"none",
+					"bounce":"none",
+					"titleNView":{
+						"buttons":[
+							{
+								"float":"right",
+								"color":"#999999",
+								"colorPressed":"#BBBBBB",
+								"text":"删除",
+								"fontSize":"15px"
+							}
+						]
+					}
+				}
+			}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

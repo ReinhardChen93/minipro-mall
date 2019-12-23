@@ -47,7 +47,11 @@
 								<!-- 全局分割线 -->
 								<divider></divider>
 							</template>
-
+							<template v-else-if="list.type === 'oneAdv'">
+								<!-- 大图广告位 -->
+								<card :headTitle="list.data.title" 
+								:bodyCover="list.data.cover" />
+							</template>
 							<!-- <card>
 								<block slot="title">每日精选</block>
 								<image src="/static/images/demo/demo4.jpg"></image>
@@ -169,6 +173,13 @@ let demo1 = [
 			smallbottom: {
 				src: '/static/images/demo/demo2.jpg'
 			}
+		}
+	},
+	{
+		type:"oneAdv",
+		data:{
+			title:"每日精选",
+			cover:"/static/images/demo/demo4.jpg"
 		}
 	},
 	{
