@@ -17,11 +17,11 @@ _vue.default.prototype.$store = _index.default;
 _vue.default.config.productionTip = false;
 
 // 引入全局组件
-var divider = function divider() {return __webpack_require__.e(/*! import() | components/common/divider */ "components/common/divider").then(__webpack_require__.bind(null, /*! @/components/common/divider.vue */ 103));};
+var divider = function divider() {return __webpack_require__.e(/*! import() | components/common/divider */ "components/common/divider").then(__webpack_require__.bind(null, /*! @/components/common/divider.vue */ 140));};
 _vue.default.component('divider', divider);
 
 // 引入全局加载动画
-var loading = function loading() {return __webpack_require__.e(/*! import() | components/common/loading */ "components/common/loading").then(__webpack_require__.bind(null, /*! @/components/common/loading.vue */ 110));};
+var loading = function loading() {return __webpack_require__.e(/*! import() | components/common/loading */ "components/common/loading").then(__webpack_require__.bind(null, /*! @/components/common/loading.vue */ 147));};
 _vue.default.component('loading', loading);
 
 _App.default.mpType = 'app';

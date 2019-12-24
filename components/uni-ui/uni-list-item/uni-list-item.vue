@@ -14,11 +14,12 @@
 				<view v-if="note" class="uni-list-item__content-note">{{ note }}</view>
 				<slot></slot>
 			</view>
-			<view v-if="showBadge || showArrow || showSwitch" class="uni-list-item__extra" :style="'width:' + extraWidth + ';'">
+			<view v-if="showBadge || showArrow || showSwitch" class="uni-list-item__extra" :style="'width:'+extraWidth+';'">
+				<slot name="rightContent"></slot>
 				<slot name="right">
-					<uni-badge v-if="showBadge" :type="badgeType" :text="badgeText" />
-					<switch v-if="showSwitch" :disabled="disabled" :checked="switchChecked" @change="onSwitchChange" />
-					<uni-icon class="uni-icon-wrapper" v-if="showArrow" :size="20" color="#bbb" type="arrowright" />
+				<uni-badge v-if="showBadge" :type="badgeType" :text="badgeText" />
+				<switch v-if="showSwitch" :disabled="disabled" :checked="switchChecked" @change="onSwitchChange" />
+				<uni-icon class="uni-icon-wrapper" v-if="showArrow && showArrowIcon" :size="20" color="#bbb" type="arrowright" />
 				</slot>
 			</view>
 		</view>
@@ -26,7 +27,7 @@
 </template>
 
 <script>
-	import uniIcon from '../uni-icons/uni-icons.vue'
+	import uniIcon from '../uni-icon/uni-icon.vue'
 	import uniBadge from '../uni-badge/uni-badge.vue'
 	export default {
 		name: 'UniListItem',
@@ -47,7 +48,7 @@
 				type:String,
 				default:''
 			},
-			extraWidth: {
+			extraWidth:{
 				type:String,
 				default:''
 			},

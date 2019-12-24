@@ -4,9 +4,10 @@
 		<uni-nav-bar :right-text="isedit?'完成':'编辑'" title="购物车" :statusBar="false"
 		 :shadow="false" @click-right="isedit = !isedit" :fixed="true"></uni-nav-bar>
 		<!-- #endif -->
+				<!-- #ifdef APP-PLUS -->
 		<uni-nav-bar :right-text="isedit?'完成':'编辑'" title="购物车" statusBar
 		 :shadow="false" @click-right="isedit = !isedit" :fixed="true"></uni-nav-bar>
-		 
+		 <!-- #endif -->
 		 <!-- 购物车为空 -->
 		<view class="py-5 d-flex a-center j-center bg-white"
 		v-if="disableSelectAll">
@@ -56,6 +57,23 @@
 			</view>
 		</view>
 	
+		<!-- 为你推荐 -->
+		
+		<view class="text-center main-text-color font-md font-weight mt-5">
+			为你推荐
+		</view>
+		
+		<view class="position-relative d-flex a-center j-center text-secondary mb-3 pt-3">
+			<view class="px-2 position-absolute" style="background-color: #F5F5F5;z-index: 2;">买的人还买了</view>
+			<view class="position-absolute" style="height: 1upx;left: 0;right: 0;background-color: #DDDDDD;"></view>
+		</view>
+		
+		<view class="row j-sb bg-white">
+			<common-list v-for="(item,index) in hotList"
+			:key="index" :item="item" :index="index">
+			</common-list>
+		</view>
+	
 		<!-- 占位 -->
 		<view style="height: 100upx;"></view>
 		<!-- 合计 -->
@@ -69,7 +87,7 @@
 					合计 <price>{{totalPrice}}</price>
 				</view>
 				<view class="flex-1 d-flex a-center j-center main-bg-color text-white font-md" 
-				hover-class="main-bg-hover-color">
+				hover-class="main-bg-hover-color"  @tap="orderConfirm">
 					结算
 				</view>
 			</template>
@@ -127,6 +145,7 @@
 	import card from '@/components/common/card.vue'
 	import ccRadioGroup from '@/components/common/radio-group.vue'
 	import commonPopup from '@/components/common/common-popup.vue'
+	import commonList from "@/components/common/common-list.vue"
 	import {mapState,mapGetters,mapActions,mapMutations} from "vuex"
 	
 	export default {
@@ -136,12 +155,56 @@
 			uniNumberBox,
 			card,
 			ccRadioGroup,
-			commonPopup
+			commonPopup,
+			commonList
 		},
 		data () {
 			return {
 				isEdit:false,
-				    
+				hotList:[
+					{
+						cover:"/static/images/demo/list/1.jpg",
+						title:"米家空调",
+						desc:"1.5匹变频",
+						oprice:2699,
+						pprice:1399
+					},
+					{
+						cover:"/static/images/demo/list/1.jpg",
+						title:"米家空调",
+						desc:"1.5匹变频",
+						oprice:2699,
+						pprice:1399
+					},
+					{
+						cover:"/static/images/demo/list/1.jpg",
+						title:"米家空调",
+						desc:"1.5匹变频",
+						oprice:2699,
+						pprice:1399
+					},
+					{
+						cover:"/static/images/demo/list/1.jpg",
+						title:"米家空调",
+						desc:"1.5匹变频",
+						oprice:2699,
+						pprice:1399
+					},
+					{
+						cover:"/static/images/demo/list/1.jpg",
+						title:"米家空调",
+						desc:"1.5匹变频",
+						oprice:2699,
+						pprice:1399
+					},
+					{
+						cover:"/static/images/demo/list/1.jpg",
+						title:"米家空调",
+						desc:"1.5匹变频",
+						oprice:2699,
+						pprice:1399
+					}
+				]
 			}
 		},
 		computed:{ 
@@ -158,6 +221,11 @@
 			
 		},
 		methods:{
+			orderConfirm(){
+				uni.navigateTo({
+					url: '../order-confirm/order-confirm'
+				});
+			},
 			...mapActions([
 				'doSelectAll',
 				'doDelGoods',

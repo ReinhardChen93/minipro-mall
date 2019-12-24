@@ -90,17 +90,17 @@
 		<common-popup :popupClass="popup.express" @hide="hide('express')">
 			<view class="d-flex a-center j-center font-md border-bottom border-light-secondary" style="height: 100rpx;">收货地址</view>
 			<scroll-view scroll-y="true" style="height: 835rpx;">
-				<uni-list-item>
-					<view class="iconfont icon-dingwei font-weight font-md">沫沫</view>
+				<uni-list-item v-for="(item,index) in pathList" :key="index">
+					<view class="iconfont icon-dingwei font-weight font-md">{{item.name}}</view>
 					<view class="font text-light-muted">
-						云南省昆明市五华区
+						{{item.path}} {{item.detailPath}}
 					</view>
 				</uni-list-item>
 			</scroll-view>
 			<view class="main-bg-color text-white font-md d-flex a-center j-center" 
 			style="height: 100rpx;margin-left: -30rpx;margin-right: -30rpx;" 
 			hover-class="main-bg-hover-color"
-			@tap.stop="hide('express')">
+			@tap.stop="openCreatePath">
 				选择新的地址
 			</view>
 		</common-popup>
@@ -142,7 +142,7 @@
 	import price from '@/components/common/price.vue'
 	import ccRadioGroup from '@/components/common/radio-group.vue'
 	import uniNumberBox from '@/components/uni-ui/uni-number-box/uni-number-box.vue'
-	import {mapMutations} from "vuex"
+	import {mapState,mapMutations} from "vuex"
 	var htmlString = `
 	<p>
 		<img src="https://i8.mifile.cn/v1/a1/9c3e29dc-151f-75cb-b0a5-c423a5d13926.webp">
@@ -315,6 +315,11 @@
 				}
 			}
 		},
+		computed:{
+				...mapState({
+					pathList:state=>state.path.list
+				})
+		},
 		methods: {
 			...mapMutations([
 				'addGoodsToCart'
@@ -333,6 +338,12 @@
 				uni.showToast({
 					title: '加入成功'
 				});
+			},
+			openCreatePath(){
+				uni.navigateTo({
+					url:"../user-path-edit/user-path-edit"
+				})
+				this.hide('express')
 			},
 			hide(key){
 				this.popup[key] = 'show'

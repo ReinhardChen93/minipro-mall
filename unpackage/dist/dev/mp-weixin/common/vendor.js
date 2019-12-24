@@ -1647,7 +1647,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 16));
 
 var _cart = _interopRequireDefault(__webpack_require__(/*! @/store/modules/cart.js */ 17));
-var _path = _interopRequireDefault(__webpack_require__(/*! @/store/modules/path.js */ 349));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+var _path = _interopRequireDefault(__webpack_require__(/*! @/store/modules/path.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 _vue.default.use(_vuex.default);var _default =
 
@@ -2849,6 +2849,81 @@ var index_esm = {
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 18:
+/*!**********************************************************************************!*\
+  !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/store/modules/path.js ***!
+  \**********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  state: {
+    list: [
+    {
+      name: "ReinhardChen",
+      phone: "158****531",
+      path: "云南省 昆明市 五华区",
+      detailPath: "XXXXX街道",
+      isdefault: true },
+
+    {
+      name: "summer",
+      phone: "158****531",
+      path: "广东省 广州市 白云区",
+      detailPath: "XXXXX街道",
+      isdefault: false }] },
+
+
+
+  getters: {
+    // 获取默认地址
+    defaultPath: function defaultPath(state) {
+      return state.list.filter(function (v) {return v.isdefault;});
+    } },
+
+  mutations: {
+    // 创建收货地址
+    createPath: function createPath(state, item) {
+      state.list.unshift(item);
+    },
+    // 删除收货地址
+    delPath: function delPath(state, index) {
+      state.list.splice(index, 1);
+    },
+    // 修改收货地址
+    updatePath: function updatePath(state, _ref) {var index = _ref.index,item = _ref.item;
+      for (var key in item) {
+        state.list[index][key] = item[key];
+      }
+    },
+    // 取消默认地址
+    removeDefault: function removeDefault(state) {
+      state.list.forEach(function (v) {
+        if (v.isdefault) {
+          v.isdefault = false;
+        }
+      });
+    } },
+
+  actions: {
+    // 修改地址
+    updatePathAction: function updatePathAction(_ref2, obj) {var commit = _ref2.commit;
+      if (obj.item.isdefault) {
+        commit('removeDefault');
+      }
+      commit('updatePath', obj);
+    },
+    // 增加地址
+    createPathAction: function createPathAction(_ref3, item) {var commit = _ref3.commit;
+      if (item.isdefault) {
+        commit('removeDefault');
+      }
+      commit('createPath', item);
+    } } };exports.default = _default;
 
 /***/ }),
 
@@ -8815,7 +8890,7 @@ internalMixin(Vue);
 
 /***/ }),
 
-/***/ 219:
+/***/ 256:
 /*!***********************************************************************************************************!*\
   !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/uParse/src/libs/html2json.js ***!
   \***********************************************************************************************************/
@@ -8837,8 +8912,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-var _wxDiscode = _interopRequireDefault(__webpack_require__(/*! ./wxDiscode */ 220));
-var _htmlparser = _interopRequireDefault(__webpack_require__(/*! ./htmlparser */ 221));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /**
+var _wxDiscode = _interopRequireDefault(__webpack_require__(/*! ./wxDiscode */ 257));
+var _htmlparser = _interopRequireDefault(__webpack_require__(/*! ./htmlparser */ 258));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /**
                                                                                                                                                                  * html2Json 改造来自: https://github.com/Jxck/html2json
                                                                                                                                                                  *
                                                                                                                                                                  *
@@ -9087,7 +9162,7 @@ html2json;exports.default = _default;
 
 /***/ }),
 
-/***/ 220:
+/***/ 257:
 /*!***********************************************************************************************************!*\
   !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/uParse/src/libs/wxDiscode.js ***!
   \***********************************************************************************************************/
@@ -9292,7 +9367,7 @@ function urlToHttpUrl(url, domain) {
 
 /***/ }),
 
-/***/ 221:
+/***/ 258:
 /*!************************************************************************************************************!*\
   !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/uParse/src/libs/htmlparser.js ***!
   \************************************************************************************************************/
@@ -9459,7 +9534,7 @@ HTMLParser;exports.default = _default;
 
 /***/ }),
 
-/***/ 239:
+/***/ 276:
 /*!*********************************************************************************************************************!*\
   !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/mpvue-citypicker/city-data/province.js ***!
   \*********************************************************************************************************************/
@@ -9609,7 +9684,7 @@ provinceData;exports.default = _default;
 
 /***/ }),
 
-/***/ 240:
+/***/ 277:
 /*!*****************************************************************************************************************!*\
   !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/mpvue-citypicker/city-data/city.js ***!
   \*****************************************************************************************************************/
@@ -11123,7 +11198,7 @@ cityData;exports.default = _default;
 
 /***/ }),
 
-/***/ 241:
+/***/ 278:
 /*!*****************************************************************************************************************!*\
   !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/mpvue-citypicker/city-data/area.js ***!
   \*****************************************************************************************************************/
@@ -23676,112 +23751,6 @@ areaData;exports.default = _default;
 
 /***/ }),
 
-/***/ 263:
-/*!*************************************************************************************************!*\
-  !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/uni-icons/icons.js ***!
-  \*************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
-  'contact': "\uE100",
-  'person': "\uE101",
-  'personadd': "\uE102",
-  'contact-filled': "\uE130",
-  'person-filled': "\uE131",
-  'personadd-filled': "\uE132",
-  'phone': "\uE200",
-  'email': "\uE201",
-  'chatbubble': "\uE202",
-  'chatboxes': "\uE203",
-  'phone-filled': "\uE230",
-  'email-filled': "\uE231",
-  'chatbubble-filled': "\uE232",
-  'chatboxes-filled': "\uE233",
-  'weibo': "\uE260",
-  'weixin': "\uE261",
-  'pengyouquan': "\uE262",
-  'chat': "\uE263",
-  'qq': "\uE264",
-  'videocam': "\uE300",
-  'camera': "\uE301",
-  'mic': "\uE302",
-  'location': "\uE303",
-  'mic-filled': "\uE332",
-  'speech': "\uE332",
-  'location-filled': "\uE333",
-  'micoff': "\uE360",
-  'image': "\uE363",
-  'map': "\uE364",
-  'compose': "\uE400",
-  'trash': "\uE401",
-  'upload': "\uE402",
-  'download': "\uE403",
-  'close': "\uE404",
-  'redo': "\uE405",
-  'undo': "\uE406",
-  'refresh': "\uE407",
-  'star': "\uE408",
-  'plus': "\uE409",
-  'minus': "\uE410",
-  'circle': "\uE411",
-  'checkbox': "\uE411",
-  'close-filled': "\uE434",
-  'clear': "\uE434",
-  'refresh-filled': "\uE437",
-  'star-filled': "\uE438",
-  'plus-filled': "\uE439",
-  'minus-filled': "\uE440",
-  'circle-filled': "\uE441",
-  'checkbox-filled': "\uE442",
-  'closeempty': "\uE460",
-  'refreshempty': "\uE461",
-  'reload': "\uE462",
-  'starhalf': "\uE463",
-  'spinner': "\uE464",
-  'spinner-cycle': "\uE465",
-  'search': "\uE466",
-  'plusempty': "\uE468",
-  'forward': "\uE470",
-  'back': "\uE471",
-  'left-nav': "\uE471",
-  'checkmarkempty': "\uE472",
-  'home': "\uE500",
-  'navigate': "\uE501",
-  'gear': "\uE502",
-  'paperplane': "\uE503",
-  'info': "\uE504",
-  'help': "\uE505",
-  'locked': "\uE506",
-  'more': "\uE507",
-  'flag': "\uE508",
-  'home-filled': "\uE530",
-  'gear-filled': "\uE532",
-  'info-filled': "\uE534",
-  'help-filled': "\uE535",
-  'more-filled': "\uE537",
-  'settings': "\uE560",
-  'list': "\uE562",
-  'bars': "\uE563",
-  'loop': "\uE565",
-  'paperclip': "\uE567",
-  'eye': "\uE568",
-  'arrowup': "\uE580",
-  'arrowdown': "\uE581",
-  'arrowleft': "\uE582",
-  'arrowright': "\uE583",
-  'arrowthinup': "\uE584",
-  'arrowthindown': "\uE585",
-  'arrowthinleft': "\uE586",
-  'arrowthinright': "\uE587",
-  'pulldown': "\uE588",
-  'closefill': "\uE589",
-  'sound': "\uE590",
-  'scan': "\uE612" };exports.default = _default;
-
-/***/ }),
-
 /***/ 3:
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -23813,81 +23782,6 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 349:
-/*!**********************************************************************************!*\
-  !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/store/modules/path.js ***!
-  \**********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
-  state: {
-    list: [
-    {
-      name: "summer",
-      phone: "158****531",
-      path: "广东省 广州市 白云区",
-      detailPath: "XXXXX街道",
-      isdefault: false },
-
-    {
-      name: "summer",
-      phone: "158****531",
-      path: "广东省 广州市 白云区",
-      detailPath: "XXXXX街道",
-      isdefault: false }] },
-
-
-
-  getters: {
-    // 获取默认地址
-    defaultPath: function defaultPath(state) {
-      return state.list.filter(function (v) {return v.isdefault;});
-    } },
-
-  mutations: {
-    // 创建收货地址
-    createPath: function createPath(state, item) {
-      state.list.unshift(item);
-    },
-    // 删除收货地址
-    delPath: function delPath(state, index) {
-      state.list.splice(index, 1);
-    },
-    // 修改收货地址
-    updatePath: function updatePath(state, _ref) {var index = _ref.index,item = _ref.item;
-      for (var key in item) {
-        state.list[index][key] = item[key];
-      }
-    },
-    // 取消默认地址
-    removeDefault: function removeDefault(state) {
-      state.list.forEach(function (v) {
-        if (v.isdefault) {
-          v.isdefault = false;
-        }
-      });
-    } },
-
-  actions: {
-    // 修改地址
-    updatePathAction: function updatePathAction(_ref2, obj) {var commit = _ref2.commit;
-      if (obj.item.isdefault) {
-        commit('removeDefault');
-      }
-      commit('updatePath', obj);
-    },
-    // 增加地址
-    createPathAction: function createPathAction(_ref3, item) {var commit = _ref3.commit;
-      if (item.isdefault) {
-        commit('removeDefault');
-      }
-      commit('createPath', item);
-    } } };exports.default = _default;
-
-/***/ }),
-
 /***/ 4:
 /*!***********************************************************************!*\
   !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/pages.json ***!
@@ -23900,19 +23794,19 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 42:
+/***/ 43:
 /*!**********************************************************!*\
   !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
   \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! regenerator-runtime */ 43);
+module.exports = __webpack_require__(/*! regenerator-runtime */ 44);
 
 
 /***/ }),
 
-/***/ 43:
+/***/ 44:
 /*!************************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
   \************************************************************/
@@ -23943,7 +23837,7 @@ var oldRuntime = hadRuntime && g.regeneratorRuntime;
 // Force reevalutation of runtime.js.
 g.regeneratorRuntime = undefined;
 
-module.exports = __webpack_require__(/*! ./runtime */ 44);
+module.exports = __webpack_require__(/*! ./runtime */ 45);
 
 if (hadRuntime) {
   // Restore the original runtime.
@@ -23960,7 +23854,7 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 44:
+/***/ 45:
 /*!*****************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime.js ***!
   \*****************************************************/
@@ -25598,7 +25492,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@^2.0.0-alpha-24420191128001","_id"
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": {}, "pages/cart/cart": { "enablePullDownRefresh": true }, "pages/my/my": {}, "pages/class/class": {}, "pages/search/search": {}, "pages/search-list/search-list": {}, "pages/detail/detail": {}, "pages/detail-comment/detail-comment": { "navigationBarTitleText": "商品评价" }, "pages/user-set/user-set": { "title": "用户设置" }, "pages/user-userinfo/user-userinfo": { "title": "修改资料" }, "pages/user-path-list/user-path-list": { "navigationBarTitleText": "收货地址" }, "pages/user-path-edit/user-path-edit": { "navigationBarTitleText": "增加收货地址" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "仿小米", "navigationBarBackgroundColor": "#FFFFFF", "backgroundColor": "#FFFFFF" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "usingComponents": { "swiper-image": "/components/index/swiper-image", "index-nav": "/components/index/index-nav", "three-adv": "/components/index/three-adv", "card": "/components/common/card", "common-list": "/components/common/common-list" } }, "pages/cart/cart": { "enablePullDownRefresh": true, "usingComponents": { "uni-nav-bar": "/components/uni-ui/uni-nav-bar/uni-nav-bar", "price": "/components/common/price", "uni-number-box": "/components/uni-ui/uni-number-box/uni-number-box", "card": "/components/common/card", "cc-radio-group": "/components/common/radio-group", "common-popup": "/components/common/common-popup", "common-list": "/components/common/common-list" } }, "pages/my/my": { "usingComponents": { "card": "/components/common/card", "uni-list-item": "/components/uni-ui/uni-list-item/uni-list-item" } }, "pages/class/class": { "usingComponents": {} }, "pages/search/search": { "usingComponents": { "card": "/components/common/card", "color-tag": "/components/search/color-tag", "uni-list-item": "/components/uni-ui/uni-list-item/uni-list-item" } }, "pages/search-list/search-list": { "usingComponents": { "uni-drawer": "/components/uni-ui/uni-drawer/uni-drawer", "card": "/components/common/card", "zcm-radio-group": "/components/common/radio-group", "search-list": "/components/search-list/search-list" } }, "pages/detail/detail": { "usingComponents": { "swiper-image": "/components/index/swiper-image", "base-info": "/components/detail/base-info", "scroll-attrs": "/components/detail/scroll-attrs", "unit-list-item": "/components/uni-ui/uni-list-item/uni-list-item", "scroll-comments": "/components/detail/scroll-comments", "u-parse": "/components/uni-ui/uParse/src/wxParse", "card": "/components/common/card", "common-list": "/components/common/common-list", "bottom-btn": "/components/detail/bottom-btn", "common-popup": "/components/common/common-popup", "price": "/components/common/price", "cc-radio-group": "/components/common/radio-group", "uni-number-box": "/components/uni-ui/uni-number-box/uni-number-box" } }, "pages/detail-comment/detail-comment": { "navigationBarTitleText": "商品评价", "usingComponents": {} }, "pages/user-set/user-set": { "navigationBarTitleText": "用户设置", "usingComponents": { "card": "/components/common/card", "uni-list-item": "/components/uni-ui/uni-list-item/uni-list-item" } }, "pages/user-userinfo/user-userinfo": { "navigationBarTitleText": "修改资料", "usingComponents": { "uni-list-item": "/components/uni-ui/uni-list-item/uni-list-item" } }, "pages/user-path-list/user-path-list": { "navigationBarTitleText": "收货地址", "usingComponents": { "uni-nav-bar": "/components/uni-ui/uni-nav-bar/uni-nav-bar", "uni-list-item": "/components/uni-ui/uni-list-item/uni-list-item", "uni-swipe-action": "/components/uni-ui/uni-swipe-action/uni-swipe-action" } }, "pages/user-path-edit/user-path-edit": { "navigationBarTitleText": "增加收货地址", "usingComponents": { "mpvue-city-picker": "/components/uni-ui/mpvue-citypicker/mpvueCityPicker" } }, "pages/order/order": { "navigationBarTitleText": "我的订单", "usingComponents": { "common-list": "/components/common/common-list", "no-thing": "/components/common/no-thing", "order-list": "/components/order/order-list" } }, "pages/order-confirm/order-confirm": { "navigationBarTitleText": "订单配送至", "navigationBarBackgroundColor": "#FD6801", "navigationBarTextStyle": "white", "usingComponents": { "uni-list-item": "/components/uni-ui/uni-list-item/uni-list-item", "price": "/components/common/price" } }, "pages/order-invoice/order-invoice": { "navigationBarTitleText": "发票", "usingComponents": { "card": "/components/common/card", "cc-radio-group": "/components/common/radio-group" } }, "pages/login/login": { "usingComponents": { "uni-status-bar": "/components/uni-ui/uni-status-bar/uni-status-bar" } }, "pages/msg-list/msg-list": { "navigationBarTitleText": "消息列表", "usingComponents": {} }, "pages/msg-detail/msg-detail": { "navigationBarTitleText": "消息详情页", "usingComponents": { "u-parse": "/components/uni-ui/uParse/src/wxParse" } } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "仿小米", "navigationBarBackgroundColor": "#FFFFFF", "backgroundColor": "#FFFFFF" } };exports.default = _default;
 
 /***/ }),
 

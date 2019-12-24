@@ -2,13 +2,18 @@
 	<view>
 		<!-- #ifdef MP -->
 		<view class="position-relative d-flex a-center" style="32rpx">
-			<view class="iconfont icon-xiaoxi position-absolute text-white" style="font-size: 50rpx;top: 20rpx;right: 20rpx;z-index: 100;"></view>
+			<!-- 消息列表 -->
+			<navigator url="../msg-list/msg-list">
+				<view class="iconfont icon-xiaoxi position-absolute text-white" style="font-size: 50rpx;top: 20rpx;right: 20rpx;z-index: 100;"></view>
+			</navigator>
+			
 			<image src="../../static/images/bg.jpg" mode="widthFix" style="height: 320rpx;width: 100%;"></image>
 			
 			<view class="d-flex a-center position-absolute left-0 right-0">
 				<image src="../../static/images/demo/demo5.jpg" mode="widthFix" style="height: 145rpx;width: 145rpx; border: 5rpx solid;" 
 				class="rounded-circle border-light ml-4"></image>
-				<view class="ml-2 text-white font-md">textNiceName</view>
+				<view class="ml-2 text-white font-md"
+				@click="navigate('login')">textNiceName</view>
 				<view class="d-flex a-center j-center a-self-end ml-auto px-2"
 				 style="height: 70rpx;background-color: #FFD43F;color: #CC4A00;border-top-left-radius: 40rpx;border-bottom-left-radius: 40rpx;">
 					<view class="line-h iconfont icon-huangguan mr-1"></view>
@@ -20,7 +25,11 @@
 		<!-- 头部 -->
 		<!-- #ifdef APP-PLUS -->
 		<view class="position-relative d-flex a-center" style="32rpx">
-			<view class="iconfont icon-xiaoxi position-absolute text-white" style="font-size: 50rpx;top: 75rpx;right: 20rpx;z-index: 100;"></view>
+			<!-- 消息列表 -->
+			<navigator url="../msg-list/msg-list">
+				<view class="iconfont icon-xiaoxi position-absolute text-white" style="font-size: 50rpx;top: 75rpx;right: 20rpx;z-index: 100;"></view>
+			</navigator>
+			
 			<image src="../../static/images/bg.jpg" mode="widthFix" style="height: 320rpx;width: 100%;"></image>
 			
 			<view class="d-flex a-center position-absolute left-0 right-0" style="bottom: 50rpx;">
@@ -40,7 +49,7 @@
 		<card>
 			<view class="d-flex a-center j-sb" slot="title">
 				<text class="font-md font-weight">我的订单</text>
-				<view class="text-secondary font">
+				<view class="text-secondary font" @click="navigate('order')">
 					全部订单 <text class="iconfont icon-you font"></text>
 				</view>
 			</view>
@@ -95,7 +104,7 @@
 				uni.navigateTo({
 					url: `/pages/${path}/${path}`,
 				})
-			}
+			},
 		}
 	}
 </script>

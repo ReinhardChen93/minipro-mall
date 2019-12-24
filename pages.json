@@ -178,13 +178,13 @@
         ,{
             "path" : "pages/user-set/user-set",
             "style" : {
-				"title":"用户设置"
+				"navigationBarTitleText":"用户设置"
 			}
         }
         ,{
             "path" : "pages/user-userinfo/user-userinfo",
             "style" : {
-				"title":"修改资料"
+				"navigationBarTitleText":"修改资料"
 			}
         }
         ,{
@@ -216,21 +216,75 @@
 				"navigationBarTitleText":"增加收货地址",
 				"app-plus":{
 					"scrollIndicator":"none",
-					"bounce":"none",
+					"bounce":"none"
+				}
+			}
+        }
+        ,{
+            "path" : "pages/order/order",
+            "style" : {
+				"navigationBarTitleText":"我的订单",
+				"app-plus":{
+					"scrollIndicator":"none",
 					"titleNView":{
 						"buttons":[
 							{
 								"float":"right",
 								"color":"#999999",
 								"colorPressed":"#BBBBBB",
-								"text":"删除",
+								"fontSrc":"/static/font/iconfont.ttf",
+								"text":"\ue60c",
+								"fontSize":"15px"
+							},
+							{
+								"float":"right",
+								"color":"#999999",
+								"colorPressed":"#BBBBBB",
+								"fontSrc":"/static/font/iconfont.ttf",
+								"text":"\ue6e3",
 								"fontSize":"15px"
 							}
 						]
 					}
 				}
 			}
+        },
+		{
+		    "path" : "pages/order-confirm/order-confirm",
+		    "style" : {
+				"navigationBarTitleText":"订单配送至",
+				"navigationBarBackgroundColor":"#FD6801",
+				"navigationBarTextStyle":"white"
+			}
+		}
+        ,{
+            "path" : "pages/order-invoice/order-invoice",
+            "style" : {
+        		"navigationBarTitleText":"发票"
+        	}
         }
+        ,{
+            "path" : "pages/login/login",
+            "style" : {
+        		"app-plus":{
+        			"bounce":"none",
+        			"scrollIndicator":"none",
+        			"titleNView":false
+        		}
+        	}
+        },
+		{
+		    "path" : "pages/msg-list/msg-list",
+		    "style" : {
+				"navigationBarTitleText":"消息列表"
+			}
+		},
+		{
+		    "path" : "pages/msg-detail/msg-detail",
+		    "style" : {
+				"navigationBarTitleText":"消息详情页"
+			}
+		}
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

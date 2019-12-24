@@ -2,11 +2,11 @@ export default {
 	state:{
 		list:[
 			{
-				name:"summer",
+				name:"ReinhardChen",
 				phone:"158****531",
-				path:"广东省 广州市 白云区",
+				path:"云南省 昆明市 五华区",
 				detailPath:"XXXXX街道",
-				isdefault:false
+				isdefault:true
 			},
 			{
 				name:"summer",
