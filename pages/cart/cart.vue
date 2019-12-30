@@ -1,10 +1,14 @@
 <template>
-	<view style="background: #F5F5F5;">
+	<view class="animated fadeIn faster" style="background: #F5F5F5;">
+		
+		<loading-plus v-if="beforeReady"></loading-plus>
+		
 		<!-- #ifdef MP -->
 		<uni-nav-bar :right-text="isedit?'完成':'编辑'" title="购物车" :statusBar="false"
 		 :shadow="false" @click-right="isedit = !isedit" :fixed="true"></uni-nav-bar>
 		<!-- #endif -->
-				<!-- #ifdef APP-PLUS -->
+		
+		<!-- #ifdef APP-PLUS -->
 		<uni-nav-bar :right-text="isedit?'完成':'编辑'" title="购物车" statusBar
 		 :shadow="false" @click-right="isedit = !isedit" :fixed="true"></uni-nav-bar>
 		 <!-- #endif -->
@@ -139,6 +143,8 @@
 </template>
 
 <script>
+	import loading from "@/common/mixin/loading.js"
+	
 	import uniNavBar from "@/components/uni-ui/uni-nav-bar/uni-nav-bar.vue"
 	import price from "@/components/common/price.vue"
 	import uniNumberBox from "@/components/uni-ui/uni-number-box/uni-number-box.vue"
@@ -149,6 +155,7 @@
 	import {mapState,mapGetters,mapActions,mapMutations} from "vuex"
 	
 	export default {
+		mixins:[loading],
 		components:{
 			uniNavBar,
 			price,

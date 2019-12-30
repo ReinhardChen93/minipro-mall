@@ -1,5 +1,5 @@
 <template>
-	<view class="bg-white">
+	<view class="bg-white" @click.stop="openDetail">
 		<divider></divider>
 		<!-- 头部 -->
 		<view class="d-flex a-center p-2 border-bottom border-light-secondary">
@@ -34,8 +34,14 @@
 			</text>
 		</view>
 		<view class="d-flex j-end a-center px-2 pb-2">
+			<view class="mr-2 rounded border border-light-secondary py-1 px-2 text-secondary"
+			hover-class="bg-light-secondary"
+			@click.sotp="openAfterSale">
+				申请售后
+			</view> 
 			<view class="rounded border border-light-secondary py-1 px-2 text-secondary" 
-			hover-class="bg-light-secondary">
+			hover-class="bg-light-secondary"
+			@click.sotp="openLogistics">
 				查看物流
 			</view> 
 			<view class="ml-2 rounded border border-light-secondary py-1 px-2 text-secondary" 
@@ -52,6 +58,26 @@
 			item: Object,
 			index:Number
 		},
+		methods:{
+			openDetail(){
+				uni.navigateTo({
+					url: '../../pages/order-detail/order-detail',
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				});
+			},
+			openLogistics(){
+				uni.navigateTo({
+					url:"/pages/logistics-detail/logistics-detail"
+				})
+			},
+			openAfterSale(){
+				uni.navigateTo({
+					url:"/pages/after-sale/after-sale"
+				})
+			}
+		}
 	}
 </script>
 

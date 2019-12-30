@@ -8890,7 +8890,62 @@ internalMixin(Vue);
 
 /***/ }),
 
-/***/ 256:
+/***/ 3:
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
+/***/ 31:
+/*!************************************************************************************!*\
+  !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/common/mixin/loading.js ***!
+  \************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  data: function data() {
+    return {
+      beforeReady: true };
+
+  },
+  onReady: function onReady() {var _this = this;
+    this.$nextTick(function () {
+      setTimeout(function () {
+        _this.beforeReady = false;
+      }, 500);
+    });
+  } };exports.default = _default;
+
+/***/ }),
+
+/***/ 310:
 /*!***********************************************************************************************************!*\
   !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/uParse/src/libs/html2json.js ***!
   \***********************************************************************************************************/
@@ -8912,8 +8967,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-var _wxDiscode = _interopRequireDefault(__webpack_require__(/*! ./wxDiscode */ 257));
-var _htmlparser = _interopRequireDefault(__webpack_require__(/*! ./htmlparser */ 258));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /**
+var _wxDiscode = _interopRequireDefault(__webpack_require__(/*! ./wxDiscode */ 311));
+var _htmlparser = _interopRequireDefault(__webpack_require__(/*! ./htmlparser */ 312));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /**
                                                                                                                                                                  * html2Json 改造来自: https://github.com/Jxck/html2json
                                                                                                                                                                  *
                                                                                                                                                                  *
@@ -9162,7 +9217,7 @@ html2json;exports.default = _default;
 
 /***/ }),
 
-/***/ 257:
+/***/ 311:
 /*!***********************************************************************************************************!*\
   !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/uParse/src/libs/wxDiscode.js ***!
   \***********************************************************************************************************/
@@ -9367,7 +9422,7 @@ function urlToHttpUrl(url, domain) {
 
 /***/ }),
 
-/***/ 258:
+/***/ 312:
 /*!************************************************************************************************************!*\
   !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/uParse/src/libs/htmlparser.js ***!
   \************************************************************************************************************/
@@ -9534,7 +9589,7 @@ HTMLParser;exports.default = _default;
 
 /***/ }),
 
-/***/ 276:
+/***/ 330:
 /*!*********************************************************************************************************************!*\
   !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/mpvue-citypicker/city-data/province.js ***!
   \*********************************************************************************************************************/
@@ -9684,7 +9739,7 @@ provinceData;exports.default = _default;
 
 /***/ }),
 
-/***/ 277:
+/***/ 331:
 /*!*****************************************************************************************************************!*\
   !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/mpvue-citypicker/city-data/city.js ***!
   \*****************************************************************************************************************/
@@ -11198,7 +11253,7 @@ cityData;exports.default = _default;
 
 /***/ }),
 
-/***/ 278:
+/***/ 332:
 /*!*****************************************************************************************************************!*\
   !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/mpvue-citypicker/city-data/area.js ***!
   \*****************************************************************************************************************/
@@ -23751,37 +23806,6 @@ areaData;exports.default = _default;
 
 /***/ }),
 
-/***/ 3:
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-
 /***/ 4:
 /*!***********************************************************************!*\
   !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/pages.json ***!
@@ -23794,19 +23818,19 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 43:
+/***/ 44:
 /*!**********************************************************!*\
   !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
   \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! regenerator-runtime */ 44);
+module.exports = __webpack_require__(/*! regenerator-runtime */ 45);
 
 
 /***/ }),
 
-/***/ 44:
+/***/ 45:
 /*!************************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
   \************************************************************/
@@ -23837,7 +23861,7 @@ var oldRuntime = hadRuntime && g.regeneratorRuntime;
 // Force reevalutation of runtime.js.
 g.regeneratorRuntime = undefined;
 
-module.exports = __webpack_require__(/*! ./runtime */ 45);
+module.exports = __webpack_require__(/*! ./runtime */ 46);
 
 if (hadRuntime) {
   // Restore the original runtime.
@@ -23854,7 +23878,7 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 45:
+/***/ 46:
 /*!*****************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime.js ***!
   \*****************************************************/
@@ -25492,7 +25516,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@^2.0.0-alpha-24420191128001","_id"
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "usingComponents": { "swiper-image": "/components/index/swiper-image", "index-nav": "/components/index/index-nav", "three-adv": "/components/index/three-adv", "card": "/components/common/card", "common-list": "/components/common/common-list" } }, "pages/cart/cart": { "enablePullDownRefresh": true, "usingComponents": { "uni-nav-bar": "/components/uni-ui/uni-nav-bar/uni-nav-bar", "price": "/components/common/price", "uni-number-box": "/components/uni-ui/uni-number-box/uni-number-box", "card": "/components/common/card", "cc-radio-group": "/components/common/radio-group", "common-popup": "/components/common/common-popup", "common-list": "/components/common/common-list" } }, "pages/my/my": { "usingComponents": { "card": "/components/common/card", "uni-list-item": "/components/uni-ui/uni-list-item/uni-list-item" } }, "pages/class/class": { "usingComponents": {} }, "pages/search/search": { "usingComponents": { "card": "/components/common/card", "color-tag": "/components/search/color-tag", "uni-list-item": "/components/uni-ui/uni-list-item/uni-list-item" } }, "pages/search-list/search-list": { "usingComponents": { "uni-drawer": "/components/uni-ui/uni-drawer/uni-drawer", "card": "/components/common/card", "zcm-radio-group": "/components/common/radio-group", "search-list": "/components/search-list/search-list" } }, "pages/detail/detail": { "usingComponents": { "swiper-image": "/components/index/swiper-image", "base-info": "/components/detail/base-info", "scroll-attrs": "/components/detail/scroll-attrs", "unit-list-item": "/components/uni-ui/uni-list-item/uni-list-item", "scroll-comments": "/components/detail/scroll-comments", "u-parse": "/components/uni-ui/uParse/src/wxParse", "card": "/components/common/card", "common-list": "/components/common/common-list", "bottom-btn": "/components/detail/bottom-btn", "common-popup": "/components/common/common-popup", "price": "/components/common/price", "cc-radio-group": "/components/common/radio-group", "uni-number-box": "/components/uni-ui/uni-number-box/uni-number-box" } }, "pages/detail-comment/detail-comment": { "navigationBarTitleText": "商品评价", "usingComponents": {} }, "pages/user-set/user-set": { "navigationBarTitleText": "用户设置", "usingComponents": { "card": "/components/common/card", "uni-list-item": "/components/uni-ui/uni-list-item/uni-list-item" } }, "pages/user-userinfo/user-userinfo": { "navigationBarTitleText": "修改资料", "usingComponents": { "uni-list-item": "/components/uni-ui/uni-list-item/uni-list-item" } }, "pages/user-path-list/user-path-list": { "navigationBarTitleText": "收货地址", "usingComponents": { "uni-nav-bar": "/components/uni-ui/uni-nav-bar/uni-nav-bar", "uni-list-item": "/components/uni-ui/uni-list-item/uni-list-item", "uni-swipe-action": "/components/uni-ui/uni-swipe-action/uni-swipe-action" } }, "pages/user-path-edit/user-path-edit": { "navigationBarTitleText": "增加收货地址", "usingComponents": { "mpvue-city-picker": "/components/uni-ui/mpvue-citypicker/mpvueCityPicker" } }, "pages/order/order": { "navigationBarTitleText": "我的订单", "usingComponents": { "common-list": "/components/common/common-list", "no-thing": "/components/common/no-thing", "order-list": "/components/order/order-list" } }, "pages/order-confirm/order-confirm": { "navigationBarTitleText": "订单配送至", "navigationBarBackgroundColor": "#FD6801", "navigationBarTextStyle": "white", "usingComponents": { "uni-list-item": "/components/uni-ui/uni-list-item/uni-list-item", "price": "/components/common/price" } }, "pages/order-invoice/order-invoice": { "navigationBarTitleText": "发票", "usingComponents": { "card": "/components/common/card", "cc-radio-group": "/components/common/radio-group" } }, "pages/login/login": { "usingComponents": { "uni-status-bar": "/components/uni-ui/uni-status-bar/uni-status-bar" } }, "pages/msg-list/msg-list": { "navigationBarTitleText": "消息列表", "usingComponents": {} }, "pages/msg-detail/msg-detail": { "navigationBarTitleText": "消息详情页", "usingComponents": { "u-parse": "/components/uni-ui/uParse/src/wxParse" } } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "仿小米", "navigationBarBackgroundColor": "#FFFFFF", "backgroundColor": "#FFFFFF" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": {}, "pages/cart/cart": { "enablePullDownRefresh": true }, "pages/my/my": {}, "pages/class/class": {}, "pages/search/search": {}, "pages/search-list/search-list": {}, "pages/detail/detail": {}, "pages/detail-comment/detail-comment": { "navigationBarTitleText": "商品评价" }, "pages/user-set/user-set": { "navigationBarTitleText": "用户设置" }, "pages/user-userinfo/user-userinfo": { "navigationBarTitleText": "修改资料" }, "pages/user-path-list/user-path-list": { "navigationBarTitleText": "收货地址" }, "pages/user-path-edit/user-path-edit": { "navigationBarTitleText": "增加收货地址" }, "pages/order/order": { "navigationBarTitleText": "我的订单" }, "pages/order-confirm/order-confirm": { "navigationBarTitleText": "订单配送至", "navigationBarBackgroundColor": "#FD6801", "navigationBarTextStyle": "white" }, "pages/order-invoice/order-invoice": { "navigationBarTitleText": "发票" }, "pages/login/login": {}, "pages/msg-list/msg-list": { "navigationBarTitleText": "消息列表" }, "pages/msg-detail/msg-detail": { "navigationBarTitleText": "消息详情页" }, "pages/pay-methods/pay-methods": { "navigationBarTitleText": "选择支付方式" }, "pages/pay-result/pay-result": { "navigationBarTitleText": "支付成功" }, "pages/order-coupon/order-coupon": { "navigationBarTitleText": "优惠券" }, "pages/order-detail/order-detail": { "navigationBarBackgroundColor": "#FD6801", "navigationBarTextStyle": "white" }, "pages/logistics-detail/logistics-detail": { "navigationBarTitleText": "物流信息" }, "pages/after-sale/after-sale": { "navigationBarTitleText": "申请售后" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "仿小米", "navigationBarBackgroundColor": "#FFFFFF", "backgroundColor": "#FFFFFF" } };exports.default = _default;
 
 /***/ }),
 

@@ -285,6 +285,49 @@
 				"navigationBarTitleText":"消息详情页"
 			}
 		}
+        ,{
+            "path" : "pages/pay-methods/pay-methods",
+            "style" : {
+				"navigationBarTitleText":"选择支付方式"
+			}
+        }
+        ,{
+            "path" : "pages/pay-result/pay-result",
+            "style" : {
+				"navigationBarTitleText":"支付成功"
+			}
+        }
+        ,{
+            "path" : "pages/order-coupon/order-coupon",
+            "style" : {
+				"navigationBarTitleText":"优惠券"
+			}
+        }
+        ,{
+            "path" : "pages/order-detail/order-detail",
+            "style" : {
+				"navigationBarBackgroundColor":"#FD6801",
+				"navigationBarTextStyle":"white",
+				"app-plus":{
+					"bounce":"none",
+					"titleNView":{
+						"type":"transparent"
+					}
+				}
+			}
+        }
+        ,{
+            "path" : "pages/logistics-detail/logistics-detail",
+            "style" : {
+				"navigationBarTitleText":"物流信息"
+			}
+        }
+        ,{
+            "path" : "pages/after-sale/after-sale",
+            "style" : {
+				"navigationBarTitleText":"申请售后"
+			}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

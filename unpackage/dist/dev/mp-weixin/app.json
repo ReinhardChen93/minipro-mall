@@ -17,7 +17,13 @@
     "pages/order-invoice/order-invoice",
     "pages/login/login",
     "pages/msg-list/msg-list",
-    "pages/msg-detail/msg-detail"
+    "pages/msg-detail/msg-detail",
+    "pages/pay-methods/pay-methods",
+    "pages/pay-result/pay-result",
+    "pages/order-coupon/order-coupon",
+    "pages/order-detail/order-detail",
+    "pages/logistics-detail/logistics-detail",
+    "pages/after-sale/after-sale"
   ],
   "subPackages": [],
   "window": {
@@ -60,6 +66,7 @@
   },
   "usingComponents": {
     "divider": "/components/common/divider",
-    "loading": "/components/common/loading"
+    "loading": "/components/common/loading",
+    "loading-plus": "/common/mixin/loading-plus"
   }
 }
