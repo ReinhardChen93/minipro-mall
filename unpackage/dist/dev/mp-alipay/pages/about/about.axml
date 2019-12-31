@@ -1,0 +1,1 @@
+<view><view class="d-flex flex-column j-center a-center py-4 my-3"><image style="width:100rpx;height:100rpx;" src="../../static/images/demo/cate_06.png" mode="widthFix"></image><text class="text-light-muted font-md">XXX商城 V1.0.1</text></view><view class="bg-white"><uni-list-item vue-id="1" title="版本更新" showArrow onVueInit="__l"></uni-list-item></view></view>

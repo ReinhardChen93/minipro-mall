@@ -8945,7 +8945,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 310:
+/***/ 318:
 /*!***********************************************************************************************************!*\
   !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/uParse/src/libs/html2json.js ***!
   \***********************************************************************************************************/
@@ -8967,8 +8967,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-var _wxDiscode = _interopRequireDefault(__webpack_require__(/*! ./wxDiscode */ 311));
-var _htmlparser = _interopRequireDefault(__webpack_require__(/*! ./htmlparser */ 312));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /**
+var _wxDiscode = _interopRequireDefault(__webpack_require__(/*! ./wxDiscode */ 319));
+var _htmlparser = _interopRequireDefault(__webpack_require__(/*! ./htmlparser */ 320));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /**
                                                                                                                                                                  * html2Json 改造来自: https://github.com/Jxck/html2json
                                                                                                                                                                  *
                                                                                                                                                                  *
@@ -9217,7 +9217,7 @@ html2json;exports.default = _default;
 
 /***/ }),
 
-/***/ 311:
+/***/ 319:
 /*!***********************************************************************************************************!*\
   !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/uParse/src/libs/wxDiscode.js ***!
   \***********************************************************************************************************/
@@ -9422,7 +9422,7 @@ function urlToHttpUrl(url, domain) {
 
 /***/ }),
 
-/***/ 312:
+/***/ 320:
 /*!************************************************************************************************************!*\
   !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/uParse/src/libs/htmlparser.js ***!
   \************************************************************************************************************/
@@ -9589,7 +9589,7 @@ HTMLParser;exports.default = _default;
 
 /***/ }),
 
-/***/ 330:
+/***/ 338:
 /*!*********************************************************************************************************************!*\
   !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/mpvue-citypicker/city-data/province.js ***!
   \*********************************************************************************************************************/
@@ -9739,7 +9739,7 @@ provinceData;exports.default = _default;
 
 /***/ }),
 
-/***/ 331:
+/***/ 339:
 /*!*****************************************************************************************************************!*\
   !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/mpvue-citypicker/city-data/city.js ***!
   \*****************************************************************************************************************/
@@ -11253,7 +11253,7 @@ cityData;exports.default = _default;
 
 /***/ }),
 
-/***/ 332:
+/***/ 340:
 /*!*****************************************************************************************************************!*\
   !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/mpvue-citypicker/city-data/area.js ***!
   \*****************************************************************************************************************/
@@ -25516,7 +25516,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@^2.0.0-alpha-24420191128001","_id"
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": {}, "pages/cart/cart": { "enablePullDownRefresh": true }, "pages/my/my": {}, "pages/class/class": {}, "pages/search/search": {}, "pages/search-list/search-list": {}, "pages/detail/detail": {}, "pages/detail-comment/detail-comment": { "navigationBarTitleText": "商品评价" }, "pages/user-set/user-set": { "navigationBarTitleText": "用户设置" }, "pages/user-userinfo/user-userinfo": { "navigationBarTitleText": "修改资料" }, "pages/user-path-list/user-path-list": { "navigationBarTitleText": "收货地址" }, "pages/user-path-edit/user-path-edit": { "navigationBarTitleText": "增加收货地址" }, "pages/order/order": { "navigationBarTitleText": "我的订单" }, "pages/order-confirm/order-confirm": { "navigationBarTitleText": "订单配送至", "navigationBarBackgroundColor": "#FD6801", "navigationBarTextStyle": "white" }, "pages/order-invoice/order-invoice": { "navigationBarTitleText": "发票" }, "pages/login/login": {}, "pages/msg-list/msg-list": { "navigationBarTitleText": "消息列表" }, "pages/msg-detail/msg-detail": { "navigationBarTitleText": "消息详情页" }, "pages/pay-methods/pay-methods": { "navigationBarTitleText": "选择支付方式" }, "pages/pay-result/pay-result": { "navigationBarTitleText": "支付成功" }, "pages/order-coupon/order-coupon": { "navigationBarTitleText": "优惠券" }, "pages/order-detail/order-detail": { "navigationBarBackgroundColor": "#FD6801", "navigationBarTextStyle": "white" }, "pages/logistics-detail/logistics-detail": { "navigationBarTitleText": "物流信息" }, "pages/after-sale/after-sale": { "navigationBarTitleText": "申请售后" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "仿小米", "navigationBarBackgroundColor": "#FFFFFF", "backgroundColor": "#FFFFFF" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": {}, "pages/cart/cart": { "enablePullDownRefresh": true }, "pages/my/my": {}, "pages/class/class": {}, "pages/search/search": {}, "pages/search-list/search-list": {}, "pages/detail/detail": {}, "pages/detail-comment/detail-comment": { "navigationBarTitleText": "商品评价" }, "pages/user-set/user-set": { "navigationBarTitleText": "用户设置" }, "pages/user-userinfo/user-userinfo": { "navigationBarTitleText": "修改资料" }, "pages/user-path-list/user-path-list": { "navigationBarTitleText": "收货地址" }, "pages/user-path-edit/user-path-edit": { "navigationBarTitleText": "增加收货地址" }, "pages/order/order": { "navigationBarTitleText": "我的订单" }, "pages/order-confirm/order-confirm": { "navigationBarTitleText": "订单配送至", "navigationBarBackgroundColor": "#FD6801", "navigationBarTextStyle": "white" }, "pages/order-invoice/order-invoice": { "navigationBarTitleText": "发票" }, "pages/login/login": {}, "pages/msg-list/msg-list": { "navigationBarTitleText": "消息列表" }, "pages/msg-detail/msg-detail": { "navigationBarTitleText": "消息详情页" }, "pages/pay-methods/pay-methods": { "navigationBarTitleText": "选择支付方式" }, "pages/pay-result/pay-result": { "navigationBarTitleText": "支付成功" }, "pages/order-coupon/order-coupon": { "navigationBarTitleText": "优惠券" }, "pages/order-detail/order-detail": { "navigationBarBackgroundColor": "#FD6801", "navigationBarTextStyle": "white" }, "pages/logistics-detail/logistics-detail": { "navigationBarTitleText": "物流信息" }, "pages/after-sale/after-sale": { "navigationBarTitleText": "申请售后" }, "pages/about/about": { "navigationBarTitleText": "关于我们" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "仿小米", "navigationBarBackgroundColor": "#FFFFFF", "backgroundColor": "#FFFFFF" } };exports.default = _default;
 
 /***/ }),
 

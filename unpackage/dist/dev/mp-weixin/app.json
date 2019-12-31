@@ -23,7 +23,8 @@
     "pages/order-coupon/order-coupon",
     "pages/order-detail/order-detail",
     "pages/logistics-detail/logistics-detail",
-    "pages/after-sale/after-sale"
+    "pages/after-sale/after-sale",
+    "pages/about/about"
   ],
   "subPackages": [],
   "window": {
@@ -68,5 +69,6 @@
     "divider": "/components/common/divider",
     "loading": "/components/common/loading",
     "loading-plus": "/common/mixin/loading-plus"
-  }
+  },
+  "sitemapLocation": "sitemap44.json"
 }

@@ -79,7 +79,7 @@
 		<divider></divider>
 		<uni-list-item showExtraIcon leftIconStyle="color:#808C98;"
 		leftIcon="icon-icon_set_up" title="更多设置" 
-		@click="navigate('user-path-list')"
+		@click="navigate('user-set')"
 		></uni-list-item>
 	</view>
 </template>

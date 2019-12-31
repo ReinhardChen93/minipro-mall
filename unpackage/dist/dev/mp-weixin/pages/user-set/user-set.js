@@ -122,7 +122,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var card = function card() {return __webpack_require__.e(/*! import() | components/common/card */ "components/common/card").then(__webpack_require__.bind(null, /*! @/components/common/card.vue */ 223));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-ui/uni-list-item/uni-list-item */ "components/uni-ui/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-ui/uni-list-item/uni-list-item.vue */ 266));};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var card = function card() {return __webpack_require__.e(/*! import() | components/common/card */ "components/common/card").then(__webpack_require__.bind(null, /*! @/components/common/card.vue */ 231));};var uniListItem = function uniListItem() {return __webpack_require__.e(/*! import() | components/uni-ui/uni-list-item/uni-list-item */ "components/uni-ui/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/components/uni-ui/uni-list-item/uni-list-item.vue */ 274));};var _default =
 
 
 
@@ -156,7 +156,7 @@ __webpack_require__.r(__webpack_exports__);
       {
         label: "关于",
         value: [
-        { title: "关于商城", path: "" },
+        { title: "关于商城", path: "about" },
         { title: "意见反馈", path: "" },
         { title: "协议规则", path: "" },
         { title: "资质证件", path: "" },

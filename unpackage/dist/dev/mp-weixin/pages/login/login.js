@@ -125,7 +125,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniStatusBar = function uniStatusBar() {return __webpack_require__.e(/*! import() | components/uni-ui/uni-status-bar/uni-status-bar */ "components/uni-ui/uni-status-bar/uni-status-bar").then(__webpack_require__.bind(null, /*! @/components/uni-ui/uni-status-bar/uni-status-bar.vue */ 345));};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var uniStatusBar = function uniStatusBar() {return __webpack_require__.e(/*! import() | components/uni-ui/uni-status-bar/uni-status-bar */ "components/uni-ui/uni-status-bar/uni-status-bar").then(__webpack_require__.bind(null, /*! @/components/uni-ui/uni-status-bar/uni-status-bar.vue */ 353));};var _default =
 
 
 

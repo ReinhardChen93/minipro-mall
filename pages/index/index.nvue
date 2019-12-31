@@ -207,6 +207,24 @@ export default {
 		})
 	},
 	methods:{
+		// 初始化
+		async _init(){
+			let [error,result] await uni.request({
+				url: "http://ceshi3.dishait.cn/api/index_category/data",
+				method:'GET'
+			})
+			// 错误
+			if(error) {
+				return console.log(error.errMsg)
+			}
+			// 失败
+			if(result.statusCode !== 200){
+				return console.log(result.data.msg);// 错误信息
+				
+			}
+			// 成功
+			console.log(result.data)
+		},
 		tabChange(index){
 			this.tabIndex = index
 		},

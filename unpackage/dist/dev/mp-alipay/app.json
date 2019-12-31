@@ -1,0 +1,71 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/cart/cart",
+    "pages/my/my",
+    "pages/class/class",
+    "pages/search/search",
+    "pages/search-list/search-list",
+    "pages/detail/detail",
+    "pages/detail-comment/detail-comment",
+    "pages/user-set/user-set",
+    "pages/user-userinfo/user-userinfo",
+    "pages/user-path-list/user-path-list",
+    "pages/user-path-edit/user-path-edit",
+    "pages/order/order",
+    "pages/order-confirm/order-confirm",
+    "pages/order-invoice/order-invoice",
+    "pages/login/login",
+    "pages/msg-list/msg-list",
+    "pages/msg-detail/msg-detail",
+    "pages/pay-methods/pay-methods",
+    "pages/pay-result/pay-result",
+    "pages/order-coupon/order-coupon",
+    "pages/order-detail/order-detail",
+    "pages/logistics-detail/logistics-detail",
+    "pages/after-sale/after-sale",
+    "pages/about/about"
+  ],
+  "subPackages": [],
+  "window": {
+    "defaultTitle": "仿小米",
+    "titleBarColor": "#FFFFFF",
+    "backgroundColor": "#FFFFFF"
+  },
+  "tabBar": {
+    "textColor": "#B1B1B1",
+    "selectedColor": "#FD6801",
+    "backgroundColor": "#FFFFFF",
+    "items": [
+      {
+        "pagePath": "pages/index/index",
+        "name": "首页",
+        "icon": "static/tabbar/index.png",
+        "activeIcon": "static/tabbar/indexSelected.png"
+      },
+      {
+        "pagePath": "pages/class/class",
+        "name": "分类",
+        "icon": "static/tabbar/class.png",
+        "activeIcon": "static/tabbar/classSelected.png"
+      },
+      {
+        "pagePath": "pages/cart/cart",
+        "name": "购物车",
+        "icon": "static/tabbar/cart.png",
+        "activeIcon": "static/tabbar/cartSelected.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "name": "我的",
+        "icon": "static/tabbar/my.png",
+        "activeIcon": "static/tabbar/mySelected.png"
+      }
+    ]
+  },
+  "usingComponents": {
+    "divider": "/components/common/divider",
+    "loading": "/components/common/loading",
+    "loading-plus": "/common/mixin/loading-plus"
+  }
+}

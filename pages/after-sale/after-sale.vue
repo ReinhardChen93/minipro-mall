@@ -27,9 +27,10 @@
 			<view class="position-relative">
 				<textarea class="border rounded p-2" placeholder="请详细描述遇到的问题"
 				v-model="content"
-				:maxlength="200" style="width: 100%;height: 400rpx;box-sizing: border-box;"/>
-				<view class="position-absolute text-light-muted font" style="right: 5rpx;bottom: 5rpx;">
-					{{content.length}}/200
+				:maxlength="maxlength" style="width: 100%;height: 400rpx;box-sizing: border-box;"/>
+				<view class="position-absolute text-light-muted font" style="right: 10rpx;bottom: 5rpx;"
+				:class=" remain >= 0 ? 'text-light-muted' : 'text-danger'">
+					{{remain}}/{{maxlength}}
 				</view>
 			</view>
 
@@ -52,7 +53,20 @@
 		},
 		data() {
 			return {
-				content:''
+				label1:{
+						selected:0,
+						list:[
+							{name:"维修"}
+						]
+				},
+				content:'',
+				maxlength:200
+			}
+		},
+		computed:{
+			// 剩余可输入字数
+			remain(){
+				return this.maxlength - this.content.length
 			}
 		},
 		methods: {
