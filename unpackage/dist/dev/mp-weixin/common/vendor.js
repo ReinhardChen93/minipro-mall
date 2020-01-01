@@ -734,7 +734,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -1636,9 +1636,9 @@ function normalizeComponent (
 /***/ }),
 
 /***/ 15:
-/*!***************************************************************************!*\
-  !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/store/index.js ***!
-  \***************************************************************************/
+/*!*******************************************!*\
+  !*** D:/WORK/minipro-mall/store/index.js ***!
+  \*******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2610,9 +2610,9 @@ var index_esm = {
 /***/ }),
 
 /***/ 17:
-/*!**********************************************************************************!*\
-  !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/store/modules/cart.js ***!
-  \**********************************************************************************/
+/*!**************************************************!*\
+  !*** D:/WORK/minipro-mall/store/modules/cart.js ***!
+  \**************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2853,9 +2853,9 @@ var index_esm = {
 /***/ }),
 
 /***/ 18:
-/*!**********************************************************************************!*\
-  !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/store/modules/path.js ***!
-  \**********************************************************************************/
+/*!**************************************************!*\
+  !*** D:/WORK/minipro-mall/store/modules/path.js ***!
+  \**************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8409,7 +8409,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -8430,14 +8430,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -8513,7 +8513,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -8890,6 +8890,105 @@ internalMixin(Vue);
 
 /***/ }),
 
+/***/ 25:
+/*!************************************************!*\
+  !*** D:/WORK/minipro-mall/common/api/index.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.index = void 0;var _request = _interopRequireDefault(__webpack_require__(/*! ../lib/request.js */ 26));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}function _possibleConstructorReturn(self, call) {if (call && (typeof call === "object" || typeof call === "function")) {return call;}return _assertThisInitialized(self);}function _assertThisInitialized(self) {if (self === void 0) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return self;}function _getPrototypeOf(o) {_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {return o.__proto__ || Object.getPrototypeOf(o);};return _getPrototypeOf(o);}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function");}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });if (superClass) _setPrototypeOf(subClass, superClass);}function _setPrototypeOf(o, p) {_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {o.__proto__ = p;return o;};return _setPrototypeOf(o, p);}var
+index = /*#__PURE__*/function (_ajax) {_inherits(index, _ajax);function index() {_classCallCheck(this, index);return _possibleConstructorReturn(this, _getPrototypeOf(index).apply(this, arguments));}_createClass(index, [{ key: "getIndexData", value: function getIndexData()
+    {
+      return _request.default.get("/index_category/data");
+    } }]);return index;}(_request.default);exports.index = index;
+
+/***/ }),
+
+/***/ 26:
+/*!**************************************************!*\
+  !*** D:/WORK/minipro-mall/common/lib/request.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default = {
+  // 全局配置
+  common: {
+    // 根路径
+    baseUrl: 'http://ceshi3.dishait.cn/api',
+    header: _defineProperty({
+      'Content-Type': 'application/json;charset=UTF-8' }, "Content-Type",
+    'application/x-www-form-urlencoded'),
+
+    data: {},
+    method: 'GET',
+    dataType: 'json' },
+
+  // 请求 返回promise
+  request: function request() {var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    // 组织参数
+    oprions.url = this.common.baseUrl + options.url;
+    oprions.header = optionsheader || this.common.header;
+    option.data = options.data || this.common.data;
+    options.method = options.method || this.common.method;
+    options.dataType = options.dataType || this.common.dataType;
+    // 请求之前...验证token
+
+
+    //请求
+    return new Promise(function (res, rej) {
+      uni.request(_objectSpread({},
+      options, {
+        success: function success(result) {
+          if (result.statusCode !== 200) {
+            uni.showToast({
+              title: result.data.msg || '服务端失败',
+              icon: 'none' });
+
+            return rej();
+          }
+          // 成功
+          var data = result.data.data;
+          res(data);
+        },
+        fail: function fail(error) {
+          uni.showToast({
+            title: error.errMsg || '请求失败',
+            icon: 'none' });
+
+          return rej();
+        } }));
+
+    });
+  },
+  // GET请求
+  get: function get(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var option = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+    options.url = url;
+    options.data = data;
+    options.method = 'GET';
+    return this.request(options);
+  },
+  // post请求
+  post: function post(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+    options.url = url;
+    options.data = data;
+    options.method = 'POST';
+    return this.request(options);
+  },
+  // delete请求
+  del: function del(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+    options.url = url;
+    options.data = data;
+    options.method = 'DELETE';
+    return this.request(options);
+  } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
 /***/ 3:
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -8921,34 +9020,10 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 31:
-/*!************************************************************************************!*\
-  !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/common/mixin/loading.js ***!
-  \************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
-  data: function data() {
-    return {
-      beforeReady: true };
-
-  },
-  onReady: function onReady() {var _this = this;
-    this.$nextTick(function () {
-      setTimeout(function () {
-        _this.beforeReady = false;
-      }, 500);
-    });
-  } };exports.default = _default;
-
-/***/ }),
-
-/***/ 318:
-/*!***********************************************************************************************************!*\
-  !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/uParse/src/libs/html2json.js ***!
-  \***********************************************************************************************************/
+/***/ 320:
+/*!***************************************************************************!*\
+  !*** D:/WORK/minipro-mall/components/uni-ui/uParse/src/libs/html2json.js ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8967,8 +9042,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-var _wxDiscode = _interopRequireDefault(__webpack_require__(/*! ./wxDiscode */ 319));
-var _htmlparser = _interopRequireDefault(__webpack_require__(/*! ./htmlparser */ 320));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /**
+var _wxDiscode = _interopRequireDefault(__webpack_require__(/*! ./wxDiscode */ 321));
+var _htmlparser = _interopRequireDefault(__webpack_require__(/*! ./htmlparser */ 322));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /**
                                                                                                                                                                  * html2Json 改造来自: https://github.com/Jxck/html2json
                                                                                                                                                                  *
                                                                                                                                                                  *
@@ -9217,10 +9292,10 @@ html2json;exports.default = _default;
 
 /***/ }),
 
-/***/ 319:
-/*!***********************************************************************************************************!*\
-  !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/uParse/src/libs/wxDiscode.js ***!
-  \***********************************************************************************************************/
+/***/ 321:
+/*!***************************************************************************!*\
+  !*** D:/WORK/minipro-mall/components/uni-ui/uParse/src/libs/wxDiscode.js ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9422,10 +9497,10 @@ function urlToHttpUrl(url, domain) {
 
 /***/ }),
 
-/***/ 320:
-/*!************************************************************************************************************!*\
-  !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/uParse/src/libs/htmlparser.js ***!
-  \************************************************************************************************************/
+/***/ 322:
+/*!****************************************************************************!*\
+  !*** D:/WORK/minipro-mall/components/uni-ui/uParse/src/libs/htmlparser.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9589,10 +9664,34 @@ HTMLParser;exports.default = _default;
 
 /***/ }),
 
-/***/ 338:
-/*!*********************************************************************************************************************!*\
-  !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/mpvue-citypicker/city-data/province.js ***!
-  \*********************************************************************************************************************/
+/***/ 33:
+/*!****************************************************!*\
+  !*** D:/WORK/minipro-mall/common/mixin/loading.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  data: function data() {
+    return {
+      beforeReady: true };
+
+  },
+  onReady: function onReady() {var _this = this;
+    this.$nextTick(function () {
+      setTimeout(function () {
+        _this.beforeReady = false;
+      }, 500);
+    });
+  } };exports.default = _default;
+
+/***/ }),
+
+/***/ 340:
+/*!*************************************************************************************!*\
+  !*** D:/WORK/minipro-mall/components/uni-ui/mpvue-citypicker/city-data/province.js ***!
+  \*************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9739,10 +9838,10 @@ provinceData;exports.default = _default;
 
 /***/ }),
 
-/***/ 339:
-/*!*****************************************************************************************************************!*\
-  !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/mpvue-citypicker/city-data/city.js ***!
-  \*****************************************************************************************************************/
+/***/ 341:
+/*!*********************************************************************************!*\
+  !*** D:/WORK/minipro-mall/components/uni-ui/mpvue-citypicker/city-data/city.js ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11253,10 +11352,10 @@ cityData;exports.default = _default;
 
 /***/ }),
 
-/***/ 340:
-/*!*****************************************************************************************************************!*\
-  !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/mpvue-citypicker/city-data/area.js ***!
-  \*****************************************************************************************************************/
+/***/ 342:
+/*!*********************************************************************************!*\
+  !*** D:/WORK/minipro-mall/components/uni-ui/mpvue-citypicker/city-data/area.js ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23807,9 +23906,9 @@ areaData;exports.default = _default;
 /***/ }),
 
 /***/ 4:
-/*!***********************************************************************!*\
-  !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/pages.json ***!
-  \***********************************************************************/
+/*!***************************************!*\
+  !*** D:/WORK/minipro-mall/pages.json ***!
+  \***************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23818,19 +23917,19 @@ areaData;exports.default = _default;
 
 /***/ }),
 
-/***/ 44:
+/***/ 46:
 /*!**********************************************************!*\
   !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
   \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! regenerator-runtime */ 45);
+module.exports = __webpack_require__(/*! regenerator-runtime */ 47);
 
 
 /***/ }),
 
-/***/ 45:
+/***/ 47:
 /*!************************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
   \************************************************************/
@@ -23861,7 +23960,7 @@ var oldRuntime = hadRuntime && g.regeneratorRuntime;
 // Force reevalutation of runtime.js.
 g.regeneratorRuntime = undefined;
 
-module.exports = __webpack_require__(/*! ./runtime */ 46);
+module.exports = __webpack_require__(/*! ./runtime */ 48);
 
 if (hadRuntime) {
   // Restore the original runtime.
@@ -23878,7 +23977,7 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 46:
+/***/ 48:
 /*!*****************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime.js ***!
   \*****************************************************/
@@ -25509,9 +25608,9 @@ module.exports = {"_from":"@dcloudio/uni-stat@^2.0.0-alpha-24420191128001","_id"
 /***/ }),
 
 /***/ 7:
-/*!****************************************************************************************!*\
-  !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/pages.json?{"type":"style"} ***!
-  \****************************************************************************************/
+/*!********************************************************!*\
+  !*** D:/WORK/minipro-mall/pages.json?{"type":"style"} ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25521,9 +25620,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /***/ }),
 
 /***/ 8:
-/*!***************************************************************************************!*\
-  !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/pages.json?{"type":"stat"} ***!
-  \***************************************************************************************/
+/*!*******************************************************!*\
+  !*** D:/WORK/minipro-mall/pages.json?{"type":"stat"} ***!
+  \*******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

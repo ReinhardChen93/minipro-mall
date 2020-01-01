@@ -308,6 +308,10 @@ let demo2 = [
 		]
 	}
 ];
+
+import {index} from '@/common/api/index.js'
+
+const getIndex = new index
 import swiperImage from '@/components/index/swiper-image.vue';
 import indexNav from '@/components/index/index-nav.vue';
 import threeAdv from '@/components/index/three-adv.vue';
@@ -340,6 +344,10 @@ export default {
 		});
 		// 初始化事件
 		this.__init()
+		getIndex.getIndexData().then((res)=>{
+			console.log(res)
+		})
+		console.log(result)
 	},
 	methods: {
 		__init(){
