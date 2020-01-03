@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<!-- #ifdef MP -->
-		<view class="position-relative d-flex a-center" style="32rpx">
+		<view class="position-relative d-flex a-center" style="height: 320rpx;">
 			<!-- 消息列表 -->
 			<navigator url="../msg-list/msg-list">
 				<view class="iconfont icon-xiaoxi position-absolute text-white" style="font-size: 50rpx;top: 20rpx;right: 20rpx;z-index: 100;"></view>
@@ -24,7 +24,7 @@
 		<!-- #endif -->
 		<!-- 头部 -->
 		<!-- #ifdef APP-PLUS -->
-		<view class="position-relative d-flex a-center" style="32rpx">
+		<view class="position-relative d-flex a-center" style="height: 320rpx;">
 			<!-- 消息列表 -->
 			<navigator url="../msg-list/msg-list">
 				<view class="iconfont icon-xiaoxi position-absolute text-white" style="font-size: 50rpx;top: 75rpx;right: 20rpx;z-index: 100;"></view>

@@ -1,8 +1,7 @@
 export default {
 	// 全局配置
 	common:{
-		// 根路径
-		baseUrl: 'http://ceshi3.dishait.cn/api',
+		baseUrl:"http://ceshi3.dishait.cn/api",
 		header:{
 			'Content-Type':'application/json;charset=UTF-8',
 			'Content-Type':'application/x-www-form-urlencoded'
@@ -14,9 +13,9 @@ export default {
 	// 请求 返回promise
 	request(options = {}) {
 		// 组织参数
-		oprions.url = this.common.baseUrl + options.url
-		oprions.header = optionsheader || this.common.header
-		option.data = options.data || this.common.data
+		options.url = this.common.baseUrl + options.url
+		options.header = options.header || this.common.header
+		options.data = options.data || this.common.data
 		options.method = options.method || this.common.method
 		options.dataType = options.dataType || this.common.dataType
 		// 请求之前...验证token
@@ -48,8 +47,8 @@ export default {
 			})
 		})
 	},
-	// GET请求
-	get(url,data= {},option = {}) {
+	// get请求
+	get(url,data = {},options = {}){
 		options.url = url
 		options.data = data
 		options.method = 'GET'
