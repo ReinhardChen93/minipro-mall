@@ -3,7 +3,7 @@
 		<!-- 商品详情大图 -->
 		<swiper-image :resdata="banners" :height="690" preview></swiper-image>
 		<!-- 基础详情 -->
-		<base-info :detail="detail"></base-info>
+		<base-info :detail="detail" :show-price="showPrice"></base-info>
 		<!-- 滚动商品特性 w170*h110 -->
 		<scrollAttrs :baseAttrs="baseAttrs"></scrollAttrs>
 		<!-- 属性选择 -->
@@ -12,7 +12,7 @@
 				<unit-list-item @click="show('attr')">
 					<view class="d-flex">
 						<text class="mr-2 text-muted">已选</text>
-						<text>火焰红 64G 标配</text>
+						<text>{{checkedSkus}}</text>
 					</view>
 				</unit-list-item>
 				<unit-list-item @click="show('express')">
@@ -41,7 +41,7 @@
 			</view>
 		</view>
 		<!-- 横向滚动评论 -->
-		<scroll-comments :comments="comments"></scroll-comments>
+		<scroll-comments :comments="comments" :goods_id="detail.id"></scroll-comments>
 		<!-- 商品详情 -->
 		<view class="py-4">
 			<u-parse className="uparse" :content="context" @preview="preview" @navigate="navigate" ></u-parse>
@@ -63,8 +63,8 @@
 				<image src="../../static/images/demo/list/1.jpg" mode="widthFix"
 				style="height: 180rpx;width: 180rpx;" class="border rounded"></image>
 				<view class="pl-2">
-					<price priceSize="font-lg" unitSize="font">2365</price>
-					<text class="d-block">火焰红 64G 标配</text>
+					<price priceSize="font-lg" unitSize="font">{{showPrice}}</price>
+					<text class="d-block">{{checkedSkus}}</text>
 				</view>
 			</view>
 			
@@ -77,7 +77,7 @@
 				</card>
 				<view class="d-flex j-sb a-center p-2 border-top border-light-secondary">
 					<text>购买数量</text>
-					<uni-number-box :min="1" :value="detail.num" @change="detail.num = $event"></uni-number-box>
+					<uni-number-box :min="1" :max="maxStock" :value="detail.num" @change="detail.num = $event"></uni-number-box>
 				</view>
 			</scroll-view>
 			
@@ -143,17 +143,7 @@
 	import ccRadioGroup from '@/components/common/radio-group.vue'
 	import uniNumberBox from '@/components/uni-ui/uni-number-box/uni-number-box.vue'
 	import {mapState,mapMutations} from "vuex"
-	var htmlString = `
-	<p>
-		<img src="https://i8.mifile.cn/v1/a1/9c3e29dc-151f-75cb-b0a5-c423a5d13926.webp">
-		<img src="https://i8.mifile.cn/v1/a1/f442b971-379f-5030-68aa-3b0accb8c2b9.webp">
-		<img src="https://i8.mifile.cn/v1/a1/63b700b6-643e-ec18-fdf3-da66b4b4173f.webp">
-		<img src="https://i8.mifile.cn/v1/a1/e9dbf276-193e-11c4-99a6-3097fde82350.webp">
-		<img src="https://i8.mifile.cn/v1/a1/1249d3ee-2990-a2b4-28d9-f719c2417b1f.webp">
-		<img src="https://i8.mifile.cn/v1/a1/97c79915-64b2-808c-53b4-4345652a179f.webp">
-		<img src="https://i8.mifile.cn/v1/a1/cd0fbe1e-a1b3-a87a-f4a6-6fb08ec54931.webp">
-	</p>
-	    `
+
 	export default {
 		components:{
 			swiperImage,
@@ -172,137 +162,18 @@
 		},
 		data() {
 			return {
-				selects:[
-					{
-						title:"颜色",
-						selected:0,
-						list:[
-							{name:"黄色"},
-							{name:"蓝色"},
-							{name:"白色"},
-						]
-					},
-					{
-						title:"容量",
-						selected:0,
-						list:[
-							{name:"64GB"},
-							{name:"128GB"},
-							{name:"256GB"},
-						]
-					},
-					{
-						title:"套餐",
-						selected:0,
-						list:[
-							{name:"套餐一"},
-							{name:"套餐二"},
-							{name:"套餐三"},
-						]
-					}
-				],
+				selects:[],
 				popup:{
 					attr:"none",
 					express:"none",
 					service:"none"
 				},
-				comments:[
-					{
-						userpic:"/static/images/demo/demo6.jpg",
-						username:"joker",
-						creat_time:"2019-07-31",
-						goods_num:"222",
-						context:"评论内容",
-						imglist:["/static/images/demo/cate_09.png","/static/images/demo/cate_09.png","/static/images/demo/cate_09.png"]
-					},
-					{
-						userpic:"/static/images/demo/demo6.jpg",
-						username:"joker",
-						creat_time:"2019-07-31",
-						goods_num:"222",
-						context:"评论内容",
-						imglist:["/static/images/demo/cate_09.png","/static/images/demo/cate_09.png","/static/images/demo/cate_09.png"]
-					},
-					{
-						userpic:"/static/images/demo/demo6.jpg",
-						username:"joker",
-						creat_time:"2019-07-31",
-						goods_num:"222",
-						context:"评论内容",
-						imglist:["/static/images/demo/cate_09.png","/static/images/demo/cate_09.png","/static/images/demo/cate_09.png"]
-					}
-				],
-				detail:{
-					id:20,
-					title:"小米MIX3 6GB+128GB",
-					desc:"磁动力滑盖全面屏 / 前后旗舰AI双摄 / 四曲面彩色陶瓷机身 / 高效10W无线充电",
-					cover:"/static/images/demo/list/1.jpg",
-					pprice:3299,
-					num:1,
-					max:100
-				},
-				banners:[
-					{src:"https://img2.ch999img.com/pic/product/800x800/20191213100255923.jpg"},
-					{src:"https://img2.ch999img.com/pic/product/800x800/20190911103451441.jpg"},
-					{src:"https://img2.ch999img.com/pic/product/800x800/20190911103452437.jpg"},
-					{src:"https://img2.ch999img.com/pic/product/800x800/20190911103453437.jpg"}
-				],
-				context:htmlString,
-				baseAttrs:[
-					{icon:"icon-cpu",title:"CUP",desc:"蛟龙845八核"},
-					{icon:"icon-cpu",title:"CUP",desc:"蛟龙845八核"},
-					{icon:"icon-cpu",title:"CUP",desc:"蛟龙845八核"},
-					{icon:"icon-cpu",title:"CUP",desc:"蛟龙845八核"},
-					{icon:"icon-cpu",title:"CUP",desc:"蛟龙845八核"},
-					{icon:"icon-cpu",title:"CUP",desc:"蛟龙845八核"},
-					{icon:"icon-cpu",title:"CUP",desc:"蛟龙845八核"},
-					{icon:"icon-cpu",title:"CUP",desc:"蛟龙845八核"},
-					{icon:"icon-cpu",title:"CUP",desc:"蛟龙845八核"}
-				],
-				hotList:[
-					{
-						cover:"/static/images/demo/list/1.jpg",
-						title:"米家空调",
-						desc:"1.5匹变频",
-						oprice:2699,
-						pprice:1399
-					},
-					{
-						cover:"/static/images/demo/list/1.jpg",
-						title:"米家空调",
-						desc:"1.5匹变频",
-						oprice:2699,
-						pprice:1399
-					},
-					{
-						cover:"/static/images/demo/list/1.jpg",
-						title:"米家空调",
-						desc:"1.5匹变频",
-						oprice:2699,
-						pprice:1399
-					},
-					{
-						cover:"/static/images/demo/list/1.jpg",
-						title:"米家空调",
-						desc:"1.5匹变频",
-						oprice:2699,
-						pprice:1399
-					},
-					{
-						cover:"/static/images/demo/list/1.jpg",
-						title:"米家空调",
-						desc:"1.5匹变频",
-						oprice:2699,
-						pprice:1399
-					},
-					{
-						cover:"/static/images/demo/list/1.jpg",
-						title:"米家空调",
-						desc:"1.5匹变频",
-						oprice:2699,
-						pprice:1399
-					}
-				]
+				comments:[],
+				detail:{},
+				banners:[],
+				context:"",
+				baseAttrs:[],
+				hotList:[]
 			}
 		},
 		// 监听页面返回事件
@@ -318,12 +189,131 @@
 		computed:{
 				...mapState({
 					pathList:state=>state.path.list
-				})
+				}),
+				// 选中的sku
+				checkedSkus(){
+					// 拿到sku组成的字符串
+					let checkedSkus = this.selects.map(v=>{
+						return v.list[v.selected].name
+					})
+					return checkedSkus.join(',')
+				},
+				//选中sku的索引
+				checkedSkusIndex(){
+				if (!Array.isArray(this.detail.goodsSkus)) {
+						return -1
+					}
+					let index = this.detail.goodsSkus.findIndex((item)=>{
+						return item.skusText === this.checkedSkus
+					})
+					return index
+				},
+				// 显示价格
+				showPrice(){
+					if(this.checkedSkusIndex < 0){
+						return this.detail.min_price || 0.00
+					}
+					return this.detail.goodsSkus[this.checkedSkusIndex].pprice
+				},
+				// 最大库存
+				maxStock(){
+				if (this.detail.sku_type === 0) {
+					return this.detail.stock
+				}
+				if (!Array.isArray(this.detail.goodsSkus)) {
+					return 100
+				}
+				return this.detail.goodsSkus[this.checkedSkusIndex].stock
+			}
+		},
+		onLoad(e) {
+			console.log(e.detail)
+			if(e.detail){
+				this.init(JSON.parse(e.detail))
+			}
 		},
 		methods: {
 			...mapMutations([
 				'addGoodsToCart'
 			]),
+			// 初始化页面
+			init(data){
+				this.$H.get(`/goods/`+ data.id).then((res) => {
+					//轮播图
+					this.banners = res.goodsBanner.map(v=>{
+						return {
+							src:v.url
+						}
+					})
+					// 初始化基本信息
+					this.detail = res 
+					// 修改页面标题
+					uni.setNavigationBarTitle({
+						title:res.title
+					})
+					// 滚动商品属性
+					this.baseAttrs = res.goodsAttrs.map(v=>{
+						return {
+							icon:"icon-cpu",
+							title:v.name,
+							desc:v.value
+							}
+					}) 
+					// 热门评论
+					this.comments = res.hotComments.map(v=>{
+						var imgList = []
+						for (let key in v.imglist) {
+							imgList.push(v.list[key].src)
+						}
+						return {
+							id:v.id,
+							userpic:v.user.avatar,
+							username:v.user.nickname,
+							creat_time:v.creat_time,
+							goods_num:v.goods_num,
+							context:v.context,
+							imglist: imgList
+						}
+					})
+					// 商品详情
+					this.context = res.content
+					// 热门商品
+					this.hotList = res.hotList.map(v=>{
+						return {
+							cover:v.cover,
+							title:v.title,
+							desc:v.desc,
+							oprice:v.min_oprice,
+							pprice:v.min_price
+						}
+					})
+					// sku商品规格(选贤部分)
+					
+					this.selects = res.goodsSkusCard.map(v=>{
+						let list = v.goodsSkusCardValue.map(v1=>{
+							return {
+								id:v1.id,
+								name:v1.value
+							}
+						})
+						return {
+							id:v.id,
+							title:v.name,
+							selected:0,
+							list:list
+						}
+					})
+				
+					// 商品规格(匹配价格)
+					this.detail.goodsSkus.forEach(item=>{
+						let arr = []
+						for (let key in item.skus) {
+							arr.push(item.skus[key].value)
+						}
+						item.skusText = arr.join(',')
+					})
+				})
+			},
 			// 加入购物车
 			addCart(){
 				// 组织数据

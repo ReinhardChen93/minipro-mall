@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<swiper indicator-dots autoplay :interval="3000" :duration="1000" circular :style="getStyle">
+		<swiper indicator-dots autoplay :interval="3000" :duration="200" circular :style="getStyle">
 			<block v-for="(item,index) in resdata" :key="index">
 				<swiper-item>
 					<view class="swiper-item" @tap="event(item,index)">
@@ -17,7 +17,7 @@
 <script>
 	export default {
 		props:{
-			resdata:Array,
+			resdata:{},
 			height:{
 				type:String,
 				default:"350rpx"
@@ -32,7 +32,11 @@
 				return `height: ${this.height}rpx`
 			},
 			getUrls(){
-				return this.resdata.map((v)=> v.src)
+				var urls = []
+				for (let v in this.resdata) {
+					urls.push(this.resdata[v].src)
+				}
+				return urls
 			}
 		},
 		methods:{
@@ -40,7 +44,7 @@
 				if(this.preview) {
 					return uni.previewImage({
 						current:index,
-						urls:this.getUrls,
+						urls: this.getUrls,
 						indicator:"default"
 					})
 				}

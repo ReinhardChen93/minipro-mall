@@ -6,10 +6,12 @@
 			<!-- 左边 -->
 			<view style="width: 85rpx;" class="d-flex a-center j-center"><text class="iconfont icon-xiaoxi"></text></view>
 			<!-- 中间 -->
-			<view class="flex-1 bg-light rounded d-flex a-center text-light-muted" style="height: 65rpx;">
+			<view class="bg-light rounded d-flex a-center text-light-muted" style="height: 65rpx;">
 				<text class="iconfont icon-sousuo mx-2"></text>
-				智能积木
 			</view>
+			<input class="flex-1 bg-light rounded d-flex a-center text-light-muted" 
+			style="height: 65rpx;" confirm-type="search" value="" placeholder="智能积木" 
+			@input="onInputChange"/>
 			<!-- 右边 -->
 			<view style="width: 85rpx;" class="d-flex a-center j-center" @click="search"><text class="">搜索</text></view>
 		</view>
@@ -24,13 +26,16 @@
 		<card headTitle="常用分类" :bodyPadding="true" :headBorderBottom="false">
 			<color-tag v-for="(item,index) in hot" :key="index" :item="item" :color="false"></color-tag>
 		</card>
-		<!-- 分割线 -->
-		<divider></divider>
+		<template v-if="historyList.length > 0">
+			<!-- 分割线 -->
+			<divider></divider>
+			
+			<card headTitle="搜索记录">
+				<view slot="right" class="font text-primary" @click="clearHistory">清除搜索记录</view>
+				<uni-list-item v-for="(item,index) in historyList" :key="index" :title="item" :showArrow="false"></uni-list-item>
+			</card>
+		</template>
 		
-		<card headTitle="搜索记录">
-			<uni-list-item title="小米" :showArrow="false"></uni-list-item>
-			<uni-list-item title="小米" :showArrow="false"></uni-list-item>
-		</card>
 	</view>
 </template>
 
@@ -46,6 +51,8 @@
 		},
 		data() {
 			return {
+				historyList:[],
+				keyword:"",
 				hot: [
 					{name:'领劵中心'},
 					{name:'Redmi K20'},
@@ -72,10 +79,70 @@
 				});
 			}
 		},
+		onNavigationBarSearchInputChanged(e) {
+			this.keyword = e.text
+		},
+		onNavigationBarSearchInputConfirmed() {
+			this.search()
+		},
+		onNavigationBarButtonTap() {
+			this.search()
+		},
+		onLoad() {
+			// 加载历史记录
+			let history = uni.getStorageSync('searchHistory')
+			history ? this.historyList = JSON.parse(history) : []
+		},
 		methods:{
 			search(){
-				uni.navigateTo({
-				    url: '/pages/search-list/search-list'
+				if(this.keyword === ''){
+					return uni.showToast({
+						title: '关键词不能为空',
+						icon:'none'
+					});
+				}
+				// 隐藏键盘
+				// #ifndef APP-PLUS
+					uni.hideKeyboard()
+				// #endif
+				// #ifdef APP-PLUS
+					plus.key.hideSoftKeybord()
+				// #endif
+
+				// uni.navigateTo({
+				//     url: '/pages/search-list/search-list'
+				// });
+				this.addHistory()
+			},
+			onInputChange(event){
+				this.keyword = event.target.value
+			},
+			// 加入搜索记录
+			addHistory(){
+				// 判断是否搜索过
+				let index = this.historyList.indexOf(this.keyword)
+				if(index === -1) {
+					this.historyList.unshift(this.keyword)
+				} else {
+					// 重复搜索就置顶
+					this.historyList.unshift(this.historyList.splice(index,1)[0])
+				}
+				uni.setStorageSync('searchHistory',JSON.stringify(this.historyList))
+			},
+			clearHistory(){
+				uni.showModal({
+					title: '提示',
+					content: '是否需要清除历史搜索记录',
+					cancelText: '取消',
+					confirmText: '清除',
+					success: res => {
+						if(res.confirm){
+							uni.clearStorageSync('searchHistory')
+							this.historyList = []
+						}
+					},
+					fail: () => {},
+					complete: () => {}
 				});
 			}
 		}

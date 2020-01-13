@@ -10,7 +10,7 @@
 					style="width:70rpx;height:70rpx;" class="rounded-circle"></image>
 					<view class="ml-2">
 						<text class="font-md line-h">{{item.username}}</text>
-						<text class="d-block font text-light-muted line-h">{{item.creat_time}}</text>
+						<text class="d-block font text-light-muted line-h">{{item.creat_time | formatTime}}</text>
 					</view>
 					<view class="iconfont icon-dianzan text-light-muted font pl-1 ml-auto">
 						{{item.goods_num}}
@@ -24,19 +24,29 @@
 				</view>
 			</view>
 		</scroll-view>
-		<navigator url="/pages/detail-comment/detail-comment">
-			<view class=" d-flex a-center j-center py-2 mt-2 text-primary" hover-class="bg-light-secondary">
-				更多评论 <view class="iconfont icon-you ml-1"></view>
-			</view>
-		</navigator>
+		
+		<view class=" d-flex a-center j-center py-2 mt-2 text-primary" 
+		hover-class="bg-light-secondary" @click="open">
+			更多评论 <view class="iconfont icon-you ml-1"></view>
+		</view>
+
 	</view>
 </template>
 
 <script>
+	import $T from '@/common/lib/time.js'
 	export default {
-		props:{
-			comments:{
-				type:Array
+		props:['comments','goods_id'],
+		filters:{
+			formatTime(value){
+				return $T.gettime(value)
+			}
+		},
+		methods:{
+			open(){
+				uni.navigateTo({
+					url: '/pages/detail-comment/detail-comment?id='+this.goods_id,
+				});
 			}
 		}
 	}

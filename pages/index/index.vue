@@ -59,7 +59,7 @@
 								<image src="/static/images/demo/demo4.jpg"></image>
 							</card> -->
 
-							<view class="row j-sb" v-else-if="list.type === 'commonList'">
+							<view class="row j-sb" v-else-if="list.type === 'list'">
 								<block v-for="(item2, index2) in list.data" :key="index2">
 									<common-list :item="item2" :index="index2"></common-list>
 									</block>
@@ -118,11 +118,12 @@ export default {
 			// 获取可视区域高度
 			uni.getSystemInfo({
 				success: (res) => {
-					// #ifndef MP
 					let navbarH = 0
+					// #ifndef MP
+					navbarH = 0
 					// #endif
 					// #ifdef MP
-					let navbarH = uni.upx2px(90)
+					navbarH = uni.upx2px(90)
 					// #endif
 					this.scrollH = res.windowHeight - uni.upx2px(82) - navbarH
 				}
@@ -211,6 +212,7 @@ export default {
 		loadmore(index){
 			let item = this.newsitems[index]
 			// 是否处于可加载状态
+			console.log(item)
 			if (item.loadtext !== '上拉加载更多') return;
 			// 模拟加载
 			item.loadtext = '加载中...'

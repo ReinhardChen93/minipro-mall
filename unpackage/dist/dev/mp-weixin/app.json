@@ -29,7 +29,7 @@
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "仿小米",
+    "navigationBarTitleText": "金丝雀v1.0.0",
     "navigationBarBackgroundColor": "#FFFFFF",
     "backgroundColor": "#FFFFFF"
   },
@@ -70,5 +70,5 @@
     "loading": "/components/common/loading",
     "loading-plus": "/common/mixin/loading-plus"
   },
-  "sitemapLocation": "sitemap66.json"
+  "sitemapLocation": "sitemap9.json"
 }

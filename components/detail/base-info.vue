@@ -4,7 +4,7 @@
 			{{detail.title}}
 		</view>
 		<view class="font text-light-muted mb-3 line-h-sm">{{detail.desc}}</view>
-		<price priceSize="font-lg" unitSize="font">{{detail.pprice}}</price>
+		<price priceSize="font-lg" unitSize="font">{{showPrice}}</price>
 	</view>
 </template>
 
@@ -15,7 +15,8 @@
 			detail:{
 				type:Object,
 				default:{}
-			}
+			},
+			showPrice:''
 		},
 		components:{
 			price
