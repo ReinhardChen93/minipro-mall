@@ -7,7 +7,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(createApp) {__webpack_require__(/*! uni-pages */ 4);__webpack_require__(/*! @dcloudio/uni-stat */ 5);
+/* WEBPACK VAR INJECTION */(function(uni, createApp) {__webpack_require__(/*! uni-pages */ 4);__webpack_require__(/*! @dcloudio/uni-stat */ 5);
 var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
 var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ 9));
 var _index = _interopRequireDefault(__webpack_require__(/*! ./store/index.js */ 15));
@@ -28,17 +28,32 @@ var _index = _interopRequireDefault(__webpack_require__(/*! ./store/index.js */ 
 
 
 
-var _request = _interopRequireDefault(__webpack_require__(/*! @/common/lib/request.js */ 19));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}_vue.default.prototype.$store = _index.default;_vue.default.config.productionTip = false; // 引入全局组件
-var divider = function divider() {return __webpack_require__.e(/*! import() | components/common/divider */ "components/common/divider").then(__webpack_require__.bind(null, /*! @/components/common/divider.vue */ 199));};_vue.default.component('divider', divider); // 引入全局加载动画
-var loading = function loading() {return __webpack_require__.e(/*! import() | components/common/loading */ "components/common/loading").then(__webpack_require__.bind(null, /*! @/components/common/loading.vue */ 206));};_vue.default.component('loading', loading);var loadingPlus = function loadingPlus() {return __webpack_require__.e(/*! import() | common/mixin/loading-plus */ "common/mixin/loading-plus").then(__webpack_require__.bind(null, /*! @/common/mixin/loading-plus.vue */ 213));};_vue.default.component('loading-plus', loadingPlus); // 引入request库
-_vue.default.prototype.$H = _request.default;_App.default.mpType = 'app';
+var _request = _interopRequireDefault(__webpack_require__(/*! @/common/lib/request.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}_vue.default.prototype.$store = _index.default;_vue.default.config.productionTip = false; // 引入全局组件
+var divider = function divider() {return __webpack_require__.e(/*! import() | components/common/divider */ "components/common/divider").then(__webpack_require__.bind(null, /*! @/components/common/divider.vue */ 201));};_vue.default.component('divider', divider); // 引入全局加载动画
+var loading = function loading() {return __webpack_require__.e(/*! import() | components/common/loading */ "components/common/loading").then(__webpack_require__.bind(null, /*! @/components/common/loading.vue */ 208));};_vue.default.component('loading', loading);var loadingPlus = function loadingPlus() {return __webpack_require__.e(/*! import() | common/mixin/loading-plus */ "common/mixin/loading-plus").then(__webpack_require__.bind(null, /*! @/common/mixin/loading-plus.vue */ 215));};_vue.default.component('loading-plus', loadingPlus); // 引入request库
+_vue.default.prototype.$H = _request.default; // 权限跳转
+_vue.default.prototype.navigateTo = function (options) {
+  // 判断用户是否登录
+  if (!_index.default.state.user.loginStatus) {
+    uni.showToast({
+      title: '请先登录',
+      icon: 'none' });
+
+    return uni.navigateTo({
+      url: '/pages/login/login' });
+
+  }
+  uni.navigateTo(options);
+};
+
+_App.default.mpType = 'app';
 
 var app = new _vue.default(_objectSpread({
   store: _index.default },
 _App.default));
 
 createApp(app).$mount();
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createApp"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createApp"]))
 
 /***/ }),
 /* 1 */,
@@ -117,6 +132,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 {
   onLaunch: function onLaunch() {
     console.log('App Launch');
+    // 初始化登录状态
+    this.$store.commit('initUser');
   },
   onShow: function onShow() {
     console.log('App Show');

@@ -13,7 +13,12 @@
 			<input class="px-1 font-md flex-1" type="text" 
 			v-model="form.phone" />
 		</view>
-		
+		<view class="p-2 d-flex a-center bg-white">
+			<view class="font-md text-secondary mr-1 flex-shrink">
+				邮编：</view>
+			<input class="px-1 font-md flex-1" type="text" 
+			v-model="form.zip" />
+		</view>
 		<divider></divider>
 		
 		<view class="p-2 border-bottom d-flex a-center bg-white">
@@ -21,7 +26,7 @@
 				所在地区：</view>
 			<input class="px-1 font-md flex-1" type="text" disabled 
 			@click="showMulLinkageThreePicker" placeholder="请选择所在地区"
-			:value="form.path"/>
+			:value="path"/>
 			
 			<mpvue-city-picker :themeColor="themeColor" ref="mpvueCityPicker" :pickerValueDefault="pickerValue" @onConfirm="onConfirm"></mpvue-city-picker>
 			
@@ -30,7 +35,7 @@
 			<view class="font-md text-secondary mr-1 flex-shrink">
 				详细地址：</view>
 			<input class="px-1 font-md flex-1" type="text" 
-			v-model="form.detailPath" />
+			v-model="form.address" />
 		</view>
 		
 		<divider></divider>
@@ -38,8 +43,8 @@
 		<view class="p-2 d-flex a-center bg-white">
 			<view class="font-md text-secondary mr-1 flex-shrink">
 				设为默认地址：</view>
-			<switch :checked="form.isdefault" class="ml-auto" color="#FD6801"
-			@change="form.isdefault = $event.detail.value"/>
+			<switch :checked="form.default" class="ml-auto" color="#FD6801"
+			@change="form.default = $event.detail.value ? 1 : 0"/>
 		</view>
 		
 		<view class="p-3">
@@ -62,14 +67,19 @@
 			return {
 				isedit:false,
 				themeColor: '#007AFF',
-				pickerValue: [0, 0, 1],
+				pickerValue: [24, 0, 0],
 				index:-1,
 				form:{
 					path:'',
+					province:"",
+					city:"",
+					district:"",
+					address:"",
 					name:"",
 					phone:"",
+					zip:"",
 					detailPath:"",
-					isdefault:false
+					default:0
 				}
 			}
 		},
@@ -97,6 +107,13 @@
 				this.$refs.mpvueCityPicker.pickerCancel()
 			}
 		},
+		computed:{
+			path(){
+				if(this.form.province){
+					return this.form.province+'-'+this.form.city+'-'+this.form.district
+				}	
+			}
+		},
 		methods: {
 			...mapActions(['updatePathAction','createPathAction']),
 			// 提交
@@ -105,22 +122,40 @@
 				
 				// 修改
 				if (this.isedit) {
-					this.updatePathAction({
-						index:this.index,
-						item:this.form
+					this.$H.post('/useraddresses/'+this.form.id,this.form,{
+						token:true
+					}).then(res=>{
+						this.updatePathAction({
+							index:this.index,
+							item:this.form
+						})
+						uni.showToast({ title: '修改成功' });
+						uni.navigateBack({ delta: 1 })
+						uni.$emit('updateUserPathList')
 					})
-					uni.showToast({ title: '修改成功' });
-					return uni.navigateBack({ delta: 1 })
+					return;
 				}
 				
-				// 创建
-				this.createPathAction(this.form)
-				uni.showToast({ title: '创建成功' });
-				uni.navigateBack({ delta: 1 });
+				
+				
+				this.$H.post('/useraddresses',this.form,{
+					toekn:true
+				}).then(res=>{
+					// 创建
+					this.createPathAction(this.form)
+					uni.showToast({ title: '创建成功' });
+					uni.navigateBack({ delta: 1 });
+				})
+				
 			},
 			// 三级联动确定
 			onConfirm(e) {
-				this.form.path = e.label
+				//this.form.path = e.label
+				let arr = e.label.split('-')
+				console.log(e)
+				this.form.province = arr[0]
+				this.form.city = arr[1]
+				this.form.district = arr[2]
 				this.pickerValue = e.value
 			},
 			// 显示三级联动选择

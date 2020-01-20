@@ -10,10 +10,10 @@
 			<image src="../../static/images/bg.jpg" mode="widthFix" style="height: 320rpx;width: 100%;"></image>
 			
 			<view class="d-flex a-center position-absolute left-0 right-0">
-				<image src="../../static/images/demo/demo5.jpg" mode="widthFix" style="height: 145rpx;width: 145rpx; border: 5rpx solid;" 
+				<image :src="loginStatus ? userInfo.avatar:'../../static/images/demo/demo5.jpg'" mode="widthFix" style="height: 145rpx;width: 145rpx; border: 5rpx solid;" 
 				class="rounded-circle border-light ml-4"></image>
 				<view class="ml-2 text-white font-md"
-				@click="navigate('login')">textNiceName</view>
+				@click="openLogin">{{loginStatus ? userInfo.nickname : '登录/注册'}}</view>
 				<view class="d-flex a-center j-center a-self-end ml-auto px-2"
 				 style="height: 70rpx;background-color: #FFD43F;color: #CC4A00;border-top-left-radius: 40rpx;border-bottom-left-radius: 40rpx;">
 					<view class="line-h iconfont icon-huangguan mr-1"></view>
@@ -35,11 +35,11 @@
 			<view class="d-flex a-center position-absolute left-0 right-0" style="bottom: 50rpx;">
 				<image src="../../static/images/demo/demo5.jpg" mode="widthFix" style="height: 145rpx;width: 145rpx; border: 5rpx solid;" 
 				class="rounded-circle border-light ml-4"></image>
-				<view class="ml-2 text-white font-md">textNiceName</view>
+				<view class="ml-2 text-white font-md" @click="openLogin">登录/注册</view>
 				<view class="d-flex a-center j-center a-self-end ml-auto px-2"
 				 style="height: 70rpx;background-color: #FFD43F;color: #CC4A00;border-top-left-radius: 40rpx;border-bottom-left-radius: 40rpx;">
 					<view class="line-h iconfont icon-huangguan mr-1"></view>
-					会员积分 1.23
+					会员积分 0.00
 				</view>
 			</view>
 		</view>
@@ -47,9 +47,9 @@
 		
 		<!-- 图标分类 -->
 		<card>
-			<view class="d-flex a-center j-sb" slot="title">
+			<view class="d-flex a-center j-sb w-100" slot="title">
 				<text class="font-md font-weight">我的订单</text>
-				<view class="text-secondary font" @click="navigate('order')">
+				<view class="text-secondary font" @click="navigate('order',true)">
 					全部订单 <text class="iconfont icon-you font"></text>
 				</view>
 			</view>
@@ -87,6 +87,8 @@
 <script>
 	import card from '@/components/common/card.vue'
 	import uniListItem from '@/components/uni-ui/uni-list-item/uni-list-item.vue'
+	import {mapState} from 'vuex'
+	
 	
 	export default{
 		components:{
@@ -98,13 +100,38 @@
 				
 			}
 		},
+		computed:{
+			...mapState({
+				loginStatus:state=>state.user.loginStatus,
+				userInfo:state=>state.user.userInfo
+			})
+		},
 		methods:{
-			navigate(path){
-				if(!path) return
+			navigate(path,check = false){
+				if (!path) return;
+				if (check) {
+					return this.navigateTo({
+						url: `/pages/${path}/${path}`
+					})
+				}
 				uni.navigateTo({
-					url: `/pages/${path}/${path}`,
-				})
+					url: `/pages/${path}/${path}`
+				});
 			},
+			openLogin(){
+				if (!this.loginStatus) {
+					uni.navigateTo({
+						url: '../login/login',
+					});
+				}
+			},
+			openOrder(item){
+				if(item.index){
+					this.navigateTo({
+						url:"/pages/order/order?tabIndex="+item.index
+					})
+				}
+			}
 		}
 	}
 </script>

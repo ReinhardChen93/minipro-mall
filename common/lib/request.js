@@ -1,3 +1,4 @@
+import $store from '@/store/index.js'
 export default {
 	// 全局配置
 	common:{
@@ -19,7 +20,19 @@ export default {
 		options.method = options.method || this.common.method
 		options.dataType = options.dataType || this.common.dataType
 		// 请求之前...验证token
-		
+		if(options.token) {
+			options.header.token = $store.state.user.token
+			// 二次验证
+			if(options.checkToken &&!options.header.token){
+				uni.showToast({
+					title: '请先登录',
+					icon:'none'
+				});
+				return uni.navigateTo({
+					url: '/pages/login/login'
+				});
+			}
+		}
 		
 		//请求
 		return new Promise ((res,rej)=>{
@@ -27,11 +40,13 @@ export default {
 				...options,
 				success: (result) => {
 					if(result.statusCode !== 200){
-						uni.showToast({
-							title: result.data.msg || '服务端失败',
-							icon: 'none'
-						})
-						return rej()
+						if(options.totast !== false) {
+							uni.showToast({
+								title: result.data.msg || '服务端失败',
+								icon: 'none'
+							})
+						}
+						return rej(result.data)
 					}
 					// 成功
 					let data = result.data.data

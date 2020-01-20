@@ -20,11 +20,11 @@
 		bodyCover="../../static/images/demo/search-banner.png"></card>
 		<!-- 多色按钮 -->
 		<view class="px-1 mb-2">
-			<color-tag v-for="(item,index) in hot" :key="index" :item="item"></color-tag>
+			<color-tag v-for="(item,index) in hot" :key="index" :item="item" @click="quickSearch(item.name)"></color-tag>
 		</view>
 		<!-- 常用分类 -->
 		<card headTitle="常用分类" :bodyPadding="true" :headBorderBottom="false">
-			<color-tag v-for="(item,index) in hot" :key="index" :item="item" :color="false"></color-tag>
+			<color-tag v-for="(item,index) in hot" :key="index" :item="item" :color="false" @click="quickSearch(item.name)"></color-tag>
 		</card>
 		<template v-if="historyList.length > 0">
 			<!-- 分割线 -->
@@ -32,7 +32,7 @@
 			
 			<card headTitle="搜索记录">
 				<view slot="right" class="font text-primary" @click="clearHistory">清除搜索记录</view>
-				<uni-list-item v-for="(item,index) in historyList" :key="index" :title="item" :showArrow="false"></uni-list-item>
+				<uni-list-item v-for="(item,index) in historyList" :key="index" :title="item" :showArrow="false" @click="quickSearch(item)"></uni-list-item>
 			</card>
 		</template>
 		
@@ -88,12 +88,16 @@
 		onNavigationBarButtonTap() {
 			this.search()
 		},
-		onLoad() {
+		onShow() {
 			// 加载历史记录
 			let history = uni.getStorageSync('searchHistory')
 			history ? this.historyList = JSON.parse(history) : []
 		},
 		methods:{
+			quickSearch(name){
+				this.keyword = name
+				this.search()
+			},
 			search(){
 				if(this.keyword === ''){
 					return uni.showToast({
@@ -109,10 +113,12 @@
 					plus.key.hideSoftKeybord()
 				// #endif
 
-				// uni.navigateTo({
-				//     url: '/pages/search-list/search-list'
-				// });
-				this.addHistory()
+				uni.navigateTo({
+				    url: '/pages/search-list/search-list?keyword='+this.keyword,
+					});
+				setTimeout(()=>{
+					this.addHistory()
+				},500)
 			},
 			onInputChange(event){
 				this.keyword = event.target.value
@@ -127,6 +133,10 @@
 					// 重复搜索就置顶
 					this.historyList.unshift(this.historyList.splice(index,1)[0])
 				}
+				// 移除最后一条
+				if(this.historyList.length > 6){
+					this.historyList.splice(this.historyList.length - 1,1)
+				}
 				uni.setStorageSync('searchHistory',JSON.stringify(this.historyList))
 			},
 			clearHistory(){
@@ -137,7 +147,7 @@
 					confirmText: '清除',
 					success: res => {
 						if(res.confirm){
-							uni.clearStorageSync('searchHistory')
+							uni.removeStorageSync('searchHistory')
 							this.historyList = []
 						}
 					},

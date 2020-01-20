@@ -1,21 +1,6 @@
 export default {
 	state:{
-		list:[
-			{
-				name:"ReinhardChen",
-				phone:"158****531",
-				path:"云南省 昆明市 五华区",
-				detailPath:"XXXXX街道",
-				isdefault:true
-			},
-			{
-				name:"summer",
-				phone:"158****531",
-				path:"广东省 广州市 白云区",
-				detailPath:"XXXXX街道",
-				isdefault:false
-			}
-		],
+		list:[],
 	},
 	getters:{
 		// 获取默认地址
@@ -24,6 +9,10 @@ export default {
 		}
 	},
 	mutations:{
+		// 覆盖收货地址
+		updatePathList(state,{refresh,list}){
+			state.list = refresh ? list : [...state.list]
+		},
 		// 创建收货地址
 		createPath(state,item){
 			state.list.unshift(item)

@@ -9,7 +9,8 @@
 		<!-- 属性选择 -->
 		<view class="p-2">
 			<view class="rounded border bg-light-secondary">
-				<unit-list-item @click="show('attr')">
+				<unit-list-item @click="show('attr')"
+				v-if="detail.sku_type === 1">
 					<view class="d-flex">
 						<text class="mr-2 text-muted">已选</text>
 						<text>{{checkedSkus}}</text>
@@ -81,9 +82,12 @@
 				</view>
 			</scroll-view>
 			
-			 <view class="main-bg-color text-white font-md d-flex a-center j-center" hover-class="main-bg-hover-color" style="height: 100rpx;margin-left: -30rpx;margin-right: -30rpx;" 
+			 <view class="text-white font-md d-flex a-center j-center" 
+			 style="height: 100rpx;margin-left: -30rpx;margin-right: -30rpx;"
+			 :class="maxStock === 0 ? 'bg-secondary' : 'main-bg-color'"
+			 :hover-class="maxStock !== 0? 'main-bg-hover-color' : ''"
 			 @tap.stop="addCart">
-			 	加入购物车
+			 	{{maxStock === 0 ? '暂无库存' : '加入购物车'}}
 			 </view>
 		</common-popup>
 		<!-- 收货地址 -->
@@ -280,6 +284,7 @@
 					// 热门商品
 					this.hotList = res.hotList.map(v=>{
 						return {
+							id:v.id,
 							cover:v.cover,
 							title:v.title,
 							desc:v.desc,
@@ -288,46 +293,65 @@
 						}
 					})
 					// sku商品规格(选贤部分)
-					
-					this.selects = res.goodsSkusCard.map(v=>{
-						let list = v.goodsSkusCardValue.map(v1=>{
+					if(this.detail.sku_type === 1){
+						this.selects = res.goodsSkusCard.map(v=>{
+							let list = v.goodsSkusCardValue.map(v1=>{
+								return {
+									id:v1.id,
+									name:v1.value
+								}
+							})
 							return {
-								id:v1.id,
-								name:v1.value
+								id:v.id,
+								title:v.name,
+								selected:0,
+								list:list
 							}
 						})
-						return {
-							id:v.id,
-							title:v.name,
-							selected:0,
-							list:list
-						}
-					})
-				
-					// 商品规格(匹配价格)
-					this.detail.goodsSkus.forEach(item=>{
-						let arr = []
-						for (let key in item.skus) {
-							arr.push(item.skus[key].value)
-						}
-						item.skusText = arr.join(',')
-					})
+										
+						// 商品规格(匹配价格)
+						this.detail.goodsSkus.forEach(item=>{
+							let arr = []
+							for (let key in item.skus) {
+								arr.push(item.skus[key].value)
+							}
+							item.skusText = arr.join(',')
+						})
+					}
 				})
 			},
 			// 加入购物车
 			addCart(){
+				// 没有库存
+				if(this.maxStock === 0){
+					return
+				}
+				
+				this.$H.post('/cart',{
+					shop_id:this.detail.sku_type === 0 ? this.detail.id : this.detail.goodsSkus[this.checkedSkusIndex].id,
+					skus_type:this.detail.sku_type,
+					num:this.detail.num
+				},{
+					token:true
+				}).then(res=>{
+					// 通知购物车页面更新数据
+					uni.$emit('updataCart')
+					// 隐藏筛选框
+					this.hide('attr')
+					// 成功提示
+					uni.showToast({
+						title: '加入成功'
+					});
+				})
+				
 				// 组织数据
 				let goods = this.detail
 				goods['checked'] = false
 				goods['attrs'] = this.selects
 				// 加入购物车
 				this.addGoodsToCart(goods)
-				// 隐藏筛选框
-				this.hide('attr')
-				// 成功提示
-				uni.showToast({
-					title: '加入成功'
-				});
+				
+				
 			},
 			openCreatePath(){
 				uni.navigateTo({

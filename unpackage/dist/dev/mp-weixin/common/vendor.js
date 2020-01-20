@@ -1667,14 +1667,16 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 16));
 
 var _cart = _interopRequireDefault(__webpack_require__(/*! @/store/modules/cart.js */ 17));
-var _path = _interopRequireDefault(__webpack_require__(/*! @/store/modules/path.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+var _path = _interopRequireDefault(__webpack_require__(/*! @/store/modules/path.js */ 20));
+var _user = _interopRequireDefault(__webpack_require__(/*! @/store/modules/user.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 _vue.default.use(_vuex.default);var _default =
 
 new _vuex.default.Store({
   modules: {
     cart: _cart.default,
-    path: _path.default } });exports.default = _default;
+    path: _path.default,
+    user: _user.default } });exports.default = _default;
 
 /***/ }),
 
@@ -2637,133 +2639,17 @@ var index_esm = {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _request = _interopRequireDefault(__webpack_require__(/*! @/common/lib/request.js */ 18));
+var _util = _interopRequireDefault(__webpack_require__(/*! @/common/lib/util.js */ 19));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
+{
   state: {
-    list: [
-    {
-      checked: false,
-      id: 11,
-      title: "商品标题111",
-      cover: "/static/images/demo/list/1.jpg",
-      // 选中商品属性
-      attrs: [
-      {
-        title: "颜色",
-        selected: 0,
-        list: [
-        { name: '火焰红' },
-        { name: '炭黑' },
-        { name: '冰川兰' }] },
-
-
-      {
-        title: "容量",
-        selected: 0,
-        list: [
-        { name: '64GB' },
-        { name: '128GB' }] },
-
-
-      {
-        title: "套餐",
-        selected: 0,
-        list: [
-        { name: '标配' },
-        { name: '套餐一' },
-        { name: '套餐二' }] }],
-
-
-
-      pprice: 336,
-      num: 1,
-      minnum: 1,
-      maxnum: 10 // 该商品最大商品数，跟库存有关
-    },
-    {
-      checked: false,
-      id: 12,
-      title: "商品标题111",
-      cover: "/static/images/demo/list/1.jpg",
-      // 选中商品属性
-      attrs: [
-      {
-        title: "颜色",
-        selected: 0,
-        list: [
-        { name: '火焰红' },
-        { name: '炭黑' },
-        { name: '冰川兰' }] },
-
-
-      {
-        title: "容量",
-        selected: 0,
-        list: [
-        { name: '64GB' },
-        { name: '128GB' }] },
-
-
-      {
-        title: "套餐",
-        selected: 0,
-        list: [
-        { name: '标配' },
-        { name: '套餐一' },
-        { name: '套餐二' }] }],
-
-
-
-      pprice: 336,
-      num: 1,
-      minnum: 1,
-      maxnum: 10 // 该商品最大商品数，跟库存有关
-    },
-    {
-      checked: false,
-      id: 13,
-      title: "商品标题111",
-      cover: "/static/images/demo/list/1.jpg",
-      // 选中商品属性
-      attrs: [
-      {
-        title: "颜色",
-        selected: 0,
-        list: [
-        { name: '火焰红' },
-        { name: '炭黑' },
-        { name: '冰川兰' }] },
-
-
-      {
-        title: "容量",
-        selected: 0,
-        list: [
-        { name: '64GB' },
-        { name: '128GB' }] },
-
-
-      {
-        title: "套餐",
-        selected: 0,
-        list: [
-        { name: '标配' },
-        { name: '套餐一' },
-        { name: '套餐二' }] }],
-
-
-
-      pprice: 336,
-      num: 1,
-      minnum: 1,
-      maxnum: 10 // 该商品最大商品数，跟库存有关
-    }],
-
-    // 选中列表(存放选中的ID
+    list: [],
+    // 选中列表（存放选中的id）
     selectedList: [],
-    //popup 显示
+    // popup显示
     popupShow: "none",
-    // 当前选中商品索引
-    popupIndex: -1 },
+    popupIndex: -1,
+    popupData: {} },
 
   getters: {
     // 判断是否全选
@@ -2784,17 +2670,25 @@ var index_esm = {
     disableSelectAll: function disableSelectAll(state) {
       return state.list.length === 0;
     },
-    // 拿到当前需要修改属性的商品
-    popupData: function popupData(state) {
-      return state.popupIndex > -1 ? state.list[state.popupIndex] : {};
+    // 购物车商品数量
+    cartCount: function cartCount(state) {
+      if (state.list.length <= 99) {
+        return state.list.length;
+      }
+      return '99+';
     } },
 
   mutations: {
-    //选中/取消选中某个商品
+    // 初始化list
+    initCartList: function initCartList(state, list) {
+      state.list = list;
+      _util.default.updateCartBadge(state.list.length);
+    },
+    // 选中/取消选中某个商品
     selectItem: function selectItem(state, index) {
       var id = state.list[index].id;
       var i = state.selectedList.indexOf(id);
-      // 之前是选中,取消选中
+      // 之前是选中，取消选中 
       if (i > -1) {
         // 取消当前商品选中状态
         state.list[index].checked = false;
@@ -2816,7 +2710,7 @@ var index_esm = {
     // 取消全选
     unSelectAll: function unSelectAll(state) {
       state.list.forEach(function (v) {
-        //设置选中状态
+        // 设置选中状态
         v.checked = false;
       });
       state.selectedList = [];
@@ -2826,44 +2720,82 @@ var index_esm = {
       state.list = state.list.filter(function (v) {
         return state.selectedList.indexOf(v.id) === -1;
       });
+      _util.default.updateCartBadge(state.list.length);
     },
-    // 初始化 popupIndex
+    // 初始化popupIndex
     initPopupIndex: function initPopupIndex(state, index) {
       state.popupIndex = index;
     },
     // 加入购物车
     addGoodsToCart: function addGoodsToCart(state, goods) {
       state.list.unshift(goods);
+      _util.default.updateCartBadge(state.list.length);
+    },
+    // 清空购物车
+    clearCart: function clearCart(state) {
+      state.list = [];
+      state.selectedList = [];
+      _util.default.updateCartBadge(state.list.length);
     } },
 
   actions: {
+    // 更新购物车列表
+    updateCartList: function updateCartList(_ref) {var state = _ref.state,commit = _ref.commit;
+      return new Promise(function (res, rej) {
+        _request.default.get('/cart', {}, {
+          token: true,
+          toast: false }).
+        then(function (res) {
+          // 取消选中状态
+          commit('unSelectAll');
+          // 赋值
+          commit('initCartList', res);
+          res(res);
+        }).catch(function (err) {
+          rej(err);
+        });
+      });
+    },
     // 显示popup
-    doShowPopup: function doShowPopup(_ref, index) {var state = _ref.state,commit = _ref.commit;
+    doShowPopup: function doShowPopup(_ref2, _ref3) {var state = _ref2.state,commit = _ref2.commit;var index = _ref3.index,data = _ref3.data;
       commit('initPopupIndex', index);
+      state.popupData = data;
+      state.popupData.item = state.list[index];
       state.popupShow = 'show';
     },
     // 隐藏popup
-    doHidePopup: function doHidePopup(_ref2) {var state = _ref2.state,commit = _ref2.commit;
+    doHidePopup: function doHidePopup(_ref4) {var state = _ref4.state,commit = _ref4.commit;
       state.popupShow = 'hide';
       setTimeout(function () {
         state.popupShow = 'none';
         commit('initPopupIndex', -1);
       }, 200);
     },
-    doSelectAll: function doSelectAll(_ref3) {var commit = _ref3.commit,getters = _ref3.getters;
+    doSelectAll: function doSelectAll(_ref5) {var commit = _ref5.commit,getters = _ref5.getters;
       getters.checkedAll ? commit('unSelectAll') : commit('selectAll');
     },
-    doDelGoods: function doDelGoods(_ref4) {var commit = _ref4.commit;
+    doDelGoods: function doDelGoods(_ref6) {var commit = _ref6.commit,state = _ref6.state;
+      if (state.selectedList.length === 0) {
+        return uni.showToast({
+          title: '请选择要删除的商品',
+          icon: 'none' });
+
+      }
       uni.showModal({
         content: '是否删除选中',
         success: function success(res) {
           if (res.confirm) {
-            commit('delGoods');
-            uni.showToast({
-              title: '删除成功!' });
+            _request.default.post('/cart/delete', {
+              shop_ids: state.selectedList.join(',') },
+            {
+              token: true }).
+            then(function (res) {
+              commit('delGoods');
+              commit('unSelectAll');
+              uni.showToast({
+                title: '删除成功' });
 
-          } else if (res.cancel) {
-
+            });
           }
         } });
 
@@ -2874,88 +2806,14 @@ var index_esm = {
 
 /***/ 18:
 /*!**********************************************************************************!*\
-  !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/store/modules/path.js ***!
-  \**********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
-  state: {
-    list: [
-    {
-      name: "ReinhardChen",
-      phone: "158****531",
-      path: "云南省 昆明市 五华区",
-      detailPath: "XXXXX街道",
-      isdefault: true },
-
-    {
-      name: "summer",
-      phone: "158****531",
-      path: "广东省 广州市 白云区",
-      detailPath: "XXXXX街道",
-      isdefault: false }] },
-
-
-
-  getters: {
-    // 获取默认地址
-    defaultPath: function defaultPath(state) {
-      return state.list.filter(function (v) {return v.isdefault;});
-    } },
-
-  mutations: {
-    // 创建收货地址
-    createPath: function createPath(state, item) {
-      state.list.unshift(item);
-    },
-    // 删除收货地址
-    delPath: function delPath(state, index) {
-      state.list.splice(index, 1);
-    },
-    // 修改收货地址
-    updatePath: function updatePath(state, _ref) {var index = _ref.index,item = _ref.item;
-      for (var key in item) {
-        state.list[index][key] = item[key];
-      }
-    },
-    // 取消默认地址
-    removeDefault: function removeDefault(state) {
-      state.list.forEach(function (v) {
-        if (v.isdefault) {
-          v.isdefault = false;
-        }
-      });
-    } },
-
-  actions: {
-    // 修改地址
-    updatePathAction: function updatePathAction(_ref2, obj) {var commit = _ref2.commit;
-      if (obj.item.isdefault) {
-        commit('removeDefault');
-      }
-      commit('updatePath', obj);
-    },
-    // 增加地址
-    createPathAction: function createPathAction(_ref3, item) {var commit = _ref3.commit;
-      if (item.isdefault) {
-        commit('removeDefault');
-      }
-      commit('createPath', item);
-    } } };exports.default = _default;
-
-/***/ }),
-
-/***/ 19:
-/*!**********************************************************************************!*\
   !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/common/lib/request.js ***!
   \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default = {
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _index = _interopRequireDefault(__webpack_require__(/*! @/store/index.js */ 15));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
+{
   // 全局配置
   common: {
     baseUrl: "http://ceshi3.dishait.cn/api",
@@ -2976,7 +2834,19 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     options.method = options.method || this.common.method;
     options.dataType = options.dataType || this.common.dataType;
     // 请求之前...验证token
+    if (options.token) {
+      options.header.token = _index.default.state.user.token;
+      // 二次验证
+      if (options.checkToken && !options.header.token) {
+        uni.showToast({
+          title: '请先登录',
+          icon: 'none' });
 
+        return uni.navigateTo({
+          url: '/pages/login/login' });
+
+      }
+    }
 
     //请求
     return new Promise(function (res, rej) {
@@ -2984,11 +2854,13 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
       options, {
         success: function success(result) {
           if (result.statusCode !== 200) {
-            uni.showToast({
-              title: result.data.msg || '服务端失败',
-              icon: 'none' });
+            if (options.totast !== false) {
+              uni.showToast({
+                title: result.data.msg || '服务端失败',
+                icon: 'none' });
 
-            return rej();
+            }
+            return rej(result.data);
           }
           // 成功
           var data = result.data.data;
@@ -3024,6 +2896,66 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     options.data = data;
     options.method = 'DELETE';
     return this.request(options);
+  } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 19:
+/*!*******************************************************************************!*\
+  !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/common/lib/util.js ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  // 更新tabbar角标
+  updateCartBadge: function updateCartBadge(count) {
+    if (count > 0) {
+      return uni.setTabBarBadge({
+        index: 2,
+        text: count.toString() });
+
+    }
+    uni.removeTabBarBadge({
+      index: 2 });
+
+  },
+  // 判断订单状态
+  formatStatus: function formatStatus(order) {
+    if (!order) {
+      return '';
+    }
+    // 未支付
+    if (!order.paid_time) {
+      return "待支付";
+    }
+    // 退款情况
+    if (order.refund_status !== 'pending') {
+      switch (order.refund_status) {
+        case 'applied':
+          return '退款中';
+          break;
+        case 'success':
+          return '退款成功';
+          break;
+        case 'failed':
+          return '退款失败';
+          break;}
+
+    }
+    switch (order.ship_status) {
+      case 'pending':
+        return '待发货';
+        break;
+      case 'delivered':
+        return '待收货';
+        break;
+      case 'received':
+        return '已签收';
+        break;}
+
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
@@ -9060,19 +8992,130 @@ internalMixin(Vue);
 
 /***/ }),
 
-/***/ 26:
+/***/ 20:
+/*!**********************************************************************************!*\
+  !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/store/modules/path.js ***!
+  \**********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance");}function _iterableToArray(iter) {if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) {for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) {arr2[i] = arr[i];}return arr2;}}var _default = {
+  state: {
+    list: [] },
+
+  getters: {
+    // 获取默认地址
+    defaultPath: function defaultPath(state) {
+      return state.list.filter(function (v) {return v.isdefault;});
+    } },
+
+  mutations: {
+    // 覆盖收货地址
+    updatePathList: function updatePathList(state, _ref) {var refresh = _ref.refresh,list = _ref.list;
+      state.list = refresh ? list : _toConsumableArray(state.list);
+    },
+    // 创建收货地址
+    createPath: function createPath(state, item) {
+      state.list.unshift(item);
+    },
+    // 删除收货地址
+    delPath: function delPath(state, index) {
+      state.list.splice(index, 1);
+    },
+    // 修改收货地址
+    updatePath: function updatePath(state, _ref2) {var index = _ref2.index,item = _ref2.item;
+      for (var key in item) {
+        state.list[index][key] = item[key];
+      }
+    },
+    // 取消默认地址
+    removeDefault: function removeDefault(state) {
+      state.list.forEach(function (v) {
+        if (v.isdefault) {
+          v.isdefault = false;
+        }
+      });
+    } },
+
+  actions: {
+    // 修改地址
+    updatePathAction: function updatePathAction(_ref3, obj) {var commit = _ref3.commit;
+      if (obj.item.isdefault) {
+        commit('removeDefault');
+      }
+      commit('updatePath', obj);
+    },
+    // 增加地址
+    createPathAction: function createPathAction(_ref4, item) {var commit = _ref4.commit;
+      if (item.isdefault) {
+        commit('removeDefault');
+      }
+      commit('createPath', item);
+    } } };exports.default = _default;
+
+/***/ }),
+
+/***/ 21:
+/*!**********************************************************************************!*\
+  !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/store/modules/user.js ***!
+  \**********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  state: {
+    // 登录状态
+    loginStatus: false,
+    token: null,
+    userInfo: {} },
+
+  mutations: {
+    // 初始化登录状态
+    initUser: function initUser(state) {
+      var userInfo = uni.getStorageSync('userInfo');
+      if (userInfo) {
+        userInfo = JSON.parse(userInfo);
+
+        state.userInfo = userInfo;
+        state.token = userInfo.token;
+        state.loginStatus = true;
+      }
+    },
+    // 登录
+    login: function login(state, userinfo) {
+      state.userInfo = userinfo;
+      state.loginStatus = true;
+      state.token = userinfo.token;
+      // 持久化存储
+
+      uni.setStorageSync('userInfo', JSON.stringify(userinfo));
+    },
+    // 退出登录
+    logout: function logout(state) {
+      state.userInfo = {};
+      state.loginStatus = false;
+      state.token = null;
+      uni.removeStorageSync('userInfo');
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 28:
 /*!**********************************************************!*\
   !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
   \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! regenerator-runtime */ 27);
+module.exports = __webpack_require__(/*! regenerator-runtime */ 29);
 
 
 /***/ }),
 
-/***/ 27:
+/***/ 29:
 /*!************************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
   \************************************************************/
@@ -9103,7 +9146,7 @@ var oldRuntime = hadRuntime && g.regeneratorRuntime;
 // Force reevalutation of runtime.js.
 g.regeneratorRuntime = undefined;
 
-module.exports = __webpack_require__(/*! ./runtime */ 28);
+module.exports = __webpack_require__(/*! ./runtime */ 30);
 
 if (hadRuntime) {
   // Restore the original runtime.
@@ -9120,7 +9163,38 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 28:
+/***/ 3:
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
+/***/ 30:
 /*!*****************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime.js ***!
   \*****************************************************/
@@ -9852,38 +9926,7 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 3:
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-
-/***/ 320:
+/***/ 325:
 /*!***********************************************************************************************************!*\
   !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/uParse/src/libs/html2json.js ***!
   \***********************************************************************************************************/
@@ -9905,8 +9948,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-var _wxDiscode = _interopRequireDefault(__webpack_require__(/*! ./wxDiscode */ 321));
-var _htmlparser = _interopRequireDefault(__webpack_require__(/*! ./htmlparser */ 322));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /**
+var _wxDiscode = _interopRequireDefault(__webpack_require__(/*! ./wxDiscode */ 326));
+var _htmlparser = _interopRequireDefault(__webpack_require__(/*! ./htmlparser */ 327));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /**
                                                                                                                                                                  * html2Json 改造来自: https://github.com/Jxck/html2json
                                                                                                                                                                  *
                                                                                                                                                                  *
@@ -10155,7 +10198,7 @@ html2json;exports.default = _default;
 
 /***/ }),
 
-/***/ 321:
+/***/ 326:
 /*!***********************************************************************************************************!*\
   !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/uParse/src/libs/wxDiscode.js ***!
   \***********************************************************************************************************/
@@ -10360,7 +10403,7 @@ function urlToHttpUrl(url, domain) {
 
 /***/ }),
 
-/***/ 322:
+/***/ 327:
 /*!************************************************************************************************************!*\
   !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/uParse/src/libs/htmlparser.js ***!
   \************************************************************************************************************/
@@ -10527,7 +10570,100 @@ HTMLParser;exports.default = _default;
 
 /***/ }),
 
-/***/ 340:
+/***/ 345:
+/*!*****************************************************************************************************!*\
+  !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/uni-swipe-action/mp.js ***!
+  \*****************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  data: function data() {
+    return {
+      position: [],
+      button: [] };
+
+  },
+  computed: {
+    pos: function pos() {
+      return JSON.stringify(this.position);
+    },
+    btn: function btn() {
+      return JSON.stringify(this.button);
+    } },
+
+  watch: {
+    show: function show(newVal) {
+      if (this.autoClose) return;
+      var valueObj = this.position[0];
+      if (!valueObj) return;
+      valueObj.show = newVal;
+      this.$set(this.position, 0, valueObj);
+    } },
+
+  mounted: function mounted() {var _this = this;
+    this.init();
+    setTimeout(function () {
+      _this.getSize();
+      _this.getButtonSize();
+    }, 50);
+
+  },
+  methods: {
+    init: function init() {var _this2 = this;
+      uni.$on('__uni__swipe__event', function (res) {
+        if (res !== _this2 && _this2.autoClose) {
+          var valueObj = _this2.position[0];
+          valueObj.show = false;
+          _this2.$set(_this2.position, 0, valueObj);
+        }
+      });
+    },
+    openSwipe: function openSwipe() {
+      uni.$emit('__uni__swipe__event', this);
+    },
+    change: function change(e) {
+      this.$emit('change', e.open);
+      var valueObj = this.position[0];
+      valueObj.show = e.open;
+      this.$set(this.position, 0, valueObj);
+      // console.log('改变', e);
+    },
+    onClick: function onClick(index, item) {
+      this.$emit('click', {
+        content: item,
+        index: index });
+
+    },
+    getSize: function getSize() {var _this3 = this;
+      var views = uni.createSelectorQuery().in(this);
+      views.
+      selectAll('.selector-query-hock').
+      boundingClientRect(function (data) {
+        if (_this3.autoClose) {
+          data[0].show = false;
+        } else {
+          data[0].show = _this3.show;
+        }
+        _this3.position = data;
+      }).
+      exec();
+    },
+    getButtonSize: function getButtonSize() {var _this4 = this;
+      var views = uni.createSelectorQuery().in(this);
+      views.
+      selectAll('.button-hock').
+      boundingClientRect(function (data) {
+        _this4.button = data;
+      }).
+      exec();
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 355:
 /*!*********************************************************************************************************************!*\
   !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/mpvue-citypicker/city-data/province.js ***!
   \*********************************************************************************************************************/
@@ -10677,7 +10813,7 @@ provinceData;exports.default = _default;
 
 /***/ }),
 
-/***/ 341:
+/***/ 356:
 /*!*****************************************************************************************************************!*\
   !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/mpvue-citypicker/city-data/city.js ***!
   \*****************************************************************************************************************/
@@ -12191,7 +12327,7 @@ cityData;exports.default = _default;
 
 /***/ }),
 
-/***/ 342:
+/***/ 357:
 /*!*****************************************************************************************************************!*\
   !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/components/uni-ui/mpvue-citypicker/city-data/area.js ***!
   \*****************************************************************************************************************/
@@ -24744,7 +24880,7 @@ areaData;exports.default = _default;
 
 /***/ }),
 
-/***/ 35:
+/***/ 37:
 /*!************************************************************************************!*\
   !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/common/mixin/loading.js ***!
   \************************************************************************************/
@@ -25686,11 +25822,11 @@ module.exports = {"_from":"@dcloudio/uni-stat@alpha","_id":"@dcloudio/uni-stat@2
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": {}, "pages/cart/cart": { "enablePullDownRefresh": true }, "pages/my/my": {}, "pages/class/class": {}, "pages/search/search": {}, "pages/search-list/search-list": {}, "pages/detail/detail": {}, "pages/detail-comment/detail-comment": { "navigationBarTitleText": "商品评价", "enablePullDownRefresh": true }, "pages/user-set/user-set": { "navigationBarTitleText": "用户设置" }, "pages/user-userinfo/user-userinfo": { "navigationBarTitleText": "修改资料" }, "pages/user-path-list/user-path-list": { "navigationBarTitleText": "收货地址" }, "pages/user-path-edit/user-path-edit": { "navigationBarTitleText": "增加收货地址" }, "pages/order/order": { "navigationBarTitleText": "我的订单" }, "pages/order-confirm/order-confirm": { "navigationBarTitleText": "订单配送至", "navigationBarBackgroundColor": "#FD6801", "navigationBarTextStyle": "white" }, "pages/order-invoice/order-invoice": { "navigationBarTitleText": "发票" }, "pages/login/login": {}, "pages/msg-list/msg-list": { "navigationBarTitleText": "消息列表" }, "pages/msg-detail/msg-detail": { "navigationBarTitleText": "消息详情页" }, "pages/pay-methods/pay-methods": { "navigationBarTitleText": "选择支付方式" }, "pages/pay-result/pay-result": { "navigationBarTitleText": "支付成功" }, "pages/order-coupon/order-coupon": { "navigationBarTitleText": "优惠券" }, "pages/order-detail/order-detail": { "navigationBarBackgroundColor": "#FD6801", "navigationBarTextStyle": "white" }, "pages/logistics-detail/logistics-detail": { "navigationBarTitleText": "物流信息" }, "pages/after-sale/after-sale": { "navigationBarTitleText": "申请售后" }, "pages/about/about": { "navigationBarTitleText": "关于我们" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "金丝雀v1.0.0", "navigationBarBackgroundColor": "#FFFFFF", "backgroundColor": "#FFFFFF" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": {}, "pages/cart/cart": { "enablePullDownRefresh": true }, "pages/my/my": {}, "pages/class/class": {}, "pages/search/search": {}, "pages/search-list/search-list": { "enablePullDownRefresh": true }, "pages/detail/detail": {}, "pages/detail-comment/detail-comment": { "navigationBarTitleText": "商品评价", "enablePullDownRefresh": true }, "pages/user-set/user-set": { "navigationBarTitleText": "用户设置" }, "pages/user-userinfo/user-userinfo": { "navigationBarTitleText": "修改资料" }, "pages/user-path-list/user-path-list": { "navigationBarTitleText": "收货地址", "enablePullDownRefresh": true }, "pages/user-path-edit/user-path-edit": { "navigationBarTitleText": "增加收货地址" }, "pages/order/order": { "navigationBarTitleText": "我的订单" }, "pages/order-confirm/order-confirm": { "navigationBarTitleText": "订单配送至", "navigationBarBackgroundColor": "#FD6801", "navigationBarTextStyle": "white" }, "pages/order-invoice/order-invoice": { "navigationBarTitleText": "发票" }, "pages/login/login": {}, "pages/msg-list/msg-list": { "navigationBarTitleText": "消息列表" }, "pages/msg-detail/msg-detail": { "navigationBarTitleText": "消息详情页" }, "pages/pay-methods/pay-methods": { "navigationBarTitleText": "选择支付方式" }, "pages/pay-result/pay-result": { "navigationBarTitleText": "支付成功" }, "pages/order-coupon/order-coupon": { "navigationBarTitleText": "优惠券" }, "pages/order-detail/order-detail": { "navigationBarBackgroundColor": "#FD6801", "navigationBarTextStyle": "white" }, "pages/logistics-detail/logistics-detail": { "navigationBarTitleText": "物流信息" }, "pages/after-sale/after-sale": { "navigationBarTitleText": "申请售后" }, "pages/about/about": { "navigationBarTitleText": "关于我们" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "金丝雀v1.0.0", "navigationBarBackgroundColor": "#FFFFFF", "backgroundColor": "#FFFFFF" } };exports.default = _default;
 
 /***/ }),
 
-/***/ 76:
+/***/ 78:
 /*!*******************************************************************************!*\
   !*** /Users/reinhardchen/Documents/HBuilderProjects/仿小米商城/common/lib/time.js ***!
   \*******************************************************************************/

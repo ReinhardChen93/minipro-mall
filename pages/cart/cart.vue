@@ -42,19 +42,20 @@
 					</view>
 					<!-- 规格属性 -->
 					
-					<view class="d-flex text-light-muted mb-1" 
-					:class="isEdit ? 'p-1 bg-light-secondary mb-2':''" 
-					@tap.stop="doShowPopup(index)">
-						<text class="mr-1" 
-						v-for="(attr,attrIndex) in item.attrs" 
-						:key="attrIndex">{{attr.list[attr.selected].name}}</text>
-						<view class="iconfont icon-bottom font ml-auto" v-if="isEdit"></view>
+					<view class="d-flex text-light-muted mb-1"
+					v-if="item.skus_type === 1"
+					:class="isedit ? 'p-1 bg-light-secondary mb-2':''" 
+					@tap.stop="showPopup(index,item)">
+						<text class="mr-1">{{item.skusText}}</text>
+						<view class="iconfont icon-bottom font ml-auto" v-if="isedit"></view>
 					</view>
 					<view class="mt-auto d-flex j-sb">
 						<price>{{item.pprice}}</price>
 						<view class="a-self-end">
-							<uniNumberBox :min="1" :max="item.max" :value="item.num"
-							@change="changeNum($event,item,index)"></uniNumberBox>
+							<uni-number-box :min="item.minnum"
+							:value="item.num" :max="item.maxnum"
+							@change="changeNum($event,item,index)">
+							</uni-number-box>
 						</view>
 					</view>
 				</view>
@@ -86,9 +87,9 @@
 			style="width: 120upx;" @click="doSelectAll" :disabled="disableSelectAll">
 				<radio color="#FD6801" :checked="checkedAll"/><text></text>
 			</label>
-			<template v-if="!isEdit">
+			<template v-if="!isedit">
 				<view class="flex-1 d-flex a-center j-center font-md">
-					合计 <price>{{totalPrice}}</price>
+					合计 <price>{{totalPrice|toFixedTotalPrice}}</price>
 				</view>
 				<view class="flex-1 d-flex a-center j-center main-bg-color text-white font-md" 
 				hover-class="main-bg-hover-color"  @tap="orderConfirm">
@@ -107,143 +108,162 @@
 		</view>
 	
 		<!-- 属性选择框 -->
-		 <common-popup :popupClass="popupShow" @hide="doHidePopup">
-		 	<view class="d-flex a-center" style="height: 275rpx;">
-		 		<image src="../../static/images/demo/list/1.jpg" mode="widthFix"
-		 		style="height: 180rpx;width: 180rpx;" class="border rounded"></image>
-		 		<view class="pl-2">
-		 			<price priceSize="font-lg" unitSize="font">2365</price>
-		 			<view class="d-block">
-		 				<text class="mr-1"
-		 				v-for="(attr,attrIndex) in popupData.attrs"
-		 				:key="attrIndex">{{attr.list[attr.selected].name}}</text>
-		 			</view>
-		 		</view>
-		 	</view>
-			<scroll-view scroll-y="true" style="height: 660rpx;">
-				<card :headTitle="item.title" :headTitleWeight="false" 
-				v-for="(item,index) in popupData.attrs" :key="index" 
-				:headBorderBottom="false">
-					<cc-radio-group :label="item" 
-					:selected.sync="item.selected"></cc-radio-group>
-				</card>
-				<view class="d-flex j-sb a-center p-2 border-top border-light-secondary">
-					<text>购买数量</text>
-					<uni-number-box :min="1" :value="popupData.num" @change="popupData.num = $event"></uni-number-box>
-				</view>
-			</scroll-view>
-			<view class="main-bg-color text-white font-md d-flex a-center j-center" 
-			style="height: 100rpx;margin-left: -30rpx;margin-right: -30rpx;" 
-			hover-class="main-bg-hover-color"
-			@tap.stop="doHidePopup">
-				确定
-			</view>
-		</common-popup>
+		 <sku-popup></sku-popup>
 	</view>
 </template>
 
 <script>
 	import loading from "@/common/mixin/loading.js"
-	
 	import uniNavBar from "@/components/uni-ui/uni-nav-bar/uni-nav-bar.vue"
 	import price from "@/components/common/price.vue"
-	import uniNumberBox from "@/components/uni-ui/uni-number-box/uni-number-box.vue"
-	import card from '@/components/common/card.vue'
-	import ccRadioGroup from '@/components/common/radio-group.vue'
-	import commonPopup from '@/components/common/common-popup.vue'
 	import commonList from "@/components/common/common-list.vue"
+	import uniNumberBox from "@/components/uni-ui/uni-number-box/uni-number-box.vue"
+	import skuPopup from "@/components/cart/sku-popup.vue"
 	import {mapState,mapGetters,mapActions,mapMutations} from "vuex"
 	
 	export default {
 		mixins:[loading],
-		components:{
+		components: {
 			uniNavBar,
 			price,
 			uniNumberBox,
-			card,
-			ccRadioGroup,
-			commonPopup,
-			commonList
+			commonList,
+			skuPopup
 		},
-		data () {
+		data() {
 			return {
-				isEdit:false,
-				hotList:[
-					{
-						cover:"/static/images/demo/list/1.jpg",
-						title:"米家空调",
-						desc:"1.5匹变频",
-						oprice:2699,
-						pprice:1399
-					},
-					{
-						cover:"/static/images/demo/list/1.jpg",
-						title:"米家空调",
-						desc:"1.5匹变频",
-						oprice:2699,
-						pprice:1399
-					},
-					{
-						cover:"/static/images/demo/list/1.jpg",
-						title:"米家空调",
-						desc:"1.5匹变频",
-						oprice:2699,
-						pprice:1399
-					},
-					{
-						cover:"/static/images/demo/list/1.jpg",
-						title:"米家空调",
-						desc:"1.5匹变频",
-						oprice:2699,
-						pprice:1399
-					},
-					{
-						cover:"/static/images/demo/list/1.jpg",
-						title:"米家空调",
-						desc:"1.5匹变频",
-						oprice:2699,
-						pprice:1399
-					},
-					{
-						cover:"/static/images/demo/list/1.jpg",
-						title:"米家空调",
-						desc:"1.5匹变频",
-						oprice:2699,
-						pprice:1399
-					}
-				]
+				isedit: false,
+				hotList:[]
 			}
 		},
-		computed:{ 
+		filters:{
+			toFixedTotalPrice(value){
+				return value.toFixed(2)
+			}
+		},
+		computed: {
 			...mapState({
 				list:state=>state.cart.list,
-				popupShow:state=>state.cart.popupShow
+				selectedList:state=>state.cart.selectedList
 			}),
 			...mapGetters([
 				'checkedAll',
 				'totalPrice',
-				'disableSelectAll',
-				'popupData'
+				'disableSelectAll'
 			])
-			
+		},
+		onLoad() {
+			this.getData()
+		},
+		beforeDestroy() {
+			uni.$off('updateCart')
+		},
+		onPullDownRefresh() {
+			this.getData()
 		},
 		methods:{
-			orderConfirm(){
-				uni.navigateTo({
-					url: '../order-confirm/order-confirm'
-				});
-			},
 			...mapActions([
 				'doSelectAll',
 				'doDelGoods',
 				'doShowPopup',
-				'doHidePopup'
+				'updateCartList'
 			]),
 			...mapMutations([
-				'selectItem'
+				'selectItem',
+				'initCartList',
+				'unSelectAll'
 			]),
 			changeNum(e,item,index){
-				item.num = e
+				if (item.num === e) return;
+				uni.showLoading({
+					title:"加载中..."
+				})
+				this.$H.post('/cart/updatenumber/'+item.id,{
+					num:e
+				},{
+					token:true
+				}).then(res=>{
+					console.log(res);
+					item.num = e
+					uni.hideLoading()
+				})
+			},
+			// 订单结算
+			orderConfirm(){
+				if(this.selectedList.length === 0){
+					return uni.showToast({
+						title: '请选择要结算的商品',
+						icon: 'none'
+					});
+				}
+				uni.navigateTo({
+					url: '../order-confirm/order-confirm?detail='+JSON.stringify(this.selectedList)
+				});
+			},
+			showPopup(index,item){
+				if(!this.isedit){
+					return;
+				}
+				this.$H.get('/cart/'+item.id+'/sku',{},{
+					token:true
+				}).then(res=>{
+					
+					// 商品规格（选项部分）
+					let check = item.skusText.split(',')
+					res.selects = res.goods_skus_card.map((v,i)=>{
+					  let selected = 0
+					  let list = v.goods_skus_card_value.map((v1,i1)=>{
+						  if(check[i] === v1.value){
+							  selected = i1
+						  }
+						  return {
+							  id:v1.id,
+							  name:v1.value
+						  }
+					  })
+					  return {
+						id:v.id,
+						title:v.name,
+						selected,
+						list:list
+					  }
+					})
+					// 商品规格（匹配价格）
+					res.goods_skus.forEach(item=>{
+					  let arr = []
+					  for (let key in item.skus) {
+						arr.push(item.skus[key].value)
+					  }
+					  item.skusText = arr.join(',')
+					})
+					
+					this.doShowPopup({
+						index:index,
+						data:res
+					})
+				})
+			},
+			// 获取数据
+			getData(){
+				// 获取购物车数据
+				this.updateCartList().then(res=>{
+					uni.stopPullDownRefresh()
+				}).catch(err=>{
+					uni.stopPullDownRefresh()
+				})
+				// 获取热门推荐
+				this.$H.get('/goods/hotlist').then(res=>{
+					this.hotList = res.map(v=>{
+						return {
+						  id:v.id,
+						  cover:v.cover,
+						  title:v.title,
+						  desc:v.desc,
+						  oprice:v.min_oprice,
+						  pprice:v.min_price
+						}
+					})
+				})
 			}
 		}
 	}
