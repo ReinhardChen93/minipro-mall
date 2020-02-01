@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "申请售后",
-  "usingComponents": {
-    "divider": "/components/common/divider",
-    "card": "/components/common/card",
-    "cc-radio-group": "/components/common/radio-group"
-  }
-}

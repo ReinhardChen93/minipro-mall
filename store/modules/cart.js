@@ -94,6 +94,7 @@ export default {
 		clearCart(state){
 			state.list = []
 			state.selectedList = []
+			console.log(state.list.length)
 			$U.updateCartBadge(state.list.length)
 		}
 	},
@@ -104,12 +105,12 @@ export default {
 				$H.get('/cart',{},{
 					token:true,
 					toast:false
-				}).then(res=>{
+				}).then(result=>{
 					// 取消选中状态
 					commit('unSelectAll')
 					// 赋值
-					commit('initCartList',res)
-					res(res)
+					commit('initCartList',result)
+					res(result)
 				}).catch(err=>{
 					rej(err)
 				})

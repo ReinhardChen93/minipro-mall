@@ -20,11 +20,15 @@
 		},
 		props:{
 			item:Object,
-			index:[Number,String]
+			index:[Number,String],
+			type:{
+				type:String,
+				default: "navigateTo"
+			}
 		},
 		methods: {
 			openDetail() {
-				uni.redirectTo({
+				uni[this.type]({
 					url:"/pages/detail/detail?detail="+JSON.stringify(this.item)
 				})
 			}

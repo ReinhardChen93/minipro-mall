@@ -12,7 +12,7 @@
 						v-if="path.isdefault">默认</view>
 					</view>
 					<view class="font">
-						{{path.path}} {{path.detailPath}}
+						{{path.province}} {{path.city}} {{path.district}} {{path.address}}
 					</view>
 				</template>
 				<template v-else>
@@ -29,17 +29,11 @@
 			<view class="bg-white">
 				<uni-list-item showArrow>
 					<view class="d-flex a-center">
-						<image src="/static/images/demo/demo6.jpg"
+						<image v-for="(item,index) in goodsList" :key="item.id" :src="item.cover"
 						style="width: 100rpx;height: 100rpx;" class="rounded mr-2"
-						></image>
-						<image src="/static/images/demo/demo6.jpg"
-						style="width: 100rpx;height: 100rpx;" class="rounded mr-2"
-						></image>
-						<image src="/static/images/demo/demo6.jpg"
-						style="width: 100rpx;height: 100rpx;" class="rounded mr-2"
-						></image>
+						>
 					</view>
-					<view slot="rightContent">共3件</view>
+					<view slot="rightContent">共{{goodsList.length}}件</view>
 				</uni-list-item>
 				<uni-list-item title="商品总价" :showArrowIcon="false">
 					<view slot="rightContent">
@@ -88,7 +82,7 @@
 	import uniListItem from "@/components/uni-ui/uni-list-item/uni-list-item.vue"
 	import price from "@/components/common/price.vue"
 	
-	import {mapGetters} from "vuex"
+	import {mapGetters,mapState} from "vuex"
 	export default {
 		components: {
 			uniListItem,
@@ -96,13 +90,33 @@
 		},
 		data() {
 			return {
-				path:false
+				path: false,
+				items: []
 			}
 		},
 		computed: {
-			...mapGetters(['defaultPath'])
+			...mapState({
+				list: state => state.cart.list
+			}),
+			...mapGetters(['defaultPath']),
+			// 商品列表
+			goodsList() {
+				return this.items.map(id=>{
+					return this.list.find(v=> v.id === id)
+				})
+			}
 		},
-		onLoad() {
+		onLoad(e) {
+			if(!e.detail){
+				uni.showToast({
+					title: '请选择需要下单的商品'
+				});
+				return uni.navigateBack({
+					delta: 1
+				});
+			}
+			this.items = JSON.parse(e.detail)
+			
 			if (this.defaultPath.length) {
 				this.path = this.defaultPath[0]
 			}

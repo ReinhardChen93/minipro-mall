@@ -62,38 +62,7 @@
 							page:1,
 							key:"valid",
 							firstLoad:false,
-							list:[
-								{
-								title:"满1000立减100元",
-								start_time:"2019-11-11",
-								end_time:"2019-11-11",
-								price:"100",
-								desc:"满1000立减100元",
-								status:true,
-								disabled: false,
-								type:0
-							},
-							{
-								title:"满1000立减100元",
-								start_time:"2019-11-11",
-								end_time:"2019-11-11",
-								price:"100",
-								desc:"满1000立减100元",
-								status:true,
-								disabled: false,
-								type:0
-							},
-							{
-								title:"满1000立减100元",
-								start_time:"2019-11-11",
-								end_time:"2019-11-11",
-								price:"100",
-								desc:"满1000立减100元",
-								status:true,
-								disabled: true,
-								type:1
-							}
-							],
+							list:[],
 						},
 						{
 							name:"已失效",
@@ -107,10 +76,48 @@
 					],
 			}
 		},
+		onLoad() {
+			
+		},
+		computed:{
+			// 当前页面
+			page() {
+				return this.tabBars[this.tabIndex].page
+			},
+			// 是否失效
+			isvalid() {
+				return this.tabBars[this.tabIndex].key
+			}
+			
+		},
 		methods: {
+			// 获取数据
+			getData() {
+				let index = this.tabIndex
+				this.$H.get('/usercoupon/' + this.page + '/' + this.isvalid,{},{
+					token:true
+				}).then(res=>{
+					this.tabBars[index].list = res.map(item=>{
+						return {
+							id: item.id,
+							title:item.coupon.name,
+							start_time:item.coupon.start_time,
+							end_time:item.coupon.end_time,
+							price:item.coupon.value,
+							desc:item.coupon.desc,
+							status: index === 0, // false 已失效
+							disabled: false // true 已领取
+						}
+					})
+					this.tabBars[index].firstLoad = true
+				})
+			},
 			// 切换选项卡
 			changeTab(index){
 				this.tabIndex = index
+				if(this.tabBars[index].firstLoad){
+					this.getData()
+				}
 			}
 		}
 	}

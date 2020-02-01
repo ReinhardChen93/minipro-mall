@@ -7,9 +7,14 @@ export default {
 				text:count.toString()
 			})
 		}
+
 		uni.removeTabBarBadge({
-			index:2
+			index:2,
+			fail:(res)=>{
+				console.log(res)
+			}
 		})
+
 	},
 	// 判断订单状态
 	formatStatus(order){

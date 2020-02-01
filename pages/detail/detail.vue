@@ -16,6 +16,12 @@
 						<text>{{checkedSkus}}</text>
 					</view>
 				</unit-list-item>
+				<unit-list-item @click="goToCouPon">
+					<view class="d-flex">
+						<text class="mr-2 text-muted">优惠券</text>
+						<text class="mr-2">马上领取</text>
+					</view>
+				</unit-list-item>
 				<unit-list-item @click="show('express')">
 					<view class="d-flex">
 						<text class="mr-2 text-muted">配送</text>
@@ -52,7 +58,8 @@
 		:headBorderBottom="false">
 			<view class="row j-sb">
 				<common-list v-for="(item,index) in hotList"
-				:key="index" :item="item" :index="index">
+				:key="index" :item="item" :index="index"
+				type="redirectTo">
 				</common-list>
 			</view>
 		</card>
@@ -375,6 +382,12 @@
 			navigate(href, e) {
 				// 如允许点击超链接跳转，则应该打开一个新页面，并传入href，由新页面内嵌webview组件负责显示该链接内容
 				console.log("href: " + href);
+			},
+			// 进入优惠卷页面
+			goToCouPon() {
+				this.navigateTo({
+					url: '../coupon/coupon',
+				})
 			}
 		}
 	}

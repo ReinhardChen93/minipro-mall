@@ -5,7 +5,7 @@
 			:class="item.disabled || !item.status ? 'text-light-muted':''"
 			>{{item.title}}</view>
 			<view class="font text-light-muted">
-				{{item.start_time}}~{{item.end_time}}
+				{{item.start_time|formatTime}}~{{item.end_time|formatTime}}
 			</view>
 		</view>
 		<view class="text-white d-flex flex-column a-center j-center" style="width: 220rpx;height: 200rpx;"

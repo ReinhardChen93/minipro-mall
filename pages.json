@@ -336,6 +336,13 @@
 				"navigationBarTitleText":"关于我们"
 			}
         }
+        ,{
+            "path" : "pages/coupon/coupon",
+            "style" : {
+				"navigationBarTitleText":"领取优惠卷",
+				"enablePullDownRefresh":true
+			}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

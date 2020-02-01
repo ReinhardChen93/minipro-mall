@@ -62,8 +62,7 @@
 				}).then(res=>{
 					// 退出登录
 					this.logout();
-					// 清空购物车
-					this.clearCart()
+					
 					uni.showToast({
 						title: '退出成功',
 						icon: 'none'
@@ -71,6 +70,8 @@
 					uni.navigateBack({
 						delta: 1
 					});
+					// 清空购物车
+					this.clearCart()
 				})
 			}
 		}

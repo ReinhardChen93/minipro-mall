@@ -1,7 +1,0 @@
-{
-  "defaultTitle": "优惠券",
-  "usingComponents": {
-    "no-thing": "/components/common/no-thing",
-    "coupon": "/components/order-coupon/coupon"
-  }
-}
