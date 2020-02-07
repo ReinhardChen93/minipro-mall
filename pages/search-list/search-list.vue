@@ -1,7 +1,23 @@
 <template>
 	<view>
+		<!-- 自定义导航 -->
+		<!-- #ifdef MP -->
+		<view class="bg-white d-flex a-center" 
+		style="height: 90rpx;position: fixed;top: 0;left: 0;right: 0;z-index: 100;">
+			<!-- 中间 -->
+			<input type="text" v-model="keyword" 
+			class="flex-1 bg-light rounded ml-3 px-2"
+			style="height: 65rpx;" placeholder="智能积木"/>
+			<!-- 右边 -->
+			<view style="width: 85rpx;" class="d-flex a-center j-center"
+			@click="search">
+				搜索
+			</view>
+		</view>
+		<view style="height: 90rpx;"></view>
+		<!-- #endif -->
 		<!-- 排序|筛选 -->
-		<view class="d-flex border-top border-bottom a-center position-fixed top-0 left-0 right-0 bg-white" 
+		<view class="d-flex border-top border-bottom a-center position-fixed left-0 right-0 bg-white" 
 		style="height: 100upx;z-index: 100;">
 			<view class="flex-1 d-flex a-center j-center font-md"
 			v-for="(item,index) in screen.list" :key="index"

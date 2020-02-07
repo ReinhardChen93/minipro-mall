@@ -28,7 +28,7 @@
 		methods: {
 			open() {
 				uni.navigateTo({
-					url: '/pages/detail/detail',
+					url: '/pages/detail/detail?detail='+JSON.stringify(this.item),
 				});
 			}
 		},

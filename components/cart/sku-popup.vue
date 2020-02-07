@@ -55,30 +55,33 @@
 			}),
 			// 选中的sku
 			checkedSkus(){
-				// 拿到选中skus组成字符串
-				
-				if(this.popupData.selects){
-					let checkedSkus = this.popupData.selects.map(v=>{
-						return v.list[v.selected].name
-					})
-					return checkedSkus.join(',')
+				if(!this.popupData.selects && !Array.isArray(this.popupData.selects)){
+					return ''
 				}
-				
+				// 拿到选中skus组成字符串
+				let checkedSkus = this.popupData.selects.map(v=>{
+					return v.list[v.selected].name
+				})
+				return checkedSkus.join(',')
 			},
 			// 选中skus的索引
 			checkedSkusIndex(){
-				if(this.popupData.goods_skus){
-					let index = this.popupData.goods_skus.findIndex((item)=>{
-						return item.skusText === this.checkedSkus
-					})
-					return index
+				
+				if(!this.popupData.goods_skus && !Array.isArray(this.popupData.goods_skus)){
+					return -1
 				}
+				
+				let index = this.popupData.goods_skus.findIndex((item)=>{
+					return item.skusText === this.checkedSkus
+				})
+				return index
+
 			},
 			// 显示价格
 			showPrice(){
 				if(this.popupData.goods_skus){
 					if (this.checkedSkusIndex < 0) {
-						return this.popupData.item.pprice || 0.00
+						return this.popupData.item.pprice || 0
 					}
 					return this.popupData.goods_skus[this.checkedSkusIndex].pprice
 				}

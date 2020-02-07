@@ -15,18 +15,14 @@
 			<block v-for="(tab,tabI) in tabBars" :key="tabI">
 				<view class="position-relative" v-show="tabI === tabIndex"
 				style="min-height: 440rpx;">
-					<template v-if="tab.list.length > 0">
-						
-						
+					<template v-if="tab.list.length > 0">					
 						
 						<view class="p-3">
-							<coupon v-for="(item,index) in tab.list" :key="index" :item="item" :index="index" @click="chooseCoupon(item)">
+							<coupon v-for="(item,index) in tab.list" :key="index" :item="item" :index="index" @click="chooosCoupon(item)">
 								<text v-if="item.disabled">已使用</text>
 								<text v-else>{{ item.status ? '去使用' : validText}}</text>
 							</coupon>
 						</view>
-						
-						
 						
 					</template>
 					<!-- 默认无 -->
@@ -76,8 +72,11 @@
 					],
 			}
 		},
-		onLoad() {
-			
+		onLoad(e) {
+			if(e.detail){
+				this.price = (JSON.price(e.detail)).price
+			}
+			this.getData()
 		},
 		computed:{
 			// 当前页面
@@ -87,8 +86,11 @@
 			// 是否失效
 			isvalid() {
 				return this.tabBars[this.tabIndex].key
+			},
+			// 不可用文字判断
+			validText(){
+				return this.tabIndex === 0 ? '不可用' : '已失效'
 			}
-			
 		},
 		methods: {
 			// 获取数据
@@ -98,6 +100,7 @@
 					token:true
 				}).then(res=>{
 					this.tabBars[index].list = res.map(item=>{
+						let status = (index === 0) && (this.price >= parseFloat(item.coupon.min_price))
 						return {
 							id: item.id,
 							title:item.coupon.name,
@@ -105,8 +108,9 @@
 							end_time:item.coupon.end_time,
 							price:item.coupon.value,
 							desc:item.coupon.desc,
-							status: index === 0, // false 已失效
-							disabled: false // true 已领取
+							status: status, // false 已失效
+							disabled: item.used, // true 已领取
+							type:item.coupon.type
 						}
 					})
 					this.tabBars[index].firstLoad = true
@@ -118,6 +122,31 @@
 				if(this.tabBars[index].firstLoad){
 					this.getData()
 				}
+			},
+			// 选择优惠卷
+			chooosCoupon(item){
+				// 已使用
+				if(item.disabled) {
+					return uni.showToast({
+						title: '该优惠券已经使用过了',
+						icon: 'none'
+					});
+				}
+				// 已失效/不可用
+				if(item.status) {
+					return uni.showToast({
+						title: '该优惠券'+ this.validText,
+						icon: 'none'
+					});
+				}
+				uni.$emit('couponUser',{
+					id: item.id,
+					type: item.type,
+					value: item.price
+				})
+				uni.navigateBack({
+					delta: 1
+				})
 			}
 		}
 	}

@@ -1,37 +1,59 @@
 <template>
-	<view class="d-flex border-top border-light-secondary animated fadeIn faster" 
-	style="height: 100%;box-sizing: border-box;">
+	<view style="height: 100vh;" class="d-flex flex-column">
 		
-		<loading-plus v-if="beforeReady"></loading-plus>
-		
-		<!-- <loading :show="showLoading"></loading> -->
-		
-		<scroll-view id="leftScroll" scroll-y style="flex: 1;height: 100%;" 
-		class="border-right border-light-secondary" :scroll-top="leftScrollTop">
-			<view class="border-bottom border-light-secondary py-1 left-scroll-item"
-			hover-class="bg-light-secondary"
-			v-for="(item,index) in cate" :key="index"
-			@tap="changeCate(index)">
-				<view class="py-1 font-md text-muted text-center"
-				:class="activeIndex === index ? 'class-active' : ''">
-					{{item.name}}</view>
+		<!-- #ifdef MP -->
+		<!-- 自定义导航 -->
+		<view class="d-flex a-center" style="height: 90rpx;">
+			<!-- 左边 -->
+			<view style="width: 85rpx;" class="d-flex a-center j-center">
+				<text class="iconfont icon-xiaoxi"></text>
 			</view>
-		</scroll-view>
-		<scroll-view scroll-y style="flex: 3.5;height: 100%;" 
-		:scroll-top="rightScrollTop" :scroll-with-animation="true"
-		@scroll="onRightScroll">
-			<view class="row right-scroll-item" 
-			v-for="(item,index) in list" 
-			:key="index">
-				<view class="span24-8 text-center py-2"
-				v-for="(item2,index2) in item.list" :key="index2"
-				 @click="openDetail(item2)">
-					<image :src="item2.cover"
-					style="width: 120upx;height: 120upx;"></image>
-					<text class="d-block">{{item2.name}}</text>
+			<!-- 中间 -->
+			<view class="flex-1 bg-light rounded d-flex a-center text-light-muted" style="height: 65rpx;" @click="openSearch">
+				<text class="iconfont icon-sousuo mx-2"></text>
+				智能积木
+			</view>
+			<!-- 右边 -->
+			<view style="width: 85rpx;" class="d-flex a-center j-center">
+				<text class="iconfont icon-richscan_icon"></text>
+			</view>
+		</view>
+		<!-- #endif -->
+		
+		<view class="d-flex border-top border-light-secondary animated fadeIn faster"
+		style="height: 100%;box-sizing: border-box;">
+			
+			<loading-plus v-if="beforeReady"></loading-plus>
+			
+			<!-- <loading :show="showLoading"></loading> -->
+			
+			<scroll-view id="leftScroll" scroll-y style="flex: 1;height: 100%;" 
+			class="border-right border-light-secondary" :scroll-top="leftScrollTop">
+				<view class="border-bottom border-light-secondary py-1 left-scroll-item"
+				hover-class="bg-light-secondary"
+				v-for="(item,index) in cate" :key="index"
+				@tap="changeCate(index)">
+					<view class="py-1 font-md text-muted text-center"
+					:class="activeIndex === index ? 'class-active' : ''">
+						{{item.name}}</view>
 				</view>
-			</view>
-		</scroll-view>
+			</scroll-view>
+			<scroll-view scroll-y style="flex: 3.5;height: 100%;" 
+			:scroll-top="rightScrollTop" :scroll-with-animation="true"
+			@scroll="onRightScroll">
+				<view class="row right-scroll-item" 
+				v-for="(item,index) in list" 
+				:key="index">
+					<view class="span24-8 text-center py-2"
+					v-for="(item2,index2) in item.list" :key="index2"
+					 @click="openDetail(item2)">
+						<image :src="item2.cover"
+						style="width: 120upx;height: 120upx;"></image>
+						<text class="d-block">{{item2.name}}</text>
+					</view>
+				</view>
+			</scroll-view>
+		</view>
 	</view>
 </template>
 
@@ -76,6 +98,11 @@
 			this.getData()
 		},
 		methods: {
+			openSearch(){
+				uni.navigateTo({
+					url: '../search/search',
+				});
+			},
 			// 获取节点信息
 			getElInfo(obj = {}){
 				return new Promise((res,rej)=>{
@@ -87,6 +114,7 @@
 					const query = uni.createSelectorQuery().in(this);
 					let q = obj.all ? query.selectAll(`.${obj.all}-scroll-item`):query.select('#leftScroll')
 					q.fields(option,data => {
+						console.log(data);
 					  res(data)
 					}).exec();
 				})
@@ -135,7 +163,7 @@
 							size:false,
 							rect:true
 						}).then(data=>{
-							this.rightDomsTop = data.map(v=> v.top)
+							this.rightDomsTop = data.map(v=> v.top - uni.upx2px(90))
 						})
 						this.showLoading = false
 					})

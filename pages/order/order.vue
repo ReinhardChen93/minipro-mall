@@ -18,7 +18,7 @@
 				<template v-if="tab.list.length > 0">
 					<!-- 订单列表 -->
 					<block v-for="(item,index) in tab.list" :key="index">
-						<order-list :item="item" :index="index"></order-list>
+						<order-list :item="item" :index="index" @update="getOrderList"></order-list>
 					</block>
 				</template>
 				<!-- 默认无 -->
@@ -65,107 +65,106 @@
 						name:"全部",
 						no_thing:"no_pay",
 						msg:"你还没有订单",
-						list:[
-							{
-								create_time:"2019-09-10 10:20",
-								status:"已发货",
-								order_items:[
-									{
-										cover:"/static/images/demo/demo6.jpg",
-										title:"小米8",
-										pprice:1999.00,
-										attrs:"金色 标配",
-										num:1
-									}
-								],
-								total_num:3,
-								total_price:299.00
-							},
-							{
-								create_time:"2019-09-10 10:20",
-								status:"已发货",
-								order_items:[
-									{
-										cover:"/static/images/demo/demo6.jpg",
-										title:"小米8",
-										pprice:1999.00,
-										attrs:"金色 标配",
-										num:1
-									}
-								],
-								total_num:3,
-								total_price:299.00
-							}
-						],
+						key:"all",
+						list:[],
 					},
 					{
 						name:"待付款",
 						no_thing:"no_pay",
 						msg:"你还没有待付款订单",
+						key:"paying",
 						list:[]
 					},
 					{
 						name:"待收货",
 						no_thing:"no_receiving",
 						msg:"你还没有待收货订单",
+						key:"receiving",
 						list:[]
 					},
 					{
 						name:"待评价",
 						no_thing:"no_comment",
 						msg:"你还没有待评价订单",
+						key:"reviewing",
 						list:[]
 					}
 				],
-				hotList: [{
-						cover: "/static/images/demo/list/1.jpg",
-						title: "米家空调",
-						desc: "1.5匹变频",
-						oprice: 2699,
-						pprice: 1399
-					},
-					{
-						cover: "/static/images/demo/list/1.jpg",
-						title: "米家空调",
-						desc: "1.5匹变频",
-						oprice: 2699,
-						pprice: 1399
-					},
-					{
-						cover: "/static/images/demo/list/1.jpg",
-						title: "米家空调",
-						desc: "1.5匹变频",
-						oprice: 2699,
-						pprice: 1399
-					},
-					{
-						cover: "/static/images/demo/list/1.jpg",
-						title: "米家空调",
-						desc: "1.5匹变频",
-						oprice: 2699,
-						pprice: 1399
-					},
-					{
-						cover: "/static/images/demo/list/1.jpg",
-						title: "米家空调",
-						desc: "1.5匹变频",
-						oprice: 2699,
-						pprice: 1399
-					},
-					{
-						cover: "/static/images/demo/list/1.jpg",
-						title: "米家空调",
-						desc: "1.5匹变频",
-						oprice: 2699,
-						pprice: 1399
-					}
-				]
+				hotList: []
+			}
+		},
+		onLoad(e) {
+			if(e.tabIndex){
+				this.tabIndex = parseInt(e.tabIndex)
+			}
+			this.getHotList()
+			
+		},
+		onShow() {
+			this.getOrderList()
+		},
+		computed: {
+			key() {
+				return this.tabBars[this.tabIndex].key
 			}
 		},
 		methods: {
 			// 切换选项卡
 			changeTab(index){
 				this.tabIndex = index
+				this.getOrderList()
+			},
+			
+			// 获取订单列表 订单类型，可选项：paying(待支付)，receiving(待收货)，reviewing(待评论)，all(全部订单)
+			getOrderList(){
+				let index = this.tabIndex
+				this.$H.post('/order/'+this.key,{},{
+					token:true
+				}).then(res=>{
+					this.tabBars[index].list = res.map(item=>{
+						let order_items = item.order_items.map(v=>{
+							let attrs = []
+							if(v.skus_type === 1 && v.goods_skus && v.goods_skus.skus){
+								let skus = v.goods_skus.skus
+								for (let k in skus) {
+									attrs.push(skus[k].value)
+								}
+							}
+							return {
+								id:v.goods_id,
+								cover:v.goods_item.cover,
+								title:v.goods_item.title,
+								pprice:v.price,
+								attrs:attrs.join(','),
+								num:v.num
+							}
+						})
+						return {
+							id:item.id,
+							create_time:item.create_time,
+							status:this.$U.formatStatus(item),
+							order_items:order_items,
+							total_price:item.total_price
+						}
+					})
+				})
+			},
+			
+			// 获取热门数据数据
+			getHotList() {
+				// 获取热门推荐
+				this.$H.get('/goods/hotlist').then(res=>{
+					this.hotList = res.map(v=>{
+						return {
+						  id:v.id,
+						  cover:v.cover,
+						  title:v.title,
+						  desc:v.desc,
+						  oprice:v.min_oprice,
+						  pprice:v.min_price
+						}
+					})
+				})
 			}
 		}
 	}

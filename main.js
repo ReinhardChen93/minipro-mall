@@ -21,6 +21,10 @@ Vue.component('loading-plus',loadingPlus)
 import $H from '@/common/lib/request.js';
 Vue.prototype.$H = $H
 
+// 助手函数
+import $U from './common/lib/util.js';
+Vue.prototype.$U = $U
+
 // 权限跳转
 Vue.prototype.navigateTo = (options)=>{
 	// 判断用户是否登录

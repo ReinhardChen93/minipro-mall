@@ -1,17 +1,18 @@
 <template>
 	<view>
-		<!-- #ifdef MP -->
+		<!-- #ifdef MP --> 
 		<!-- 自定义导航 -->
 		<view class="d-flex a-center" style="height: 90rpx;">
 			<!-- 左边 -->
 			<view style="width: 85rpx;" class="d-flex a-center j-center"><text class="iconfont icon-xiaoxi"></text></view>
 			<!-- 中间 -->
-			<view class="flex-1 bg-light rounded d-flex a-center text-light-muted" style="height: 65rpx;" @click="search">
-				<text class="iconfont icon-sousuo mx-2"></text>
-				智能积木
-			</view>
+			<input type="text" v-model="keyword"
+			class="flex-1 bg-light rounded px-2"
+			style="height: 65rpx;" placeholder="智能积木">
 			<!-- 右边 -->
-			<view style="width: 85rpx;" class="d-flex a-center j-center"><text class="iconfont icon-richscan_icon"></text></view>
+			<view style="width: 85rpx;" class="d-flex a-center j-center" @click="search">
+				搜索
+			</view>
 		</view>
 		<!-- #endif -->
 		<!-- 顶部选项卡 -->
@@ -111,7 +112,8 @@ export default {
 			scrollH: 500,
 			tabIndex: 0,
 			tabBars: [],
-			newsitems: []
+			newsitems: [],
+			keyword: ''
 		};
 	},
 	onLoad() {

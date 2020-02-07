@@ -9,17 +9,17 @@
 		<!-- 属性选择 -->
 		<view class="p-2">
 			<view class="rounded border bg-light-secondary">
+				<unit-list-item @click="goToCouPon">
+					<view class="d-flex">
+						<text class="mr-2 text-muted">优惠券</text>
+						<text class="mr-2">马上领取</text>
+					</view>
+				</unit-list-item>
 				<unit-list-item @click="show('attr')"
 				v-if="detail.sku_type === 1">
 					<view class="d-flex">
 						<text class="mr-2 text-muted">已选</text>
 						<text>{{checkedSkus}}</text>
-					</view>
-				</unit-list-item>
-				<unit-list-item @click="goToCouPon">
-					<view class="d-flex">
-						<text class="mr-2 text-muted">优惠券</text>
-						<text class="mr-2">马上领取</text>
 					</view>
 				</unit-list-item>
 				<unit-list-item @click="show('express')">

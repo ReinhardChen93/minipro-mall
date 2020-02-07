@@ -108,16 +108,16 @@
 				uni.stopPullDownRefresh()
 			},true)
 		},
-		filters:{
-			formaTime(value) {
-				return $T.gettime(value)
+		filters: {
+			formatTime(value) {
+				return $T.gettime(value);
 			},
-			rating(value) {
-				if(value === 3){
+			rating(value){
+				if (value === 3) {
 					return '中评'
-				} else if(value >3) {
+				}else if(value > 3){
 					return '好评'
-				} else {
+				}else{
 					return '差评'
 				}
 			}

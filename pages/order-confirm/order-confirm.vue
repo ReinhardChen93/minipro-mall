@@ -37,21 +37,28 @@
 				</uni-list-item>
 				<uni-list-item title="商品总价" :showArrowIcon="false">
 					<view slot="rightContent">
-						<price color="text-dark">20.00</price>
+						<price color="text-dark">{{totalPrice}}</price>
 					</view>
 				</uni-list-item>
 				<uni-list-item title="运费" :showArrowIcon="false">
 					<view slot="rightContent">包邮</view>
 				</uni-list-item>
-				<navigator url="../order-coupon/order-coupon">
-					<uni-list-item title="优惠券">
-						<view slot="rightContent" class="text-light-muted">无可用</view>
-					</uni-list-item>
-				</navigator>
+
+				<uni-list-item title="优惠券" @click="openCoupon">
+					<view slot="rightContent" :class="couponCount > 0 ? 'main-text-color' : 'text-light-muted'">
+						<text v-if="coupon.id > 0">
+							{{coupon.type === 0 ? '-' + coupon.value + '元' : coupon.value + '折'}}
+						</text>
+						<text v-else>
+							{{couponCount === 0 ? "无可用" : couponCount + "张可用"}}
+						</text>
+					</view>
+				</uni-list-item>
+
 				<uni-list-item :showArrowIcon="false">
 					<text class="main-text-color">小计</text>
 					<view slot="rightContent">
-						<price>20.00</price>
+						<price>{{totalPrice}}</price>
 					</view>
 				</uni-list-item>
 				<divider></divider>
@@ -66,12 +73,13 @@
 		<view class="position-fixed d-flex a-center j-end border bottom-0 left-0 right-0 bg-white p-2 font-md">
 			合计:
 			<view class="ml-2">
-				<price>24.00</price>
+				<price>{{price}}</price>
 			</view>
-			<view class="ml-2 px-2 py-1 main-bg-color text-white font-md"
+			<view class="ml-2 px-2 py-1 text-white font-md"
+			:class="loading ? 'bg-secondary' : 'main-bg-color'"
 			hover-class="main-bg-hover-color" style="border-radius: 80rpx;"
 			@click="openMethods()">
-				去支付
+				{{loading ? '加载中' : '去支付'}}
 			</view>
 		</view>
 		
@@ -90,20 +98,41 @@
 		},
 		data() {
 			return {
+				order_id: 0,
+				loading: false,
 				path: false,
-				items: []
+				items: [],
+				couponCount: 0,
+				coupon: {
+					id:0,
+					type:0,
+					value:0
+				}
 			}
 		},
 		computed: {
 			...mapState({
 				list: state => state.cart.list
 			}),
-			...mapGetters(['defaultPath']),
+			...mapGetters(['defaultPath','totalPrice']),
 			// 商品列表
 			goodsList() {
 				return this.items.map(id=>{
 					return this.list.find(v=> v.id === id)
 				})
+			},
+			// 最终价格
+			price() {
+				// 没有优惠券
+				if(this.coupon.id === 0){
+					return this.totalPrice
+				}
+				
+				if(this.coupon.type === 0){
+					return this.totalPrice - this.coupon.value
+				}
+				
+				return (this.totalPrice * (this.coupon.value /10)).toFixed(2)
 			}
 		},
 		onLoad(e) {
@@ -124,12 +153,30 @@
 			uni.$on('choosePath',(res)=>{
 				this.path = res
 			})
+			
+			// 监听选择优惠卷
+			uni.$on('couponUser',(res)=>{
+				this.coupon = res
+			})
+			
+			// 计算当前价格有多少可用优惠卷
+			this.getCouponCount()
 		},
 		onUnload() {
 			// 关闭监听选择收货地址事件
-			uni.$off('choosePath',(e)=>{
-				console.log('关闭监听选择收货地址');
-			})
+			uni.$off('choosePath')
+			uni.$off('couponUser')
+		},
+		onShow() {
+			// 如果已经提交过订单,重定向到订单详情页
+			if(this.order_id > 0) {
+				uni.redirectTo({
+					url: '../order-detail/order-detail?id='+this.order_id,
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				});
+			}
 		},
 		methods: {
 			openPathList(){
@@ -142,11 +189,80 @@
 					url:"../order-invoice/order-invoice"
 				})
 			},
+			// 下单/支付
 			openMethods(){
-				uni.navigateTo({
-					url:"../pay-methods/pay-methods"
+				if(this.loading) return
+				
+				// 判断是否选择收货地址
+				if(!this.path) {
+					return uni.showToast({
+						title: '请选择收货地址',
+						icon: 'none'
+					});
+				}
+				
+				let options = {
+					user_addresses_id: this.path.id,
+					item:this.items.join(',')
+				}
+				
+				// 是否选择优惠券
+				if(this.coupon.id > 0) {
+					options.coupon_user_id = this.coupon.id
+				}
+				this.loading = true
+				// 创建订单 
+				this.$H.post('/order',options,{
+					token:true
+				}).then(res=>{
+					// 跳转到支付页面
+					uni.navigateTo({
+						url:"../pay-methods/pay-methods=" + JSON.stringify({
+							id:res.id,
+							price:res.total_price
+						}),
+						success() {
+							// 通知购物车更新数据
+							uni.$emit('updateCart')
+						}
+					})
+					this.order_id = res.id
+				}).catch(err=>{
+					this.loading = false
+					uni.showToast({
+						title:'创建订单失败',
+						icon: 'none'
+					});
 				})
+				
+			},
+			// 计算当前价格有多少可用优惠卷
+			getCouponCount(){
+				this.$H.post('/coupon_count',{
+					price:this.totalPrice
+				},{
+					token:true
+				}).then(res=>{
+					this.couponCount = res
+				}).catch(err=>{
+					uni.showToast({
+						title: '获取可用优惠卷失败',
+						icon:'none'
+					});
+				})
+			},
+			// 选择优惠劵
+			openCoupon() {
+				uni.navigateTo({
+					url: '../order-coupon/order-coupon?detail='+JSON.stringify({
+						price:this.totalPrice
+					}),
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				});
 			}
+				
 		}
 	}
 </script>

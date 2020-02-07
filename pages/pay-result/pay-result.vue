@@ -23,8 +23,12 @@
 	export default {
 		data() {
 			return {
-				
+				id:0
 			}
+		},
+		onLoad(e) {
+			if(e.id) return
+			this.id = e.id
 		},
 		methods: {
 			openDetail(){

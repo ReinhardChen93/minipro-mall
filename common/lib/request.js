@@ -39,6 +39,10 @@ export default {
 			uni.request({
 				...options,
 				success: (result) => {
+					// 返回原始数据
+					if(options.native){
+						return res(data)
+					}
 					if(result.statusCode !== 200){
 						if(options.totast !== false) {
 							uni.showToast({
